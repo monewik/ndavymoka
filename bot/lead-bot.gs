@@ -42,16 +42,23 @@ function findChatId() {
   r.result.forEach((u) => { const m = u.message || u.edited_message; if (m) Logger.log(m.chat.id + " — " + (m.chat.username || m.chat.first_name || "")); });
 }
 
+/* Проверка настройки: пишет в журнал, что именно не так. */
 function testSend() {
-  Logger.log(send_("🟢 Тестовая заявка с сайта\n\nЕсли вы это видите, всё настроено.") ? "Отправлено." : "Не отправлено: проверьте BOT_TOKEN и CHAT_ID.");
+  const p = PropertiesService.getScriptProperties(), keys = p.getKeys();
+  if (!p.getProperty("BOT_TOKEN")) return Logger.log("Нет свойства BOT_TOKEN. Сейчас в свойствах: " + (keys.join(", ") || "пусто") + ". Название — латиницей, заглавными, без пробелов.");
+  const me = tg_("getMe", {});
+  if (!me.ok) return Logger.log("Telegram не принял токен: " + (me.description || "нет ответа") + ". Скопируйте токен у @BotFather заново, без пробелов и кавычек.");
+  if (!p.getProperty("CHAT_ID")) return Logger.log("Токен верный (бот @" + me.result.username + "), но нет свойства CHAT_ID. Напишите боту /start и запустите findChatId.");
+  const r = tg_("sendMessage", { chat_id: p.getProperty("CHAT_ID").trim(), text: "🟢 Тестовая заявка с сайта\n\nЕсли вы это видите, всё настроено." });
+  Logger.log(r.ok ? "Отправлено: проверьте Telegram." : "Telegram ответил: " + (r.description || "нет ответа") + ". Если «chat not found» — напишите боту /start и проверьте число в CHAT_ID.");
 }
 
 function send_(text) {
   const chat = PropertiesService.getScriptProperties().getProperty("CHAT_ID");
-  return !!(chat && tg_("sendMessage", { chat_id: chat, text: text.slice(0, 4000) }).ok);
+  return !!(chat && tg_("sendMessage", { chat_id: chat.trim(), text: text.slice(0, 4000) }).ok);
 }
 function tg_(method, data) {
-  const token = PropertiesService.getScriptProperties().getProperty("BOT_TOKEN") || "";
+  const token = (PropertiesService.getScriptProperties().getProperty("BOT_TOKEN") || "").trim();
   const res = UrlFetchApp.fetch("https://api.telegram.org/bot" + token + "/" + method, { method: "post", contentType: "application/json", payload: JSON.stringify(data), muteHttpExceptions: true });
   try { return JSON.parse(res.getContentText()); } catch (e) { return { ok: false }; }
 }
