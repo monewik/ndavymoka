@@ -596,6 +596,13 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
 .prices dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
 .about p + p { margin-top: 12px; }
+.about-text p { color: var(--ink-2); line-height: 1.65; }
+.about-text p:first-child { color: var(--ink); font-size: 1.08rem; }
+.about-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+.about-facts div { background: var(--sheet); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 20px; padding: 18px 20px; display: grid; gap: 4px; }
+.about-facts b { font-family: var(--font-display); font-weight: 500; font-size: 1.7rem; letter-spacing: -0.02em; }
+.about-facts span { color: var(--ink-2); font-size: 0.9rem; }
+@media (max-width: 700px) { .about-facts { grid-template-columns: minmax(0, 1fr); } }
 .contact { background: var(--cta-bg); color: var(--cta-ink); border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; margin-top: 72px; box-shadow: var(--glass-shadow); }
 .contact p { color: var(--cta-ink-2); max-width: 40em; }
 .contact .row a, .contact .row span.addr { font-weight: 500; background: var(--cta-ink); color: var(--cta-bg); padding: 11px 20px; border-radius: 999px; text-decoration: none; }
@@ -1049,16 +1056,22 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   </section>
 
   <!-- Обо мне -->
-  <section class="tool" aria-labelledby="about-h">
+  <section class="tool" id="about" aria-labelledby="about-h">
     <div class="about">
       <div>
         <p class="label">Обо мне</p>
-        <h2 id="about-h" style="margin-top: 6px;">Сначала разбираюсь в работе, потом пишу код</h2>
+        <h2 id="about-h" style="margin-top: 6px;">Из операционки, поэтому знаю, где у команды уходят часы</h2>
       </div>
-      <div>
-        <p>Мой опыт из операционки: работа 350 курьеров, процессы в логистике, обучение сотрудников. Поэтому инструмент начинается с вопроса, как люди работают сейчас и где теряют время.</p>
-        <p>Проект закончен, когда команда пользуется им без меня: есть короткая инструкция, понятные подсказки в интерфейсе и человек, который знает, где что поправить.</p>
+      <div class="about-text">
+        <p>За плечами — ежедневная работа 350 курьеров, процессы в логистике и обучение сотрудников. Там быстро становится видно, сколько стоят ручные таблицы, пересылка файлов и вопрос «а где последняя версия?».</p>
+        <p>Поэтому начинаю не с кода, а с того, как люди работают сейчас: что делают руками, где ошибаются, что руководителю приходится собирать по кусочкам. Инструмент должен убирать эту работу, а не добавлять ещё одну программу, которую надо осваивать.</p>
+        <p>Проект закончен, когда команда пользуется им без меня: есть короткая инструкция, подсказки в самом интерфейсе и понятно, где что поправить.</p>
       </div>
+    </div>
+    <div class="about-facts">
+      <div><b>350</b><span>курьеров в ежедневной работе</span></div>
+      <div><b>Логистика</b><span>процессы, расчёты, отчётность</span></div>
+      <div><b>Обучение</b><span>инструкции, которые действительно читают</span></div>
     </div>
   </section>
 
