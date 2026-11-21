@@ -355,12 +355,110 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .doc .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 22px; color: #6b7280; }
 .doc .sign span { border-top: 1px solid var(--doc-ink); padding-top: 4px; }
 
+/* сайты для бизнеса: макеты в рамке браузера, у каждого свой фиксированный стиль */
+.st-stage { margin-top: 18px; display: grid; justify-items: center; padding: 18px; border-radius: 18px; background: var(--paper); }
+.st-frame { width: 100%; max-width: 980px; background: #fff; transition: max-width 0.35s ease; box-shadow: 0 18px 40px -20px rgb(15 23 42 / 0.3); border-radius: 14px; }
+.st-stage.phone .st-frame { max-width: 380px; border-radius: 30px; border: 8px solid #16181d; }
+.st-stage.phone .browser-bar i { display: none; }
+.st-view { height: 520px; overflow-y: auto; overscroll-behavior: contain; }
+.st-incl { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.86rem; color: var(--ink-2); }
+.st-incl li::before { content: "✓"; color: var(--ok); margin-right: 6px; font-weight: 600; }
+.ms { font-family: var(--font-body); color: #1b1b1b; }
+.ms a { text-decoration: none; }
+.ms-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 22px; }
+.ms-nav b { font-size: 1.05rem; }
+.ms-nav span { display: flex; gap: 16px; font-size: 0.82rem; opacity: 0.75; }
+.ms-hero { padding: 40px 22px 34px; display: grid; gap: 14px; }
+.ms-hero h4 { margin: 0; font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.08; font-weight: 600; letter-spacing: -0.02em; max-width: 14em; }
+.ms-hero p { margin: 0; max-width: 32em; opacity: 0.8; }
+.ms-btn { display: inline-block; padding: 11px 20px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; justify-self: start; }
+.ms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; padding: 0 22px 26px; }
+.ms-card { border-radius: 14px; padding: 16px; display: grid; gap: 4px; font-size: 0.88rem; }
+.ms-card b { font-size: 0.98rem; }
+.ms-card i { font-style: normal; font-weight: 600; margin-top: 6px; }
+.ms-rev { padding: 6px 22px 26px; display: grid; gap: 8px; font-size: 0.88rem; }
+.ms-rev q { display: block; padding: 14px 16px; border-radius: 14px; quotes: none; }
+.ms-foot { padding: 20px 22px; font-size: 0.82rem; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.st-stage.phone .ms-nav span { display: none; }
+.st-stage.phone .ms-hero h4 { font-size: 1.6rem; }
+/* кофейня */
+.ms-coffee { background: #f6efe6; }
+.ms-coffee .ms-hero { background: linear-gradient(135deg, #3b2a20, #6b4a34); color: #fbf3e8; border-radius: 0 0 28px 28px; }
+.ms-coffee .ms-btn { background: #f2c58b; color: #3b2a20; }
+.ms-coffee .ms-card { background: #fff; }
+.ms-coffee .ms-card i { color: #8a5a32; }
+.ms-coffee .ms-rev q { background: #fff; }
+.ms-coffee .ms-foot { background: #3b2a20; color: #f6efe6; }
+/* стоматология */
+.ms-clinic { background: #f5f9fc; font-size: 0.95rem; }
+.ms-clinic .ms-nav { background: #fff; border-bottom: 1px solid #e3edf5; }
+.ms-clinic .ms-nav b { color: #0f6ea8; }
+.ms-clinic .ms-hero { background: #fff; }
+.ms-clinic .ms-hero h4 { color: #0b2b40; }
+.ms-clinic .ms-btn { background: #0f6ea8; color: #fff; }
+.ms-clinic .ms-card { background: #fff; border: 1px solid #e3edf5; }
+.ms-clinic .ms-card i { color: #0f6ea8; }
+.ms-clinic .ms-rev q { background: #e9f3fa; }
+.ms-clinic .ms-foot { background: #0b2b40; color: #d8e8f3; }
+/* автосервис */
+.ms-auto { background: #121316; color: #eceef1; }
+.ms-auto .ms-nav b { color: #ffcf3a; letter-spacing: 0.04em; text-transform: uppercase; }
+.ms-auto .ms-hero h4 { text-transform: uppercase; letter-spacing: 0; }
+.ms-auto .ms-btn { background: #ffcf3a; color: #121316; }
+.ms-auto .ms-card { background: #1d1f24; border: 1px solid #2b2e35; }
+.ms-auto .ms-card i { color: #ffcf3a; }
+.ms-auto .ms-rev q { background: #1d1f24; }
+.ms-auto .ms-foot { border-top: 1px solid #2b2e35; color: #9da2ab; }
+
+/* окна: договор и данные */
+.linky { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline dotted; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.linky:hover { color: var(--accent); }
+.tip-word { position: relative; display: inline-block; }
+.tip-card { position: absolute; left: 0; bottom: calc(100% + 8px); width: 18rem; background: var(--solid); color: var(--ink); border-radius: 14px; padding: 12px 14px; box-shadow: var(--glass-shadow); font-size: 0.85rem; font-weight: 400; line-height: 1.45; opacity: 0; transform: translateY(4px); pointer-events: none; transition: opacity 0.15s, transform 0.15s; z-index: 30; }
+.tip-card b { display: block; margin-bottom: 2px; }
+.tip-word:hover .tip-card, .tip-word:focus-within .tip-card { opacity: 1; transform: none; }
+.dlg { border: 0; padding: 0; width: min(44rem, calc(100vw - 24px)); max-height: min(86vh, 900px); border-radius: 24px; background: var(--solid); color: var(--ink); box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.45); }
+.dlg::backdrop { background: rgb(12 13 16 / 0.42); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.dlg[open] { display: flex; flex-direction: column; animation: rise 0.25s ease-out; }
+.dlg-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 22px 26px 12px; border-bottom: 1px solid var(--line); }
+.dlg-head h2 { font-size: 1.6rem; }
+.dlg-x { border: 0; background: var(--paper); color: var(--ink); width: 34px; height: 34px; border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer; flex: none; }
+.dlg-body { padding: 16px 26px; overflow-y: auto; }
+.dlg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 26px 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.dlg-foot .btn { text-decoration: none; }
+.doc-text h3 { margin-top: 16px; font-size: 0.98rem; }
+.doc-text p { margin-top: 4px; color: var(--ink-2); max-width: 40em; }
+
+/* чат-заявка в углу */
+.lw { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: grid; justify-items: end; gap: 10px; }
+.lw-fab { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--glass-edge); background: var(--sheet); color: var(--ink); -webkit-backdrop-filter: blur(20px) saturate(170%); backdrop-filter: blur(20px) saturate(170%); box-shadow: var(--glass-shadow); border-radius: 999px; padding: 11px 18px 11px 14px; font: 500 0.92rem var(--font-body); cursor: pointer; }
+.lw-fab:hover { transform: translateY(-1px); }
+.lw-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgb(46 125 79 / 0.18); }
+.lw-panel { width: min(22rem, calc(100vw - 32px)); max-height: min(78vh, 640px); display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: var(--solid); border: 1px solid var(--line); box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.4); animation: rise 0.25s ease-out; }
+.lw-head { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 14px; border-bottom: 1px solid var(--line); }
+.lw-head img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.lw-head b { display: block; font-size: 0.95rem; }
+.lw-head small { color: var(--ink-2); font-size: 0.78rem; }
+.lw-head .dlg-x { margin-left: auto; }
+.lw-body { padding: 14px; overflow-y: auto; display: grid; gap: 12px; }
+.lw-msg { background: var(--paper); border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: 0.9rem; }
+.lw-msg.me { justify-self: end; background: var(--accent-soft); border-radius: 16px 16px 4px 16px; white-space: pre-line; }
+#lw-form { display: grid; gap: 6px; }
+#lw-form label { font-size: 0.8rem; color: var(--ink-2); margin-top: 4px; }
+#lw-form input[type=text], #lw-form textarea { border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; background: var(--solid); color: var(--ink); font: inherit; font-size: 0.92rem; resize: vertical; }
+#lw-form .lw-ok { display: flex; gap: 8px; align-items: start; font-size: 0.78rem; margin-top: 6px; }
+#lw-form .lw-ok input { margin-top: 2px; accent-color: var(--accent); }
+#lw-form .btn { margin-top: 8px; justify-self: stretch; padding-block: 10px; }
+.lw-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.lw-err { color: var(--bad); font-size: 0.82rem; }
+@media (max-width: 480px) { .lw-fab span:last-child { display: none; } .lw-fab { padding: 13px; } }
+
 /* витрина примеров */
 .work { padding-top: 48px; }
 .work-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
 .work-head .label { margin-bottom: 10px; }
 .work-nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); z-index: 10; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 26px; padding: 6px;
-  background: var(--sheet); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 999px; width: fit-content; max-width: 100%; }
+  background: var(--sheet); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 22px; width: fit-content; max-width: 100%; }
 .work-tabs { background: transparent; }
 .work-tabs button { font-weight: 500; padding: 8px 16px; }
 .work-tabs button[aria-pressed="true"] { background: var(--accent-strong); color: var(--on-accent); box-shadow: none; }
@@ -511,6 +609,8 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   .top { padding-left: 16px; }
   .top .name { white-space: nowrap; font-size: 1.02rem; }
   .top .tg-cta .long { display: none; }
+  .st-view { height: 460px; }
+  .st-stage { padding: 10px; }
   .work-nav { position: static; width: 100%; border-radius: 20px; padding: 8px; display: grid; gap: 6px; }
   .work-tabs, .work-pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
   .work-tabs { display: flex; width: 100%; }
@@ -874,6 +974,30 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     </div>
   </section>
 
+  <!-- Сайты для бизнеса -->
+  <section class="tool demo" data-area="sites" id="sites" aria-labelledby="st-h">
+    <div class="tool-head">
+      <h2 id="st-h">Сайты для бизнеса</h2>
+      <p class="what">Три сайта для разных сфер. Переключайте их и смотрите, как каждый выглядит на компьютере и на телефоне. Кнопки записи и заявок на настоящих сайтах отправляют заявку в Telegram.</p>
+      <p class="origin">Сайт услуг — это одна-две страницы: кто вы, что и почём, отзывы, как записаться. Без конструктора и ежемесячной подписки.</p>
+    </div>
+    <div class="sheet">
+      <div class="row" style="justify-content: space-between;">
+        <div class="seg" role="group" aria-label="Сайт" id="st-site">
+          <button type="button" data-s="coffee" aria-pressed="true">Кофейня</button>
+          <button type="button" data-s="clinic" aria-pressed="false">Стоматология</button>
+          <button type="button" data-s="auto" aria-pressed="false">Автосервис</button>
+        </div>
+        <div class="seg" role="group" aria-label="Устройство" id="st-dev">
+          <button type="button" data-d="desk" aria-pressed="true">Компьютер</button>
+          <button type="button" data-d="phone" aria-pressed="false">Телефон</button>
+        </div>
+      </div>
+      <div class="st-stage" id="st-stage"><div class="mini-site st-frame" id="st-frame"><div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-lock><span id="st-url"></span></span></div><div class="st-view" id="st-view"></div></div></div>
+      <ul class="st-incl"><li>Адаптивно для телефона</li><li>Заявки и запись — сразу в Telegram</li><li>Карта, отзывы, цены</li><li>Домен и бесплатный хостинг на GitHub</li></ul>
+    </div>
+  </section>
+
   <!-- 7. Заявка с сайта -->
   <section class="tool demo" data-area="sites" id="lead" aria-labelledby="lead-h">
     <div class="tool-head">
@@ -951,20 +1075,20 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <h2 id="price-h">Стоимость</h2>
         <p class="hint" style="margin-top: 10px; max-width: 32em;">Работаю один, без менеджеров и студийной наценки: вы говорите напрямую с тем, кто делает. Точную цену называю после разговора, до начала работы.</p>
         <dl class="prices" style="margin-top: 14px;">
-          <div><dt>Разбор процесса<small>созвон до часа и письменный план: что автоматизировать и в каком порядке</small></dt><dd>от 2 000 ₽</dd></div>
-          <div><dt>Скрипт или автоматизация Google Таблиц<small>формулы, Apps Script, выгрузки, уведомления</small></dt><dd>от 3 000 ₽</dd></div>
-          <div><dt>Отчёт или дашборд<small>Google Таблицы, Excel или DataLens, со сверкой на ваших данных</small></dt><dd>от 7 000 ₽</dd></div>
-          <div><dt>Telegram-бот<small>заявки, уведомления, связь с таблицей</small></dt><dd>от 8 000 ₽</dd></div>
-          <div><dt>Сайт услуг или лендинг<small>с расчётом цены и заявками в Telegram</small></dt><dd>от 12 000 ₽</dd></div>
-          <div><dt>Рабочий инструмент под задачу<small>расчёт, карточка заказа, согласование в команде</small></dt><dd>от 25 000 ₽</dd></div>
-          <div><dt>Доработки после сдачи</dt><dd>1 000 ₽/час</dd></div>
+          <div><dt>Разбор процесса<small>созвон до часа и письменный план: что автоматизировать и в каком порядке</small></dt><dd>от 3 000 ₽</dd></div>
+          <div><dt>Скрипт или автоматизация Google Таблиц<small>формулы, Apps Script, выгрузки, уведомления</small></dt><dd>от 5 000 ₽</dd></div>
+          <div><dt>Отчёт или дашборд<small>Google Таблицы, Excel или DataLens, со сверкой на ваших данных</small></dt><dd>от 12 000 ₽</dd></div>
+          <div><dt>Telegram-бот<small>заявки, уведомления, связь с таблицей</small></dt><dd>от 15 000 ₽</dd></div>
+          <div><dt>Сайт услуг или лендинг<small>с расчётом цены и заявками в Telegram</small></dt><dd>от 20 000 ₽</dd></div>
+          <div><dt>Рабочий инструмент под задачу<small>расчёт, карточка заказа, согласование в команде</small></dt><dd>от 40 000 ₽</dd></div>
+          <div><dt>Доработки после сдачи</dt><dd>1 500 ₽/час</dd></div>
         </dl>
       </div>
       <div>
         <h2>Документы</h2>
         <div style="margin-top: 14px;">
           <p>Налоговый режим: самозанятость (НПД). Подходит компаниям, ИП и частным клиентам.</p>
-          <p><b>Договор</b> с составом работ, сроком и ценой. Права на результат переходят вам.</p>
+          <p><span class="tip-word"><button type="button" class="linky" data-open="dlg-contract"><b>Договор</b></button><span class="tip-card" role="tooltip"><b>Договор оказания услуг</b>10 пунктов: сроки, оплата по этапам, приёмка, права на результат, конфиденциальность. Нажмите, чтобы прочитать образец.</span></span> с составом работ, сроком и ценой. Права на результат переходят вам после оплаты.</p>
           <p><b>Чек из «Мой налог»</b> на каждую оплату, акт по запросу вашей бухгалтерии. НДС нет.</p>
           <p><b>Оплата по этапам:</b> часть после согласования прототипа, остальное после передачи.</p>
         </div>
@@ -978,8 +1102,8 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <details><summary>Сколько времени занимает работа?</summary><p>Скрипт для таблицы или простой бот обычно занимает несколько дней. Сайт или дашборд — одну-две недели. Рабочий инструмент под процесс — от нескольких недель, его удобно делать по этапам. Точный срок называю после разговора, до начала работы.</p></details>
       <details><summary>Нужно будет покупать программы или платить за сервер?</summary><p>Чаще всего нет. Google Таблицы, Apps Script и Telegram-боты на них бесплатны. Сайт можно разместить бесплатно, платить придётся только за домен, около нескольких сотен рублей в год. Если для задачи нужен платный сервис, скажу об этом заранее и объясню, зачем.</p></details>
       <details><summary>Что нужно от нас, чтобы начать?</summary><p>Показать, как задача решается сейчас: таблицу, выгрузку, пример переписки. Рабочие данные не нужны, хватит примера с изменёнными цифрами. И человек, который ответит на вопросы по процессу.</p></details>
-      <details><summary>Можно ли работать с компанией без ЭДО?</summary><p>Да. Договор подписываем на бумаге или сканами, на каждую оплату приходит чек из приложения «Мой налог». Акт делаю, если его просит ваша бухгалтерия. Если вы работаете через ЭДО, подключусь по вашему приглашению.</p></details>
-      <details><summary>Кому принадлежит результат и что будет после сдачи?</summary><p>Результат и исходники передаю вам, это записывается в договоре. После сдачи показываю команде, как пользоваться, и оставляю короткую инструкцию. Доработки после сдачи — по часам.</p></details>
+      <details><summary>Можно ли работать с компанией без ЭДО?</summary><p>Да. <button type="button" class="linky" data-open="dlg-contract">Договор</button> подписываем на бумаге или сканами, на каждую оплату приходит чек из приложения «Мой налог». Акт делаю, если его просит ваша бухгалтерия. Если вы работаете через ЭДО, подключусь по вашему приглашению.</p></details>
+      <details><summary>Кому принадлежит результат и что будет после сдачи?</summary><p>Результат и исходники передаю вам, это записывается в <button type="button" class="linky" data-open="dlg-contract">договоре</button>. После сдачи показываю команде, как пользоваться, и оставляю короткую инструкцию. Доработки после сдачи — по часам.</p></details>
     </div>
   </section>
 
@@ -987,12 +1111,64 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     <h2 id="contact-h">Расскажите, что сейчас делается вручную</h2>
     <p>Опишите задачу в двух словах или пришлите пример таблицы без рабочих данных. Отвечу, как это можно сделать, сколько времени займёт и сколько будет стоить.</p>
     <div class="row" id="contact-links"></div>
+    <div class="row"><button type="button" class="btn" data-lead style="background:transparent;color:var(--cta-ink);border-color:var(--cta-ink-2)">Или оставьте заявку здесь — бот перешлёт мне</button></div>
   </section>
 
   <footer>
     <span>© 2026 Никита Давымока</span>
     <span>Все примеры на сайте на вымышленных данных.</span>
   </footer>
+  <!-- Договор: образец -->
+  <dialog class="dlg" id="dlg-contract" aria-labelledby="dlg-contract-h">
+    <div class="dlg-head"><div><p class="label">Образец</p><h2 id="dlg-contract-h">Договор оказания услуг</h2></div><button class="dlg-x" type="button" data-close aria-label="Закрыть">×</button></div>
+    <div class="dlg-body doc-text">
+      <p class="hint">Так выглядит договор, по которому я работаю. Под конкретную задачу и требования вашей бухгалтерии его дополняю: ТЗ, сроки этапов, реквизиты.</p>
+      <h3>1. Предмет</h3><p>Исполнитель по заданию Заказчика создаёт результат, описанный в техническом задании (приложение 1): инструмент, сайт, бота или отчёт. В ТЗ перечислены функции, этапы и сроки.</p>
+      <h3>2. Сроки</h3><p>Срок работ указан в ТЗ и начинается после получения от Заказчика примеров данных и доступов, нужных для работы. Если Заказчик задерживает ответы или доступы, срок сдвигается на то же время.</p>
+      <h3>3. Стоимость и оплата</h3><p>Цена фиксирована в ТЗ и не меняется без письменного согласия сторон. Оплата по этапам: первая часть — после согласования прототипа, остальное — после приёмки. Исполнитель применяет налог на профессиональный доход: НДС не облагается, на каждую оплату формируется чек в приложении «Мой налог».</p>
+      <h3>4. Приёмка</h3><p>Заказчик проверяет результат в течение 5 рабочих дней и присылает замечания одним списком. Если замечаний нет и срок прошёл, работа считается принятой. Акт подписывается по запросу Заказчика.</p>
+      <h3>5. Права на результат</h3><p>Исключительное право на результат и исходный код переходит Заказчику с момента полной оплаты. Исполнитель может упоминать проект в портфолио только в обезличенном виде и с согласия Заказчика.</p>
+      <h3>6. Конфиденциальность</h3><p>Исполнитель не передаёт третьим лицам данные, доступы и сведения о бизнесе Заказчика, а после окончания работ удаляет полученные данные по его просьбе.</p>
+      <h3>7. Сторонние сервисы</h3><p>Домен, платные сервисы и подписки, если они нужны, оформляются на Заказчика и оплачиваются им напрямую. Исполнитель заранее предупреждает о таких расходах.</p>
+      <h3>8. Исправления после сдачи</h3><p>Ошибки, найденные в течение 14 дней после приёмки, Исполнитель исправляет бесплатно. Новые функции и изменения сверх ТЗ оплачиваются отдельно по согласованной ставке.</p>
+      <h3>9. Статус самозанятого</h3><p>Исполнитель сообщает Заказчику, если утратил статус плательщика налога на профессиональный доход, в течение 3 рабочих дней.</p>
+      <h3>10. Расторжение</h3><p>Каждая сторона может расторгнуть договор, предупредив другую за 5 рабочих дней. Выполненная к этому моменту часть работ оплачивается.</p>
+    </div>
+    <div class="dlg-foot"><button class="btn" type="button" data-close>Закрыть</button><a class="btn primary" data-tg href="#contact">Обсудить договор в Telegram</a></div>
+  </dialog>
+
+  <!-- Обработка персональных данных -->
+  <dialog class="dlg" id="dlg-privacy" aria-labelledby="dlg-privacy-h">
+    <div class="dlg-head"><h2 id="dlg-privacy-h">Обработка персональных данных</h2><button class="dlg-x" type="button" data-close aria-label="Закрыть">×</button></div>
+    <div class="dlg-body doc-text">
+      <p>Когда вы отправляете заявку на этом сайте, я, Никита Давымока, получаю ваше имя, контакт для связи и текст задачи.</p>
+      <h3>Зачем</h3><p>Только чтобы ответить на заявку и обсудить работу. Рассылок нет, данные никому не продаются и не передаются.</p>
+      <h3>Как передаются и хранятся</h3><p>Заявка приходит мне сообщением в Telegram через бота. Я храню переписку, пока мы обсуждаем задачу, и не дольше года после последнего сообщения.</p>
+      <h3>Как отозвать согласие</h3><p>Напишите мне в Telegram, и я удалю ваши данные и переписку.</p>
+    </div>
+    <div class="dlg-foot"><button class="btn primary" type="button" data-close>Понятно</button></div>
+  </dialog>
+
+  <!-- Чат-заявка в углу -->
+  <div class="lw" id="lw">
+    <button class="lw-fab" type="button" id="lw-fab" aria-expanded="false" aria-controls="lw-panel"><span class="lw-dot" aria-hidden="true"></span><span>Обсудить задачу</span></button>
+    <div class="lw-panel" id="lw-panel" role="dialog" aria-labelledby="lw-title" hidden>
+      <div class="lw-head"><img src="assets/nikita.jpg" alt="" width="36" height="36"><div><b id="lw-title">Никита Давымока</b><small>обычно отвечаю в течение дня</small></div><button class="dlg-x" type="button" id="lw-close" aria-label="Свернуть">×</button></div>
+      <div class="lw-body" id="lw-body">
+        <div class="lw-msg">Здравствуйте! Опишите задачу в двух словах — что сейчас делается вручную или неудобно. Отвечу в Telegram.</div>
+        <form id="lw-form" novalidate>
+          <label for="lw-name">Как к вам обращаться</label><input id="lw-name" type="text" autocomplete="name" maxlength="80" required>
+          <label for="lw-contact">Telegram или телефон</label><input id="lw-contact" type="text" autocomplete="tel" maxlength="80" placeholder="@username или +7…" required>
+          <label for="lw-text">Задача</label><textarea id="lw-text" rows="3" maxlength="2000" placeholder="Например: заявки с сайта теряются в почте" required></textarea>
+          <input type="text" id="lw-hp" name="company" tabindex="-1" autocomplete="off" class="lw-hp" aria-hidden="true">
+          <label class="lw-ok"><input type="checkbox" id="lw-agree" required> Согласен на обработку данных — <button type="button" class="linky" data-open="dlg-privacy">что это значит</button></label>
+          <p class="lw-err" id="lw-err" role="alert" hidden></p>
+          <button class="btn primary" type="submit" id="lw-send">Отправить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1933,6 +2109,50 @@ const el = (tag, attrs = {}, parent) => {
   calc();
 })();
 
+/* ============ Сайты для бизнеса ============ */
+(() => {
+  const SITES = {
+    coffee: {
+      url: "ваш-сайт.рф", cls: "ms-coffee", name: "Зерно", nav: ["Меню", "Завтраки", "Контакты"],
+      h: "Кофе, который хочется взять с собой", p: "Обжариваем зерно сами раз в неделю. Завтраки до 12:00, тихий зал и розетки у каждого стола.", btn: "Заказать с собой",
+      cards: [["Капучино", "Классический, на любом молоке", "от 220 ₽"], ["Завтрак «Город»", "Яйца пашот, авокадо, тост", "390 ₽"], ["Зерно на вынос", "Бразилия, Колумбия, Эфиопия", "от 790 ₽"]],
+      rev: ["«Лучший флэт уайт в районе, и бариста помнят, как я люблю» — Анна", "«Беру зерно домой каждую неделю» — Михаил"],
+      foot: ["ул. Садовая, 12 · 8:00–22:00", "+7 900 000-00-00"],
+    },
+    clinic: {
+      url: "ваш-сайт.рф", cls: "ms-clinic", name: "Дента", nav: ["Услуги", "Врачи", "Цены", "Отзывы"],
+      h: "Лечение без боли и сюрпризов в счёте", p: "Перед лечением — план и смета. Работаем по выходным, запись онлайн за минуту, напомним о визите в Telegram.", btn: "Записаться онлайн",
+      cards: [["Консультация и снимок", "Осмотр, 3D-снимок, план лечения", "1 500 ₽"], ["Профессиональная чистка", "Ультразвук и Air Flow", "4 900 ₽"], ["Лечение кариеса", "С анестезией и пломбой", "от 5 500 ₽"]],
+      rev: ["«Объяснили каждый шаг и уложились в смету» — Ольга", "«Удобно, что напоминание пришло в Telegram» — Сергей"],
+      foot: ["пр. Мира, 40 · ежедневно 9:00–21:00", "Лицензия № 00-00-000000"],
+    },
+    auto: {
+      url: "ваш-сайт.рф", cls: "ms-auto", name: "Гараж 24", nav: ["Услуги", "Цены", "Запись"],
+      h: "Ремонт и ТО без очереди", p: "Диагностика за 30 минут, запчасти в наличии, фото и видео ремонта в Telegram. Гарантия на работы — 6 месяцев.", btn: "Записаться на ТО",
+      cards: [["Диагностика", "Компьютерная, ходовая, тормоза", "от 1 200 ₽"], ["ТО и замена масла", "С фильтрами, за 40 минут", "от 2 500 ₽"], ["Шиномонтаж", "R13–R20, хранение шин", "от 2 000 ₽"]],
+      rev: ["«Прислали видео, что поменяли, и сразу счёт» — Денис", "«Сделали за час, как обещали» — Ирина"],
+      foot: ["Промышленная, 7 · круглосуточно", "+7 900 000-00-00"],
+    },
+  };
+  let site = "coffee", dev = "desk";
+  function render() {
+    const s = SITES[site];
+    $("#st-url").textContent = s.url;
+    $("#st-view").innerHTML = `<div class="ms ${s.cls}"><div class="ms-nav"><b>${s.name}</b><span>${s.nav.map((n) => `<a>${n}</a>`).join("")}</span></div>
+      <div class="ms-hero"><h4>${s.h}</h4><p>${s.p}</p><a class="ms-btn">${s.btn}</a></div>
+      <div class="ms-grid">${s.cards.map(([t, d, p]) => `<div class="ms-card"><b>${t}</b><span>${d}</span><i>${p}</i></div>`).join("")}</div>
+      <div class="ms-rev">${s.rev.map((r) => `<q>${r}</q>`).join("")}</div>
+      <div class="ms-foot"><span>${s.foot[0]}</span><span>${s.foot[1]}</span></div></div>`;
+    $("#st-view").scrollTop = 0;
+    $("#st-stage").classList.toggle("phone", dev === "phone");
+    $("#st-site").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === site));
+    $("#st-dev").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.d === dev));
+  }
+  $("#st-site").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { site = b.dataset.s; render(); } });
+  $("#st-dev").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { dev = b.dataset.d; render(); } });
+  render();
+})();
+
 document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("afterbegin", LOCK));
 
 /* ============ Витрина: сферы и примеры ============ */
@@ -1941,7 +2161,7 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   const demos = [...document.querySelectorAll(".demo")];
   const title = (d) => d.querySelector("h2").textContent;
   let area = "finance", cur = null;
-  const ORDER = { finance: ["cash", "planfact", "unit"], sales: ["crm", "dash", "prices"], people: ["shifts", "hire", "learn"], sites: ["lead", "booking", "bot"] };
+  const ORDER = { finance: ["cash", "planfact", "unit"], sales: ["crm", "dash", "prices"], people: ["shifts", "hire", "learn"], sites: ["sites", "lead", "booking", "bot"] };
   function show(id, scroll = false) {
     const d = demos.find((x) => x.id === id) || demos.find((x) => x.id === ORDER[area][0]);
     area = d.dataset.area; cur = d.id;
@@ -1977,6 +2197,53 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     catch { const r = document.createRange(); r.selectNodeContents(b.previousElementSibling); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = "Выделено, скопируйте"; }
   });
 })();
+/* ============ Окна: договор и обработка данных ============ */
+(() => {
+  document.addEventListener("click", (e) => {
+    const o = e.target.closest("[data-open]");
+    if (o) { e.preventDefault(); document.getElementById(o.dataset.open)?.showModal(); return; }
+    const c = e.target.closest("dialog [data-close]");
+    if (c) c.closest("dialog").close();
+  });
+  document.querySelectorAll("dialog.dlg").forEach((d) => d.addEventListener("click", (e) => { if (e.target === d) d.close(); }));
+})();
+
+/* ============ Чат-заявка в углу ============
+   Заявка уходит на адрес LEAD_ENDPOINT (Google Apps Script, файл bot/lead-bot.gs в репозитории),
+   а скрипт присылает её в Telegram. Пока адрес не задан, форма предлагает написать в Telegram напрямую. */
+(() => {
+  const LEAD_ENDPOINT = "";
+  const fab = $("#lw-fab"), panel = $("#lw-panel"), form = $("#lw-form"), err = $("#lw-err");
+  const toggle = (open) => { panel.hidden = !open; fab.setAttribute("aria-expanded", open); fab.hidden = open; if (open) $("#lw-name").focus(); else fab.focus(); };
+  fab.addEventListener("click", () => toggle(true));
+  $("#lw-close").addEventListener("click", () => toggle(false));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden && !document.querySelector("dialog[open]")) toggle(false); });
+  document.querySelectorAll("[data-lead]").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); toggle(true); }));
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = $("#lw-name").value.trim(), contact = $("#lw-contact").value.trim(), text = $("#lw-text").value.trim();
+    const fail = (m) => { err.textContent = m; err.hidden = false; };
+    err.hidden = true;
+    if (!name || !contact || text.length < 5) return fail("Заполните имя, контакт и пару слов о задаче.");
+    if (!$("#lw-agree").checked) return fail("Отметьте согласие на обработку данных, иначе я не смогу ответить.");
+    if ($("#lw-hp").value) return;
+    const send = $("#lw-send");
+    send.disabled = true; send.textContent = "Отправляю…";
+    let ok = false;
+    if (LEAD_ENDPOINT) {
+      try {
+        const r = await fetch(LEAD_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ name, contact, text, page: location.hash || "/" }) });
+        ok = (await r.json()).ok === true;
+      } catch (_) { ok = false; }
+    }
+    const tg = (CONTACTS.telegram || "").replace(/^@/, "");
+    $("#lw-body").innerHTML = `<div class="lw-msg me">${escH(text)}</div>` + (ok
+      ? `<div class="lw-msg">Спасибо, ${escH(name)}! Заявка у меня в Telegram. Напишу вам в течение дня.</div>`
+      : `<div class="lw-msg">${LEAD_ENDPOINT ? "Не получилось отправить заявку." : "Форма пока работает в режиме примера."} Напишите мне напрямую — текст задачи уже скопирован, его останется вставить.</div><a class="btn primary" style="text-align:center;text-decoration:none" href="https://t.me/${tg}" target="_blank" rel="noopener">Открыть Telegram</a>`);
+    if (!ok) { try { await navigator.clipboard.writeText(`${name}, ${contact}\n${text}`); } catch (_) {} }
+  });
+})();
+
 </script>
 </body>
 </html>
