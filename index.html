@@ -459,12 +459,15 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .work { padding-top: 48px; }
 .work-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
 .work-head .label { margin-bottom: 10px; }
-.work-nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); z-index: 10; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 26px; padding: 6px;
-  background: var(--sheet); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 22px; width: fit-content; max-width: 100%; }
-.work-tabs { background: transparent; }
+.work-nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); z-index: 10; display: grid; gap: 4px; margin-top: 26px; padding: 6px; width: 100%;
+  background: var(--sheet); -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 22px; }
+.work-tabs { background: transparent; display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: 100%; }
+.work-tabs button { flex: none; white-space: nowrap; }
 .work-tabs button { font-weight: 500; padding: 8px 16px; }
 .work-tabs button[aria-pressed="true"] { background: var(--accent-strong); color: var(--on-accent); box-shadow: none; }
-.work-pills { display: flex; flex-wrap: wrap; gap: 4px; padding-right: 6px; }
+.work-pills { display: flex; flex-wrap: nowrap; gap: 4px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--line); padding-top: 4px; }
+.work-pills::-webkit-scrollbar, .work-tabs::-webkit-scrollbar { display: none; }
+.work-pills button { white-space: nowrap; flex: none; }
 .work-pills button { border: 0; background: transparent; color: var(--ink-2); border-radius: 999px; padding: 7px 12px; font-size: 0.86rem; cursor: pointer; }
 .work-pills button:hover { color: var(--ink); background: var(--paper); }
 .work-pills button[aria-current="true"] { color: var(--ink); background: var(--paper); font-weight: 500; }
@@ -613,7 +616,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   .top .tg-cta .long { display: none; }
   .st-view { height: 460px; }
   .st-stage { padding: 10px; }
-  .work-nav { position: static; width: 100%; border-radius: 20px; padding: 8px; display: grid; gap: 6px; }
+  .work-nav { position: static; border-radius: 20px; }
   .work-tabs, .work-pills { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; max-width: 100%; }
   .work-tabs { display: flex; width: 100%; }
   .work-tabs button, .work-pills button { white-space: nowrap; flex: none; }
