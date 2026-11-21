@@ -585,8 +585,8 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
 /* процесс, цены, документы */
 .cols3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
 .process { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
-.process li { border-top: 2px solid var(--ink); padding-top: 10px; }
-.process li::before { counter-increment: s; content: "Шаг " counter(s); font-family: var(--font-data); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 4px; }
+.process li { border-top: 1px solid var(--line); padding-top: 14px; }
+.process li::before { counter-increment: s; content: "Шаг " counter(s); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 4px; }
 .process h3 { margin-bottom: 6px; }
 .process p { color: var(--ink-2); font-size: 0.93rem; }
 .prices { margin: 0; display: grid; gap: 0; }
@@ -604,7 +604,19 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
 .about-path li { background: var(--sheet); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 20px; padding: 16px 18px; display: grid; gap: 4px; align-content: start; }
 .about-path .yr { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
 .about-path b { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; letter-spacing: -0.01em; }
-.about-path li > span:last-child { color: var(--ink-2); font-size: 0.86rem; line-height: 1.5; }
+.about-path li { position: relative; z-index: 1; }
+.about-path li.open, .about-path li:focus-within { z-index: 16; }
+.about-path .role { color: var(--ink-2); font-size: 0.9rem; }
+.about-path .more { justify-self: start; margin-top: 6px; border: 0; background: var(--paper); color: var(--ink-2); border-radius: 999px; padding: 4px 11px; font: 500 0.78rem var(--font-body); cursor: pointer; }
+.about-path .more::after { content: " ↓"; }
+.about-path .exp-pop { position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 15; background: var(--solid); color: var(--ink); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; font-size: 0.86rem; line-height: 1.5; box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.3);
+  opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s, visibility 0.15s; }
+.about-path li.open .exp-pop { opacity: 1; visibility: visible; transform: none; }
+.about-path li.open .more::after { content: " ↑"; }
+@media (hover: hover) {
+  .about-path li:hover .exp-pop, .about-path li:focus-within .exp-pop { opacity: 1; visibility: visible; transform: none; }
+  .about-path li:hover { z-index: 16; }
+}
 @media (max-width: 960px) { .about-path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .about-path { grid-template-columns: minmax(0, 1fr); } }
 .contact { background: var(--cta-bg); color: var(--cta-ink); border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; margin-top: 72px; box-shadow: var(--glass-shadow); }
@@ -1076,10 +1088,10 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       </div>
     </div>
     <ol class="about-path" aria-label="Опыт">
-      <li><span class="yr">2025–2026</span><b>Лемана ПРО · руководитель отдела</b><span>Команда из 10 человек: операционное планирование, контроль результатов, обучение и развитие сотрудников.</span></li>
-      <li><span class="yr">2025</span><b>билайн · B2B</b><span>Малый и средний бизнес: клиентская база, анализ эффективности продаж, отчётность для руководства.</span></li>
-      <li><span class="yr">2023–2025</span><b>X5 Group · куратор территории</b><span>Московская область, более 350 курьеров: целевые показатели, бесперебойная доставка, качество сервиса, отчётность руководству.</span></li>
-      <li><span class="yr">2019–2023</span><b>DNS · сотрудник магазина</b><span>Продажи и сервис, 1С, приёмка и инвентаризации, работа с юрлицами и документами, обучение новичков.</span></li>
+      <li><span class="yr">2025–2026</span><b>Лемана ПРО</b><span class="role">руководитель отдела</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-0">Подробнее</button><span class="exp-pop" id="exp-0" role="tooltip">Команда из 10 человек: операционное планирование, контроль результатов, обучение и развитие сотрудников.</span></li>
+      <li><span class="yr">2025</span><b>билайн</b><span class="role">B2B</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-1">Подробнее</button><span class="exp-pop" id="exp-1" role="tooltip">Малый и средний бизнес: клиентская база, анализ эффективности продаж, отчётность для руководства.</span></li>
+      <li><span class="yr">2023–2025</span><b>X5 Group</b><span class="role">куратор территории</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-2">Подробнее</button><span class="exp-pop" id="exp-2" role="tooltip">Московская область, более 350 курьеров: целевые показатели, бесперебойная доставка, качество сервиса, отчётность руководству.</span></li>
+      <li><span class="yr">2019–2023</span><b>DNS</b><span class="role">сотрудник магазина</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-3">Подробнее</button><span class="exp-pop" id="exp-3" role="tooltip">Продажи и сервис, 1С, приёмка и инвентаризации, работа с юрлицами и документами, обучение новичков.</span></li>
     </ol>
   </section>
 
@@ -2202,6 +2214,15 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   addEventListener("hashchange", fromHash);
   if (!fromHash()) show("cash");
 })();
+
+/* Опыт: подробности по наведению (компьютер) или по кнопке «Подробнее» (телефон) */
+document.querySelectorAll(".about-path .more").forEach((b) => b.addEventListener("click", () => {
+  const li = b.closest("li"), open = !li.classList.contains("open");
+  document.querySelectorAll(".about-path li.open").forEach((x) => { x.classList.remove("open"); x.querySelector(".more").setAttribute("aria-expanded", "false"); });
+  li.classList.toggle("open", open);
+  b.setAttribute("aria-expanded", open);
+}));
+document.addEventListener("click", (e) => { if (!e.target.closest(".about-path")) document.querySelectorAll(".about-path li.open").forEach((x) => { x.classList.remove("open"); x.querySelector(".more").setAttribute("aria-expanded", "false"); }); });
 
 /* ============ Контакты ============ */
 (() => {
