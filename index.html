@@ -502,11 +502,15 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     <div class="about">
       <div>
         <h2 id="price-h">Стоимость</h2>
+        <p class="hint" style="margin-top: 10px; max-width: 32em;">Работаю один, без менеджеров и студийной наценки: вы говорите напрямую с тем, кто делает. Точную цену называю после разговора, до начала работы.</p>
         <dl class="prices" style="margin-top: 14px;">
-          <div><dt>Разбор процесса<small>что автоматизировать и сколько это сэкономит</small></dt><dd>от 3 000 ₽</dd></div>
-          <div><dt>Отчёт или сводка в Google Таблицах / Excel<small>со сверкой на ваших выгрузках</small></dt><dd>от 8 000 ₽</dd></div>
-          <div><dt>Сайт услуг с заявками в Telegram</dt><dd>от 15 000 ₽</dd></div>
-          <div><dt>Дашборд, рабочий инструмент или бот</dt><dd>от 20 000 ₽</dd></div>
+          <div><dt>Разбор процесса<small>созвон до часа и письменный план: что автоматизировать и в каком порядке</small></dt><dd>от 2 000 ₽</dd></div>
+          <div><dt>Скрипт или автоматизация Google Таблиц<small>формулы, Apps Script, выгрузки, уведомления</small></dt><dd>от 3 000 ₽</dd></div>
+          <div><dt>Отчёт или дашборд<small>Google Таблицы, Excel или DataLens, со сверкой на ваших данных</small></dt><dd>от 7 000 ₽</dd></div>
+          <div><dt>Telegram-бот<small>заявки, уведомления, связь с таблицей</small></dt><dd>от 8 000 ₽</dd></div>
+          <div><dt>Сайт услуг или лендинг<small>с расчётом цены и заявками в Telegram</small></dt><dd>от 12 000 ₽</dd></div>
+          <div><dt>Рабочий инструмент под задачу<small>расчёт, карточка заказа, согласование в команде</small></dt><dd>от 25 000 ₽</dd></div>
+          <div><dt>Доработки после сдачи</dt><dd>1 000 ₽/час</dd></div>
         </dl>
       </div>
       <div>
@@ -535,7 +539,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 
 <script>
 /* Контакты: заполните перед публикацией. Пустое поле не показывается. */
-const CONTACTS = { telegram: "davymoka_n", email: "", phone: "" };
+const CONTACTS = { telegram: "davymoka_n" };
 
 const $ = (s, r = document) => r.querySelector(s);
 const fmt = (n, d = 0) => n.toLocaleString("ru-RU", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -1010,8 +1014,8 @@ const el = (tag, attrs = {}, parent) => {
   const box = $("#contact-links");
   const items = [];
   if (CONTACTS.telegram) items.push(`<a href="https://t.me/${CONTACTS.telegram.replace(/^@/, "")}" target="_blank" rel="noopener">Telegram: @${CONTACTS.telegram.replace(/^@/, "")}</a>`);
-  if (CONTACTS.email) items.push(`<span class="addr">${CONTACTS.email}</span><button class="btn copy" type="button" data-copy="${CONTACTS.email}">Скопировать почту</button>`);
-  if (CONTACTS.phone) items.push(`<span class="addr">${CONTACTS.phone}</span>`);
+  if (CONTACTS.email && CONTACTS.email.length) items.push(`<span class="addr">${CONTACTS.email}</span><button class="btn copy" type="button" data-copy="${CONTACTS.email}">Скопировать почту</button>`);
+  if (CONTACTS.phone && CONTACTS.phone.length) items.push(`<span class="addr">${CONTACTS.phone}</span>`);
   box.innerHTML = items.length ? items.join("") : `<span class="addr">Контакты появятся здесь</span>`;
   box.addEventListener("click", async (e) => {
     const b = e.target.closest("[data-copy]");
