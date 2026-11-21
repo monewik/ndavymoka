@@ -598,11 +598,15 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
 .about p + p { margin-top: 12px; }
 .about-text p { color: var(--ink-2); line-height: 1.65; }
 .about-text p:first-child { color: var(--ink); font-size: 1.08rem; }
-.about-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-.about-facts div { background: var(--sheet); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 20px; padding: 18px 20px; display: grid; gap: 4px; }
-.about-facts b { font-family: var(--font-display); font-weight: 500; font-size: 1.7rem; letter-spacing: -0.02em; }
-.about-facts span { color: var(--ink-2); font-size: 0.9rem; }
-@media (max-width: 700px) { .about-facts { grid-template-columns: minmax(0, 1fr); } }
+.about-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
+.about-skills span { font-size: 0.82rem; padding: 5px 11px; border-radius: 999px; background: var(--paper); color: var(--ink-2); }
+.about-path { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.about-path li { background: var(--sheet); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); border-radius: 20px; padding: 16px 18px; display: grid; gap: 4px; align-content: start; }
+.about-path .yr { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.about-path b { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; letter-spacing: -0.01em; }
+.about-path li > span:last-child { color: var(--ink-2); font-size: 0.86rem; line-height: 1.5; }
+@media (max-width: 960px) { .about-path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .about-path { grid-template-columns: minmax(0, 1fr); } }
 .contact { background: var(--cta-bg); color: var(--cta-ink); border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; margin-top: 72px; box-shadow: var(--glass-shadow); }
 .contact p { color: var(--cta-ink-2); max-width: 40em; }
 .contact .row a, .contact .row span.addr { font-weight: 500; background: var(--cta-ink); color: var(--cta-bg); padding: 11px 20px; border-radius: 999px; text-decoration: none; }
@@ -1060,19 +1064,23 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     <div class="about">
       <div>
         <p class="label">Обо мне</p>
-        <h2 id="about-h" style="margin-top: 6px;">Из операционки, поэтому знаю, где у команды уходят часы</h2>
+        <h2 id="about-h" style="margin-top: 6px;">Восемь лет в операционке, поэтому знаю, где у команды уходят часы</h2>
+        <div class="about-skills" aria-label="Инструменты">
+          <span>Анализ и описание процессов, BPMN</span><span>ТЗ, регламенты, СОП</span><span>Google Таблицы и Apps Script</span><span>Дашборды и KPI</span><span>Прототипы веб-инструментов</span><span>Тестирование сценариев</span><span>СБИС, Контур, ЭДО</span><span>ИИ-инструменты в разработке</span>
+        </div>
       </div>
       <div class="about-text">
-        <p>За плечами — ежедневная работа 350 курьеров, процессы в логистике и обучение сотрудников. Там быстро становится видно, сколько стоят ручные таблицы, пересылка файлов и вопрос «а где последняя версия?».</p>
+        <p>Начинал с ремонта компьютеров и работы в магазине, потом курировал доставку и руководил отделом в крупном ритейле. Сейчас занимаюсь бизнес-процессами, стандартами и обучением сотрудников, а для команд делаю рабочие инструменты: дашборды, расчёты, ботов.</p>
         <p>Поэтому начинаю не с кода, а с того, как люди работают сейчас: что делают руками, где ошибаются, что руководителю приходится собирать по кусочкам. Инструмент должен убирать эту работу, а не добавлять ещё одну программу, которую надо осваивать.</p>
         <p>Проект закончен, когда команда пользуется им без меня: есть короткая инструкция, подсказки в самом интерфейсе и понятно, где что поправить.</p>
       </div>
     </div>
-    <div class="about-facts">
-      <div><b>350</b><span>курьеров в ежедневной работе</span></div>
-      <div><b>Логистика</b><span>процессы, расчёты, отчётность</span></div>
-      <div><b>Обучение</b><span>инструкции, которые действительно читают</span></div>
-    </div>
+    <ol class="about-path" aria-label="Опыт">
+      <li><span class="yr">2025–2026</span><b>Лемана ПРО · менеджер отдела</b><span>Команда из 10 человек: операционное планирование, контроль результатов, обучение и развитие сотрудников.</span></li>
+      <li><span class="yr">2025</span><b>билайн · корпоративные клиенты</b><span>Клиентская база, анализ эффективности продаж, отчётность для руководства.</span></li>
+      <li><span class="yr">2023–2025</span><b>X5 Group · логист</b><span>Более 350 курьеров на западе Московской области: целевые показатели, бесперебойная доставка, качество сервиса, отчётность руководству.</span></li>
+      <li><span class="yr">2019–2023</span><b>DNS · сотрудник магазина</b><span>Продажи и сервис, 1С, приёмка и инвентаризации, работа с юрлицами и документами, обучение новичков.</span></li>
+    </ol>
   </section>
 
   <!-- Как работаю -->
