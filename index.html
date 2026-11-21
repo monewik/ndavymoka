@@ -2231,10 +2231,16 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     send.disabled = true; send.textContent = "Отправляю…";
     let ok = false;
     if (LEAD_ENDPOINT) {
-      try {
-        const r = await fetch(LEAD_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ name, contact, text, page: location.hash || "/" }) });
-        ok = (await r.json()).ok === true;
-      } catch (_) { ok = false; }
+      /* Заявка уходит подключением адреса скрипта: ответ приходит вызовом функции, браузер его не блокирует. */
+      ok = await new Promise((done) => {
+        const cb = "lwDone" + Date.now(), sc = document.createElement("script");
+        const finish = (v) => { clearTimeout(timer); delete window[cb]; sc.remove(); done(v); };
+        const timer = setTimeout(() => finish(false), 20000);
+        window[cb] = (res) => finish(!!(res && res.ok));
+        sc.onerror = () => finish(false);
+        sc.src = LEAD_ENDPOINT + "?" + new URLSearchParams({ callback: cb, name, contact, text, page: location.hash || "/" });
+        document.head.appendChild(sc);
+      });
     }
     const tg = (CONTACTS.telegram || "").replace(/^@/, "");
     $("#lw-body").innerHTML = `<div class="lw-msg me">${escH(text)}</div>` + (ok

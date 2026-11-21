@@ -18,24 +18,34 @@
  */
 const MAX_PER_HOUR = 20; // защита от спама: не больше заявок в час со всего сайта
 
-/* Если открыть адрес в браузере: просто показывает, что скрипт работает. */
-function doGet() {
-  return ContentService.createTextOutput("Бот заявок работает. Сайт отправляет сюда заявки, открывать этот адрес не нужно.");
+/* Сайт отправляет заявку так: подключает этот адрес как скрипт (?callback=…&name=…&contact=…&text=…)
+   и получает ответ вызовом функции. Так браузер не блокирует ответ. Без callback — просто надпись. */
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (!p.callback) return ContentService.createTextOutput("Бот заявок работает. Сайт отправляет сюда заявки, открывать этот адрес не нужно.");
+  const cb = String(p.callback).replace(/[^\w$.]/g, "").slice(0, 60);
+  return ContentService.createTextOutput(cb + "(" + JSON.stringify(lead_(p)) + ");").setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 
+/* Тот же приём заявки обычным POST-запросом (на будущее, например из другой формы). */
 function doPost(e) {
+  let d = {};
+  try { d = JSON.parse((e && e.postData && e.postData.contents) || "{}"); } catch (err) {}
+  return out_(lead_(d));
+}
+
+function lead_(d) {
   try {
-    const d = JSON.parse((e && e.postData && e.postData.contents) || "{}");
     const clean = (v, n) => String(v || "").replace(/[\u0000-\u0008\u000b-\u001f]/g, " ").trim().slice(0, n);
     const name = clean(d.name, 80), contact = clean(d.contact, 80), text = clean(d.text, 2000), page = clean(d.page, 60);
-    if (!name || !contact || text.length < 5) return out_({ ok: false, error: "empty" });
+    if (!name || !contact || text.length < 5) return { ok: false, error: "empty" };
     const cache = CacheService.getScriptCache(), n = Number(cache.get("leads") || 0);
-    if (n >= MAX_PER_HOUR) return out_({ ok: false, error: "rate" });
+    if (n >= MAX_PER_HOUR) return { ok: false, error: "rate" };
     cache.put("leads", String(n + 1), 3600);
     const msg = "🟢 Заявка с сайта\n\n" + name + "\nКонтакт: " + contact + "\n\n" + text + (page && page !== "/" ? "\n\nСтраница: " + page : "");
-    return out_({ ok: send_(msg) });
+    return { ok: send_(msg) };
   } catch (err) {
-    return out_({ ok: false, error: "server" });
+    return { ok: false, error: "server" };
   }
 }
 
