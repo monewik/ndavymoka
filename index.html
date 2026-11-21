@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Никита Давымока</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Расчёты, сводки, сайты и боты для команд, которые пока работают в Excel и переписке.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2314202b%22/%3E%3Crect x=%226%22 y=%2219%22 width=%2220%22 height=%224%22 fill=%22%23f2c200%22/%3E%3Crect x=%229%22 y=%2210%22 width=%229%22 height=%228%22 fill=%22%23a9b6c1%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=Onest:wght@400;500;600&display=swap">
+<style>
+body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
+/* Раскладка: одна левая колонка документа; каждый раздел — рабочий инструмент на «листе», рядом короткая справка, откуда он взялся. */
+:root {
+  --paper: #eef1f3;        /* фон: холодная бумага чертежа */
+  --sheet: #ffffff;        /* лист с инструментом */
+  --ink: #14202b;          /* основной текст */
+  --ink-2: #4b5966;        /* второстепенный текст */
+  --line: #d3dae0;         /* линии и рамки */
+  --signal: #f2c200;       /* жёлтый «негабаритный груз»: маркер и выделение */
+  --on-signal: #17140a;
+  --steel: #6d7f8f;        /* техника на схемах */
+  --steel-2: #a9b6c1;
+  --crate: #c79e5f;        /* деревянная упаковка груза */
+  --crate-2: #9c7740;
+  --ok: #23845c;
+  --warn: #b7791f;
+  --bad: #c2382f;
+  --grey-seg: #8d8789;
+  --focus: #1f6fd1;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Onest", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f151b; --sheet: #172029; --ink: #e6ebef; --ink-2: #9aabb9; --line: #2b3844;
+    --signal: #f2c200; --on-signal: #17140a; --steel: #8b9cab; --steel-2: #4e5f6e;
+    --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f151b; --sheet: #172029; --ink: #e6ebef; --ink-2: #9aabb9; --line: #2b3844;
+  --signal: #f2c200; --on-signal: #17140a; --steel: #8b9cab; --steel-2: #4e5f6e;
+  --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; margin: 0; line-height: 1.12; }
+h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.55rem, 2.8vw, 2.1rem); }
+h3 { font-size: 1.2rem; }
+p { margin: 0; }
+a { color: inherit; text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { text-decoration-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.num { font-family: var(--font-body); font-variant-numeric: tabular-nums; }
+.label { font-family: var(--font-data); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+mark { background: var(--signal); color: var(--on-signal); padding: 0 0.2em; }
+
+/* шапка */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 22px; }
+.top .name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-decoration: none; }
+.top nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.95rem; }
+.top nav a { text-decoration: none; color: var(--ink-2); }
+.top nav a:hover { color: var(--ink); }
+
+/* вступление */
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding-block: 28px 30px; border-bottom: 1px solid var(--line); }
+.intro h1 { max-width: 15em; }
+.intro .lead { margin-top: 18px; max-width: 37em; font-size: 1.12rem; color: var(--ink-2); }
+.intro .lead b { color: var(--ink); font-weight: 600; }
+.portrait { display: flex; gap: 14px; align-items: center; }
+.portrait img { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; filter: saturate(0.85); }
+.portrait p { font-size: 0.9rem; color: var(--ink-2); max-width: 15em; }
+.portrait b { display: block; color: var(--ink); font-size: 1rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chips span { border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 0.88rem; color: var(--ink-2); background: var(--sheet); }
+
+/* раздел-инструмент */
+.tool { padding-block: 56px 8px; display: grid; gap: 22px; }
+.tool-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: 28px; align-items: end; }
+.tool-head.solo { grid-template-columns: minmax(0, 1fr); }
+.tool-head .what { margin-top: 10px; max-width: 38em; color: var(--ink-2); }
+.origin { border-left: 3px solid var(--signal); padding: 2px 0 2px 14px; font-size: 0.9rem; color: var(--ink-2); }
+.origin b { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+.sheet { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; min-width: 0; }
+.hint { font-size: 0.88rem; color: var(--ink-2); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+button, select, input { font: inherit; color: inherit; }
+.btn { border: 1px solid var(--line); background: var(--sheet); border-radius: var(--r); padding: 7px 14px; cursor: pointer; font-size: 0.93rem; }
+.btn:hover { border-color: var(--ink-2); }
+.btn.primary { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 7px 14px; cursor: pointer; font-size: 0.92rem; color: var(--ink-2); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+select { border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; background: var(--sheet); }
+
+/* трал */
+.rig svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; }
+.rig .deck { fill: var(--steel); }
+.rig .steel { fill: var(--steel); }
+.rig .steel-2 { fill: var(--steel-2); }
+.rig .wheel { fill: var(--ink); }
+.rig .hub { fill: var(--sheet); }
+.rig .ground { stroke: var(--line); stroke-width: 2; }
+.rig .dim { stroke: var(--ink-2); stroke-width: 1; fill: none; }
+.rig text { font-family: var(--font-body); font-variant-numeric: tabular-nums; fill: var(--ink); }
+.rig .cargo rect.body { fill: var(--crate); stroke: var(--crate-2); stroke-width: 1.5; cursor: grab; }
+.rig .cargo.iron rect.body { fill: var(--steel-2); stroke: var(--steel); }
+.rig .cargo:focus { outline: none; }
+.rig .cargo:focus-visible rect.body, .rig .cargo.drag rect.body { stroke: var(--focus); stroke-width: 3; }
+.rig .cargo.drag rect.body { cursor: grabbing; }
+.rig .cargo text { font-size: 15px; font-weight: 500; pointer-events: none; }
+.rig .load-pill rect { fill: var(--ink); }
+.rig .load-pill text { fill: var(--sheet); font-size: 14px; font-weight: 500; }
+.rig .load-pill.warn rect { fill: var(--warn); }
+.rig .load-pill.bad rect { fill: var(--bad); }
+.rig .height-bad { stroke: var(--bad); stroke-dasharray: 6 4; stroke-width: 1.5; }
+.rig-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 14px; }
+.rig-status div { border-top: 2px solid var(--line); padding-top: 8px; }
+.rig-status .v { font-weight: 600; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.rig-status .ok { border-color: var(--ok); }
+.rig-status .warn { border-color: var(--warn); }
+.rig-status .bad { border-color: var(--bad); }
+.verdict { margin-top: 14px; font-weight: 500; }
+.verdict.ok { color: var(--ok); } .verdict.warn { color: var(--warn); } .verdict.bad { color: var(--bad); }
+
+/* кейс */
+.case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.case dl { margin: 0; display: grid; gap: 14px; }
+.case dt { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+.case dd { margin: 2px 0 0; color: var(--ink-2); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.fact { border-top: 2px solid var(--ink); padding-top: 8px; }
+.fact .v { font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1; }
+.fact p { font-size: 0.88rem; color: var(--ink-2); margin-top: 6px; }
+
+/* пакинг */
+.pk-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-top: 14px; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 0.8rem; color: var(--ink-2); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.raw td.n { font-family: var(--font-data); }
+.raw { background: var(--paper); border-radius: var(--r); padding: 10px; }
+.raw table { font-family: var(--font-data); font-size: 0.8rem; }
+.raw th { cursor: pointer; color: var(--ink); }
+.raw th:hover, .raw th.on, .parsed .on { background: var(--signal); color: var(--on-signal); }
+.raw tr.total td { color: var(--ink-2); font-style: italic; }
+.notes { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 0.9rem; }
+.notes li { padding-left: 18px; position: relative; }
+.notes li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--signal); }
+.src { display: block; font-size: 0.75rem; color: var(--ink-2); font-family: var(--font-data); }
+
+/* сводка */
+.dash-kpi { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.kpi { border: 1px solid var(--line); border-radius: var(--r); padding: 12px; }
+.kpi .v { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi p { font-size: 0.82rem; color: var(--ink-2); }
+.funnel { display: flex; gap: 2px; height: 20px; margin-top: 18px; }
+.funnel span { border-radius: 4px; min-width: 6px; transition: flex-grow 0.35s ease; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--ink-2); margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.s-won { background: var(--ok); } .s-wait { background: var(--warn); } .s-work { background: var(--grey-seg); } .s-lost { background: var(--bad); }
+.dash-cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 22px; margin-top: 22px; }
+.bars { display: grid; gap: 8px; }
+.bar { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) 4.2rem; gap: 10px; align-items: center; font-size: 0.88rem; cursor: default; border-radius: 4px; }
+.bar .track { height: 14px; background: var(--paper); border-radius: 0 4px 4px 0; position: relative; }
+.bar .fill { position: absolute; inset: 0 auto 0 0; background: var(--ink); border-radius: 0 4px 4px 0; transition: width 0.35s ease; }
+.bar .fill.neg { background: var(--bad); }
+.bar:hover .fill, .bar:focus-visible .fill { background: var(--focus); }
+.bar .num { text-align: right; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--sheet); padding: 8px 10px; border-radius: var(--r); font-size: 0.82rem; line-height: 1.4; max-width: 240px; z-index: 5; }
+.reasons { display: grid; gap: 8px; font-size: 0.9rem; }
+.reasons div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+
+/* план-факт */
+.pf { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 26px; }
+.pf-row { display: grid; grid-template-columns: minmax(0, 1fr) 7.5rem; gap: 6px 12px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.pf-row label { font-weight: 500; }
+.pf-row .plan { font-size: 0.82rem; color: var(--ink-2); }
+.pf-row input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--ink); }
+.pf-row .pf-fact { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.pf-row .delta { font-size: 0.82rem; text-align: right; font-variant-numeric: tabular-nums; }
+.up { color: var(--bad); } .down { color: var(--ok); }
+.pf-sum { display: grid; gap: 14px; align-content: start; }
+.pf-bars { display: grid; gap: 10px; }
+.pf-bar { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) 7.5rem; gap: 10px; align-items: center; font-size: 0.9rem; }
+.pf-bar .num small { display: block; color: var(--ink-2); font-size: 0.8rem; }
+.pf-bar .track { height: 26px; background: var(--paper); border-radius: 0 4px 4px 0; position: relative; }
+.pf-bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 0 4px 4px 0; transition: width 0.3s ease; }
+.pf-bar.plan .fill { background: var(--steel-2); }
+.pf-bar.fact .fill { background: var(--ink); }
+.pf-bar.fact.bad .fill { background: var(--bad); }
+.pf-worse { background: var(--paper); border-radius: var(--r); padding: 12px; font-size: 0.92rem; }
+
+/* бот */
+.bot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 23rem); gap: 26px; }
+.steps { display: grid; gap: 10px; align-content: start; }
+.step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 10px; align-items: start; }
+.step .n { width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-data); font-size: 0.85rem; }
+.step.done .n { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.step.now .n { background: var(--signal); color: var(--on-signal); border-color: var(--signal); }
+.step p { font-size: 0.9rem; color: var(--ink-2); }
+.chat { background: var(--paper); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-height: 360px; max-height: 440px; overflow-y: auto; }
+.chat .who { font-size: 0.75rem; color: var(--ink-2); font-family: var(--font-data); }
+.msg { background: var(--sheet); border: 1px solid var(--line); border-radius: 12px 12px 12px 4px; padding: 10px 12px; font-size: 0.9rem; max-width: 92%; animation: pop 0.25s ease-out; }
+.msg .open { display: block; margin-top: 8px; text-align: center; border-top: 1px solid var(--line); padding-top: 6px; color: var(--focus); font-weight: 500; }
+.chat .empty { margin: auto; text-align: center; color: var(--ink-2); font-size: 0.9rem; max-width: 16em; }
+@keyframes pop { from { transform: translateY(6px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+
+/* заявка */
+.lead-tool { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; }
+.mini-site { border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.mini-site .bar-top { background: var(--ink); color: var(--sheet); padding: 10px 14px; font-family: var(--font-display); font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.mini-site .bar-top span { font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; opacity: 0.8; }
+.mini-site form { padding: 16px; display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field > label, .field > span { font-size: 0.85rem; color: var(--ink-2); }
+.choice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.choice label { border: 1px solid var(--line); border-radius: var(--r); padding: 8px; cursor: pointer; font-size: 0.85rem; display: grid; gap: 2px; }
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice label:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.choice label:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+.choice b { font-weight: 600; }
+.price { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 12px; }
+.price .v { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+.tg-preview { background: var(--paper); border-radius: 14px; padding: 14px; display: grid; gap: 8px; align-content: start; }
+.tg-preview pre { margin: 0; white-space: pre-wrap; font: 0.88rem/1.5 var(--font-body); background: var(--sheet); border: 1px solid var(--line); border-radius: 12px 12px 12px 4px; padding: 10px 12px; }
+input[type=range] { accent-color: var(--ink); width: 100%; }
+input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius: var(--r); padding: 8px 10px; background: var(--sheet); width: 100%; }
+
+/* процесс, цены, документы */
+.cols3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+.process { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+.process li { border-top: 2px solid var(--ink); padding-top: 10px; }
+.process li::before { counter-increment: s; content: "Шаг " counter(s); font-family: var(--font-data); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 4px; }
+.process h3 { margin-bottom: 6px; }
+.process p { color: var(--ink-2); font-size: 0.93rem; }
+.prices { margin: 0; display: grid; gap: 0; }
+.prices div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.prices dt { font-weight: 500; }
+.prices dt small { display: block; font-weight: 400; color: var(--ink-2); font-size: 0.85rem; }
+.prices dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.about p + p { margin-top: 12px; }
+.contact { background: var(--ink); color: var(--sheet); border-radius: var(--r); padding: 28px; display: grid; gap: 16px; margin-top: 56px; }
+.contact p { color: var(--steel-2); max-width: 40em; }
+.contact .row a, .contact .row span.addr { font-weight: 500; background: var(--sheet); color: var(--ink); padding: 8px 14px; border-radius: var(--r); text-decoration: none; }
+.contact .copy { background: transparent; color: var(--sheet); border-color: var(--steel); }
+footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .intro, .tool-head, .case, .pk-grid, .dash-cols, .pf, .bot, .lead-tool, .about { grid-template-columns: minmax(0, 1fr); }
+  .dash-kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bar { grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) 3.6rem; }
+}
+@media (max-width: 480px) {
+  .choice { grid-template-columns: minmax(0, 1fr); }
+  .sheet { padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="name" href="#">Никита Давымока</a>
+    <nav aria-label="Разделы">
+      <a href="#rig">Работы</a>
+      <a href="#process">Как работаю</a>
+      <a href="#price">Стоимость</a>
+      <a href="#contact">Связаться</a>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <div>
+      <h1>Расчёты, сводки и боты для команд, которые пока работают в&nbsp;Excel и&nbsp;переписке</h1>
+      <p class="lead">Собираю инструмент под конкретную работу: чтобы логист считал перевозку в одном окне, руководитель видел маржу без выгрузок, а заявка с сайта приходила в Telegram готовой. Ниже <b>работающие куски из моих проектов</b>. Их можно двигать и нажимать.</p>
+      <div class="chips" aria-label="Чем занимаюсь">
+        <span>Рабочие инструменты</span><span>Дашборды и отчёты</span><span>Сайты для бизнеса</span><span>Google Таблицы и Apps Script</span><span>Telegram-боты</span>
+      </div>
+    </div>
+    <div class="portrait">
+      <img src="assets/nikita.jpg" alt="Никита Давымока" width="108" height="108">
+      <p><b>Никита Давымока</b>Логистика и бизнес-процессы. Самозанятость (НПД): договор и чек.</p>
+    </div>
+  </section>
+
+  <!-- 1. Раскладка на трале -->
+  <section class="tool" id="rig" aria-labelledby="rig-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Расчёт перевозки</p>
+        <h2 id="rig-h">Груз на трале и нагрузка на оси</h2>
+        <p class="what">Перетащите груз по площадке. Нагрузка на каждую ось пересчитывается сразу: сдвинули станину к тягачу, и ведущие оси уходят за 10 т. Кнопка «Подобрать» ищет положение, при котором ни одна ось не перегружена.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Обычная задача при перевозке тяжёлого груза: поставить его так, чтобы не перегрузить оси и не платить за спецразрешение. Здесь модель упрощённая, в настоящем расчёте подставляются конкретный тягач и прицеп.</p>
+    </div>
+    <div class="sheet rig">
+      <div class="row" style="justify-content: space-between; margin-bottom: 10px;">
+        <div class="row">
+          <label for="rig-main" class="hint">Основной груз</label>
+          <select id="rig-main">
+            <option value="frame">Станина пресса, 22 т</option>
+            <option value="trafo">Трансформатор, 31 т</option>
+            <option value="tank">Ёмкость, 14 т</option>
+          </select>
+        </div>
+        <div class="row">
+          <button class="btn" type="button" id="rig-auto">Подобрать положение</button>
+          <button class="btn" type="button" id="rig-reset">Сбросить</button>
+        </div>
+      </div>
+      <svg id="rig-svg" viewBox="0 0 1000 300" role="img" aria-labelledby="rig-title">
+        <title id="rig-title">Тягач с полуприцепом-тралом, груз на площадке и нагрузки на оси</title>
+      </svg>
+      <p class="hint">Мышью, пальцем или с клавиатуры: Tab выбирает груз, стрелки двигают на 10 см, с Shift на 50 см.</p>
+      <div class="rig-status" id="rig-status"></div>
+      <p class="verdict" id="rig-verdict" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 3. Пакинг -->
+  <section class="tool" id="packing" aria-labelledby="pk-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Разбор файлов</p>
+        <h2 id="pk-h">Пакинг клиента превращается в таблицу груза</h2>
+        <p class="what">Слева файл, как его прислали. Справа то, что получается после разбора. Нажмите на заголовок столбца в исходнике, чтобы увидеть, куда он попал.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Пакинги приходят в любом виде: шапка в две строки, вес на всю строку вместо одного места, миллиметры без подписи. Без разбора их приходится перепечатывать руками.</p>
+    </div>
+    <div class="sheet">
+      <div class="seg" role="group" aria-label="Пример пакинга" id="pk-tabs">
+        <button type="button" data-k="cn" aria-pressed="true">Китайский</button>
+        <button type="button" data-k="en">Английский</button>
+        <button type="button" data-k="ru">Русский</button>
+      </div>
+      <div class="pk-grid">
+        <div><p class="label" style="margin-bottom: 6px;">Как в файле</p><div class="raw tablewrap" id="pk-raw"></div></div>
+        <div class="parsed"><p class="label" style="margin-bottom: 6px;">Таблица груза</p><div class="tablewrap" id="pk-out"></div></div>
+      </div>
+      <ul class="notes" id="pk-notes"></ul>
+    </div>
+  </section>
+
+  <!-- 4. Сводка -->
+  <section class="tool" id="dash" aria-labelledby="dash-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Дашборд</p>
+        <h2 id="dash-h">Сводка для руководителя</h2>
+        <p class="what">Сколько расчётов стали перевозками, где маржа выше и почему клиенты отказываются. Переключите период и наведите на направление.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Сводка считается прямо из рабочих таблиц, без ручных выгрузок и сведения в конце месяца. Цифры здесь вымышленные.</p>
+    </div>
+    <div class="sheet" style="position: relative;">
+      <div class="seg" role="group" aria-label="Период" id="dash-period">
+        <button type="button" data-m="3" aria-pressed="false">3 месяца</button>
+        <button type="button" data-m="6" aria-pressed="true">Полгода</button>
+        <button type="button" data-m="12" aria-pressed="false">Год</button>
+      </div>
+      <div class="dash-kpi" id="dash-kpi"></div>
+      <div class="funnel" id="dash-funnel" role="img"></div>
+      <div class="legend" id="dash-legend"></div>
+      <div class="dash-cols">
+        <div><h3 style="margin-bottom: 10px;">Маржа по направлениям</h3><div class="bars" id="dash-bars"></div></div>
+        <div><h3 style="margin-bottom: 10px;">Почему отказались</h3><div class="reasons" id="dash-reasons"></div></div>
+      </div>
+      <div class="tip" id="dash-tip" hidden></div>
+    </div>
+  </section>
+
+  <!-- 5. План-факт -->
+  <section class="tool" id="planfact" aria-labelledby="pf-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Контроль после перевозки</p>
+        <h2 id="pf-h">План-факт по проекту</h2>
+        <p class="what">Перевозка закончилась, счета пришли. Двигайте фактические суммы и смотрите, сколько осталось от плановой маржи и что съело её больше всего.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Без план-факта ошибка в ставке повторяется в следующем расчёте. Если факт сохранять, его можно подсказывать при новых расчётах.</p>
+    </div>
+    <div class="sheet pf">
+      <div id="pf-rows"></div>
+      <div class="pf-sum">
+        <p class="hint">Клиент заплатил <span class="num">2 400 000 ₽</span> без НДС. В плане заложен резерв 5% от расходов.</p>
+        <div class="pf-bars" id="pf-bars"></div>
+        <div class="pf-worse" id="pf-worse" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Бот -->
+  <section class="tool" id="bot" aria-labelledby="bot-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Автоматизация</p>
+        <h2 id="bot-h">Согласование через Telegram-бота</h2>
+        <p class="what">Нажимайте кнопку за каждого участника. Бот пишет только тому, чей сейчас ход, со ссылкой на проект. Никто не ищет файл в переписке и не напоминает вручную.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Такой бот можно сделать на Google Apps Script, без отдельного сервера и подписок. Через него же можно пускать в систему только своих сотрудников.</p>
+    </div>
+    <div class="sheet bot">
+      <div class="steps" id="bot-steps"></div>
+      <div>
+        <div class="chat" id="bot-chat" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Заявка с сайта -->
+  <section class="tool" id="lead" aria-labelledby="lead-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Сайт для бизнеса</p>
+        <h2 id="lead-h">Заявка с расчётом цены</h2>
+        <p class="what">Кусок сайта для аренды спецтехники. Клиент сразу видит примерную цену, а менеджер получает в Telegram заявку, в которой уже есть всё для звонка.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Пример собран для портфолио. Так же делаю сайты услуг: короткая страница, понятная цена, заявка без потерь.</p>
+    </div>
+    <div class="sheet lead-tool">
+      <div class="mini-site">
+        <div class="bar-top">Кран на час <span>аренда спецтехники · пример</span></div>
+        <form id="lead-form" novalidate>
+          <fieldset class="field" style="border: 0; padding: 0; margin: 0;">
+            <legend style="font-size: 0.85rem; color: var(--ink-2); margin-bottom: 6px;">Техника</legend>
+            <div class="choice" id="lead-kind"></div>
+          </fieldset>
+          <div class="field">
+            <label for="lead-hours">Часов работы: <b id="lead-hours-v" class="num">6</b></label>
+            <input type="range" id="lead-hours" min="2" max="12" step="1" value="6">
+          </div>
+          <div class="field">
+            <label for="lead-km">Подача за город, км: <b id="lead-km-v" class="num">25</b></label>
+            <input type="range" id="lead-km" min="0" max="120" step="5" value="25">
+          </div>
+          <div class="field">
+            <label for="lead-phone">Телефон</label>
+            <input type="tel" id="lead-phone" value="+7 900 123-45-67" autocomplete="off">
+          </div>
+          <div class="price"><span class="hint">Примерно, с подачей</span><span class="v" id="lead-price"></span></div>
+          <button class="btn primary" type="submit">Отправить заявку</button>
+        </form>
+      </div>
+      <div class="tg-preview">
+        <p class="label">Что получит менеджер</p>
+        <pre id="lead-msg"></pre>
+        <p class="hint" id="lead-sent" aria-live="polite">Сообщение меняется вместе с формой.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Обо мне -->
+  <section class="tool" aria-labelledby="about-h">
+    <div class="about">
+      <div>
+        <p class="label">Обо мне</p>
+        <h2 id="about-h" style="margin-top: 6px;">Сначала разбираюсь в работе, потом пишу код</h2>
+      </div>
+      <div>
+        <p>Мой опыт из операционки: работа 350 курьеров, процессы в логистике, обучение сотрудников. Поэтому инструмент начинается с вопроса, как люди работают сейчас и где теряют время.</p>
+        <p>Проект закончен, когда команда пользуется им без меня: есть короткая инструкция, понятные подсказки в интерфейсе и человек, который знает, где что поправить.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как работаю -->
+  <section class="tool" id="process" aria-labelledby="process-h">
+    <h2 id="process-h">Как работаю</h2>
+    <ol class="process">
+      <li><h3>Разговор</h3><p>Показываете, как задача решается сейчас: таблица, переписка, выгрузка. Достаточно примера без рабочих данных.</p></li>
+      <li><h3>Прототип</h3><p>Собираю рабочую версию на ваших примерах. Вы пробуете её в деле, а не смотрите на макет.</p></li>
+      <li><h3>Доработка</h3><p>Правим по замечаниям команды. Цена и срок согласованы заранее, изменения сверх них обсуждаем отдельно.</p></li>
+      <li><h3>Передача</h3><p>Инструкция и обучение тех, кто будет пользоваться. Показываю, где что поправить без меня.</p></li>
+    </ol>
+  </section>
+
+  <!-- Стоимость и документы -->
+  <section class="tool" id="price" aria-labelledby="price-h">
+    <div class="about">
+      <div>
+        <h2 id="price-h">Стоимость</h2>
+        <dl class="prices" style="margin-top: 14px;">
+          <div><dt>Разбор процесса<small>что автоматизировать и сколько это сэкономит</small></dt><dd>от 3 000 ₽</dd></div>
+          <div><dt>Отчёт или сводка в Google Таблицах / Excel<small>со сверкой на ваших выгрузках</small></dt><dd>от 8 000 ₽</dd></div>
+          <div><dt>Сайт услуг с заявками в Telegram</dt><dd>от 15 000 ₽</dd></div>
+          <div><dt>Дашборд, рабочий инструмент или бот</dt><dd>от 20 000 ₽</dd></div>
+        </dl>
+      </div>
+      <div>
+        <h2>Документы</h2>
+        <div style="margin-top: 14px;">
+          <p>Налоговый режим: самозанятость (НПД). Подходит компаниям, ИП и частным клиентам.</p>
+          <p><b>Договор</b> с составом работ, сроком и ценой. Права на результат переходят вам.</p>
+          <p><b>Чек из «Мой налог»</b> на каждую оплату, акт по запросу вашей бухгалтерии. НДС нет.</p>
+          <p><b>Оплата по этапам:</b> часть после согласования прототипа, остальное после передачи.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Расскажите, что сейчас делается вручную</h2>
+    <p>Опишите задачу в двух словах или пришлите пример таблицы без рабочих данных. Отвечу, как это можно сделать, сколько времени займёт и сколько будет стоить.</p>
+    <div class="row" id="contact-links"></div>
+  </section>
+
+  <footer>
+    <span>© 2026 Никита Давымока</span>
+    <span>Все примеры на сайте на вымышленных данных.</span>
+  </footer>
+</div>
+
+<script>
+/* Контакты: заполните перед публикацией. Пустое поле не показывается. */
+const CONTACTS = { telegram: "davymoka_n", email: "", phone: "" };
+
+const $ = (s, r = document) => r.querySelector(s);
+const fmt = (n, d = 0) => n.toLocaleString("ru-RU", { minimumFractionDigits: d, maximumFractionDigits: d });
+const rub = (n) => fmt(Math.round(n)) + " ₽";
+const SVG = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => {
+  const e = document.createElementNS(SVG, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+};
+
+/* ============ 1. Трал и оси ============
+   Упрощённая модель: тягач 6×4 и полуприцеп с площадкой над тремя осями.
+   Груз — точечные массы по центру; реакции считаются по правилу рычага. Размеры в метрах от бампера тягача. */
+(() => {
+  const T = { steer: 1.4, drive: [4.6, 5.95], king: 5.0, tare: { steer: 5.6, drive: 3.2 } };
+  const R = { deckFrom: 7.9, deckTo: 19.0, deckH: 0.95, axles: [16.2, 17.55, 18.9], tare: 11.5, tareX: 12.2 };
+  const NORM = 10, LIMIT = { steer: 8, drive: 13, trailer: 12 }, HMAX = 4.0;
+  const MAIN = {
+    frame: { name: "Станина", m: 22, L: 6.0, H: 2.8, iron: true },
+    trafo: { name: "Трансформатор", m: 31, L: 5.2, H: 3.45, iron: true },
+    tank: { name: "Ёмкость", m: 14, L: 8.2, H: 3.1, iron: true },
+  };
+  const BOX = { name: "Ящик", m: 3.5, L: 2.2, H: 1.8 };
+  let items = [];
+  const S = 47, X0 = 14, GY = 240; // масштаб: пикселей на метр, отступ слева, линия земли
+  const px = (x) => X0 + x * S, py = (h) => GY - h * S;
+  const svg = $("#rig-svg");
+  let dragging = null;
+
+  function reset() {
+    const main = MAIN[$("#rig-main").value];
+    items = [
+      { ...main, id: "main", x: 9.6 + main.L / 2 },
+      { ...BOX, id: "b1", x: R.deckFrom + 0.2 + BOX.L / 2 },
+      { ...BOX, id: "b2", x: R.deckTo - 0.2 - BOX.L / 2 },
+    ];
+    items.sort((a, b) => a.x - b.x);
+    // разнести, если наложились
+    settle();
+    draw();
+  }
+  function settle() {
+    items.sort((a, b) => a.x - b.x);
+    for (let i = 1; i < items.length; i++) {
+      const prev = items[i - 1], cur = items[i];
+      const min = prev.x + prev.L / 2 + cur.L / 2 + 0.1;
+      if (cur.x < min) cur.x = min;
+    }
+    for (let i = items.length - 2; i >= 0; i--) {
+      const next = items[i + 1], cur = items[i];
+      const max = next.x - next.L / 2 - cur.L / 2 - 0.1;
+      if (cur.x > max) cur.x = max;
+    }
+  }
+  function loads(list = items) {
+    const a = (R.axles[0] + R.axles[1] + R.axles[2]) / 3 - T.king;
+    let K = 0, G = 0;
+    const add = (m, x) => { const r = x - T.king; G += (m * r) / a; K += (m * (a - r)) / a; };
+    add(R.tare, R.tareX);
+    list.forEach((it) => add(it.m, it.x));
+    const d = (T.drive[0] + T.drive[1]) / 2 - T.steer, share = (T.king - T.steer) / d;
+    const steer = T.tare.steer + K * (1 - share);
+    const drive = (T.tare.drive + K * share) / 2;
+    const trailer = G / 3;
+    return { steer, drive, trailer, K, G };
+  }
+  const lvl = (v, lim) => (v > lim ? "bad" : v > NORM ? "warn" : "ok");
+
+  function draw() {
+    svg.querySelectorAll(":scope > g, :scope > line, :scope > path, :scope > rect").forEach((n) => n.remove());
+    el("line", { x1: 0, x2: 1000, y1: GY + 0.5, y2: GY + 0.5, class: "ground" }, svg);
+    const g = el("g", {}, svg);
+    // тягач: рама, кабина, седло
+    el("rect", { x: px(0.1), y: py(1.25), width: (6.7 - 0.1) * S, height: 0.35 * S, class: "steel" }, g);
+    el("path", { d: `M${px(0.1)} ${py(1.25)} L${px(0.1)} ${py(3.35)} Q${px(0.15)} ${py(3.55)} ${px(0.5)} ${py(3.6)} L${px(2.3)} ${py(3.6)} L${px(2.3)} ${py(1.25)} Z`, class: "steel" }, g);
+    el("rect", { x: px(0.35), y: py(3.1), width: 1.2 * S, height: 0.75 * S, class: "steel-2", rx: 3 }, g);
+    el("rect", { x: px(T.king - 0.6), y: py(1.45), width: 1.2 * S, height: 0.2 * S, class: "steel-2" }, g);
+    // трал: гусак и площадка
+    const deckTop = py(R.deckH), neckTop = py(1.55);
+    el("path", { d: `M${px(4.4)} ${neckTop} L${px(7.3)} ${neckTop} L${px(R.deckFrom)} ${deckTop} L${px(R.deckTo)} ${deckTop} L${px(R.deckTo)} ${deckTop + 0.3 * S} L${px(R.deckFrom - 0.2)} ${deckTop + 0.3 * S} L${px(7.1)} ${neckTop + 0.35 * S} L${px(4.4)} ${neckTop + 0.35 * S} Z`, class: "deck" }, g);
+    // колёса и нагрузки
+    const L = loads();
+    const wheels = [
+      { x: T.steer, v: L.steer, lim: LIMIT.steer },
+      { x: T.drive[0], v: L.drive, lim: LIMIT.drive },
+      { x: T.drive[1], v: L.drive, lim: LIMIT.drive },
+      ...R.axles.map((x) => ({ x, v: L.trailer, lim: LIMIT.trailer })),
+    ];
+    wheels.forEach((w, i) => {
+      el("circle", { cx: px(w.x), cy: GY - 0.5 * S, r: 0.5 * S, class: "wheel" }, g);
+      el("circle", { cx: px(w.x), cy: GY - 0.5 * S, r: 0.17 * S, class: "hub" }, g);
+      const p = el("g", { class: "load-pill " + lvl(w.v, w.lim) }, g);
+      const label = fmt(w.v, 1) + " т";
+      el("rect", { x: px(w.x) - 30, y: GY + 10 + (i >= 4 && i % 2 === 0 ? 0 : 0), width: 60, height: 24, rx: 4 }, p);
+      const t = el("text", { x: px(w.x), y: GY + 27, "text-anchor": "middle" }, p);
+      t.textContent = label;
+    });
+    // груз
+    let topH = R.deckH;
+    items.forEach((it) => {
+      const c = el("g", { class: "cargo" + (it.iron ? " iron" : "") + (dragging?.it === it ? " drag" : ""), tabindex: 0, role: "slider", "aria-label": `${it.name}, ${fmt(it.m, 1)} т`, "aria-valuetext": `центр на ${fmt(it.x - R.deckFrom, 1)} м от начала площадки`, "data-id": it.id }, svg);
+      const x = px(it.x - it.L / 2), y = deckTop - it.H * S;
+      el("rect", { x, y, width: it.L * S, height: it.H * S, rx: it.iron ? 6 : 2, class: "body" }, c);
+      if (!it.iron) {
+        el("line", { x1: x, y1: y, x2: x + it.L * S, y2: y + it.H * S, stroke: "var(--crate-2)", "stroke-width": 1 }, c);
+        el("line", { x1: x + it.L * S, y1: y, x2: x, y2: y + it.H * S, stroke: "var(--crate-2)", "stroke-width": 1 }, c);
+      }
+      const t = el("text", { x: px(it.x), y: y + it.H * S / 2 + 5, "text-anchor": "middle" }, c);
+      t.textContent = it.L * S > 110 ? `${it.name} ${fmt(it.m, 1)} т` : `${fmt(it.m, 1)} т`;
+      topH = Math.max(topH, R.deckH + it.H);
+    });
+    // высота
+    const hy = py(topH), over = topH > HMAX;
+    el("line", { x1: px(R.deckTo) + 22, x2: px(R.deckTo) + 22, y1: hy, y2: GY, class: "dim" }, svg);
+    el("line", { x1: px(R.deckTo) + 16, x2: px(R.deckTo) + 28, y1: hy, y2: hy, class: "dim" }, svg);
+    const ht = el("text", { x: px(R.deckTo) + 30, y: (hy + GY) / 2, "font-size": 14, "dominant-baseline": "middle" }, svg);
+    ht.textContent = fmt(topH, 2) + " м";
+    if (over) el("line", { x1: px(0), x2: px(R.deckTo) + 20, y1: py(HMAX), y2: py(HMAX), class: "height-bad" }, svg);
+    status(L, topH);
+  }
+
+  function status(L, topH) {
+    const mass = items.reduce((a, it) => a + it.m, 0);
+    const parts = [
+      ["Передняя ось", L.steer, LIMIT.steer],
+      ["Ведущие, каждая", L.drive, LIMIT.drive],
+      ["Оси трала, каждая", L.trailer, LIMIT.trailer],
+    ];
+    $("#rig-status").innerHTML =
+      parts.map(([n, v, lim]) => `<div class="${lvl(v, lim)}"><span class="hint">${n}</span><div class="v">${fmt(v, 2)} т</div></div>`).join("") +
+      `<div class="${topH > HMAX ? "bad" : "ok"}"><span class="hint">Высота с грузом</span><div class="v">${fmt(topH, 2)} м</div></div>` +
+      `<div><span class="hint">Груз всего</span><div class="v">${fmt(mass, 1)} т</div></div>`;
+    const worst = parts.map(([, v, lim]) => lvl(v, lim));
+    const v = $("#rig-verdict");
+    if (worst.includes("bad")) { v.className = "verdict bad"; v.textContent = "Перегруз сверх возможностей техники: сдвиньте груз или берите другой трал."; }
+    else if (worst.includes("warn")) { v.className = "verdict warn"; v.textContent = "Техника справится, но по осям больше 10 т: нужно спецразрешение."; }
+    else { v.className = "verdict ok"; v.textContent = "Все оси в пределах 10 т, спецразрешение по весу не нужно."; }
+    if (topH > HMAX) v.textContent += " По высоте больше 4 м: нужен проезд с обследованием маршрута.";
+  }
+
+  function bounds(it) {
+    const i = items.indexOf(it);
+    const lo = i > 0 ? items[i - 1].x + items[i - 1].L / 2 + 0.1 + it.L / 2 : R.deckFrom + it.L / 2;
+    const hi = i < items.length - 1 ? items[i + 1].x - items[i + 1].L / 2 - 0.1 - it.L / 2 : R.deckTo - it.L / 2;
+    return [lo, hi];
+  }
+  function moveTo(it, x) {
+    const [lo, hi] = bounds(it);
+    it.x = Math.round(Math.min(hi, Math.max(lo, x)) * 10) / 10;
+    draw();
+    const node = svg.querySelector(`[data-id="${it.id}"]`);
+    if (node && dragging === null) node.focus({ preventScroll: true });
+  }
+  const toWorld = (evt) => {
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    return (pt.matrixTransform(svg.getScreenCTM().inverse()).x - X0) / S;
+  };
+  svg.addEventListener("pointerdown", (e) => {
+    const g = e.target.closest(".cargo");
+    if (!g) return;
+    const it = items.find((x) => x.id === g.dataset.id);
+    dragging = { it, dx: toWorld(e) - it.x, id: e.pointerId };
+    svg.setPointerCapture(e.pointerId);
+    e.preventDefault();
+    draw();
+  });
+  svg.addEventListener("pointermove", (e) => {
+    if (!dragging || e.pointerId !== dragging.id) return;
+    const [lo, hi] = bounds(dragging.it);
+    dragging.it.x = Math.min(hi, Math.max(lo, toWorld(e) - dragging.dx));
+    draw();
+  });
+  const stop = () => {
+    if (!dragging) return;
+    dragging.it.x = Math.round(dragging.it.x * 10) / 10;
+    dragging = null;
+    draw();
+  };
+  svg.addEventListener("pointerup", stop);
+  svg.addEventListener("pointercancel", stop);
+  svg.addEventListener("keydown", (e) => {
+    const g = e.target.closest(".cargo");
+    if (!g || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    e.preventDefault();
+    const it = items.find((x) => x.id === g.dataset.id);
+    moveTo(it, it.x + (e.key === "ArrowRight" ? 1 : -1) * (e.shiftKey ? 0.5 : 0.1));
+  });
+
+  /* Подбор: перебираем порядок грузов и сдвиг; берём вариант с наименьшей самой загруженной осью относительно нормы. */
+  function auto() {
+    const perms = (a) => (a.length < 2 ? [a] : a.flatMap((x, i) => perms([...a.slice(0, i), ...a.slice(i + 1)]).map((r) => [x, ...r])));
+    let best = null;
+    const total = items.reduce((s, it) => s + it.L, 0) + 0.1 * (items.length - 1);
+    for (const order of perms(items)) {
+      for (let off = R.deckFrom; off + total <= R.deckTo + 1e-9; off += 0.1) {
+        let x = off;
+        const placed = order.map((it) => { const c = { ...it, x: x + it.L / 2 }; x += it.L + 0.1; return c; });
+        const L = loads(placed);
+        const score = Math.max(L.steer / LIMIT.steer * 0.9, L.drive / NORM, L.trailer / NORM);
+        if (!best || score < best.score - 1e-6) best = { score, placed };
+      }
+    }
+    if (!best) return;
+    items = best.placed.map((p) => ({ ...p, x: Math.round(p.x * 10) / 10 }));
+    draw();
+  }
+
+  $("#rig-main").addEventListener("change", reset);
+  $("#rig-reset").addEventListener("click", reset);
+  $("#rig-auto").addEventListener("click", auto);
+  reset();
+})();
+
+/* ============ 2. Пакинг ============ */
+(() => {
+  const P = {
+    cn: {
+      head: ["序号", "货物名称", "数量", "长(mm)", "宽(mm)", "高(mm)", "单重(kg)"],
+      rows: [
+        [1, "变压器本体", 1, 7850, 3420, 3960, 86400],
+        [2, "散热器", 8, 3100, 520, 2650, 1180],
+        [3, "储油柜", 1, 4200, 1100, 1300, 1450],
+        [4, "套管箱", 2, 3600, 900, 1000, 980],
+        [5, "附件箱", 3, 2000, 1100, 1200, 760],
+      ],
+      map: [null, "name", "qty", "L", "W", "H", "m"],
+      out: [
+        ["Трансформатор (активная часть)", "变压器本体", 1, 7.85, 3.42, 3.96, 86.4],
+        ["Радиатор", "散热器", 8, 3.1, 0.52, 2.65, 1.18],
+        ["Расширительный бак", "储油柜", 1, 4.2, 1.1, 1.3, 1.45],
+        ["Ящик с вводами", "套管箱", 2, 3.6, 0.9, 1, 0.98],
+        ["Ящик с принадлежностями", "附件箱", 3, 2, 1.1, 1.2, 0.76],
+      ],
+      notes: ["Шапка на китайском: 货物名称 — наименование, 数量 — количество, 单重 — масса одного места.", "Размеры в миллиметрах, масса в килограммах: переведены в метры и тонны.", "Названия переведены по отраслевому словарю, исходные остались в строке."],
+    },
+    en: {
+      head: ["Item", "Description", "Pcs", "Dimensions L×W×H, cm", "Gross weight, kg"],
+      rows: [
+        ["A-01", "Boiler drum", 1, "1250×320×310", 18400],
+        ["A-02", "Burner unit", 2, "240×180×190", 3100],
+        ["A-03", "Platform section", 4, "600×120×40", 2880],
+        ["A-04", "Control cabinet", 1, "210×80×220", 640],
+      ],
+      map: [null, "name", "qty", "LWH", "m"],
+      out: [
+        ["Boiler drum", "", 1, 12.5, 3.2, 3.1, 18.4],
+        ["Burner unit", "", 2, 2.4, 1.8, 1.9, 1.55],
+        ["Platform section", "", 4, 6, 1.2, 0.4, 0.72],
+        ["Control cabinet", "", 1, 2.1, 0.8, 2.2, 0.64],
+      ],
+      notes: ["Габариты записаны одной строкой «Д×Ш×В»: разобраны на три столбца.", "Сантиметры переведены в метры.", "Вес указан на всю строку, а не на одно место: поделён на количество. Проверено по физике: иначе горелка весила бы 3,1 т при объёме 0,8 м³."],
+    },
+    ru: {
+      head: ["№", "Наименование", "Кол-во мест", "Длина, м", "Ширина, м", "Высота, м", "Масса брутто, т"],
+      rows: [
+        [1, "Корпус теплообменника", 1, "9,4", "3,2", "3,05", "24,6"],
+        [2, "Опора", 2, "3,1", "1,4", "1,2", "2,9"],
+        [3, "Ящик с ЗИП", 6, "1,2", "0,8", "0,9", "0,35"],
+        ["", "Итого", 9, "", "", "", "32,5"],
+      ],
+      total: true,
+      map: [null, "name", "qty", "L", "W", "H", "m"],
+      out: [
+        ["Корпус теплообменника", "", 1, 9.4, 3.2, 3.05, 24.6],
+        ["Опора", "", 2, 3.1, 1.4, 1.2, 2.9],
+        ["Ящик с ЗИП", "", 6, 1.2, 0.8, 0.9, 0.35],
+      ],
+      notes: ["Строка «Итого» не попала в груз, но по ней сверена масса: 24,6 + 2 × 2,9 + 6 × 0,35 = 32,5 т.", "Запятая в числах прочитана как дробная часть, а не как разделитель тысяч."],
+    },
+  };
+  const COLS = [["name", "Наименование"], ["qty", "Мест"], ["L", "Д, м"], ["W", "Ш, м"], ["H", "В, м"], ["m", "Масса 1 места, т"]];
+  let cur = "cn", on = null;
+  function render() {
+    const d = P[cur];
+    const isNum = (v) => typeof v === "number" || /^[\d,.]+$/.test(String(v));
+    $("#pk-raw").innerHTML = `<table><thead><tr>${d.head.map((h, i) => `<th tabindex="0" data-i="${i}" class="${on === i ? "on" : ""}" title="Показать, куда попал столбец">${h}</th>`).join("")}</tr></thead><tbody>${d.rows
+      .map((r, ri) => `<tr class="${d.total && ri === d.rows.length - 1 ? "total" : ""}">${r.map((v) => `<td class="${isNum(v) && v !== "" ? "n" : ""}">${v}</td>`).join("")}</tr>`)
+      .join("")}</tbody></table>`;
+    const target = on === null ? null : d.map[on];
+    const hit = (k) => target && (target === k || (target === "LWH" && ["L", "W", "H"].includes(k)));
+    $("#pk-out").innerHTML = `<table><thead><tr>${COLS.map(([k, t]) => `<th class="${k === "name" ? "" : "n"} ${hit(k) ? "on" : ""}">${t}</th>`).join("")}</tr></thead><tbody>${d.out
+      .map((r) => `<tr><td class="${hit("name") ? "on" : ""}">${r[0]}${r[1] ? `<span class="src">${r[1]}</span>` : ""}</td>${r.slice(2).map((v, i) => `<td class="n ${hit(COLS[i + 1][0]) ? "on" : ""}">${fmt(v, i === 0 ? 0 : 2)}</td>`).join("")}</tr>`)
+      .join("")}</tbody></table>`;
+    $("#pk-notes").innerHTML = d.notes.map((n) => `<li>${n}</li>`).join("");
+  }
+  $("#pk-tabs").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    cur = b.dataset.k; on = null;
+    $("#pk-tabs").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    render();
+  });
+  const pick = (e) => {
+    const th = e.target.closest("th[data-i]");
+    if (!th) return;
+    const i = +th.dataset.i;
+    on = on === i || P[cur].map[i] === null ? null : i;
+    render();
+  };
+  $("#pk-raw").addEventListener("click", pick);
+  $("#pk-raw").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(e); } });
+  render();
+})();
+
+/* ============ 3. Сводка ============ */
+(() => {
+  /* Вымышленные данные: по месяцам (последний — текущий) для каждого направления. */
+  const DIRS = [
+    { k: "Новороссийск → Москва", calcs: [4, 3, 5, 4, 6, 5, 4, 5, 6, 5, 7, 6], won: [2, 1, 2, 2, 3, 2, 2, 2, 3, 2, 3, 3], rev: 1.9, margin: 18.4 },
+    { k: "Казань → Пермь", calcs: [3, 2, 3, 3, 2, 4, 3, 3, 4, 3, 3, 4], won: [1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 1, 2], rev: 1.1, margin: 21.7 },
+    { k: "Россия → Казахстан", calcs: [2, 2, 1, 3, 2, 2, 3, 2, 2, 3, 2, 3], won: [1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1], rev: 3.4, margin: 12.2 },
+    { k: "Екатеринбург → Сургут", calcs: [2, 3, 2, 2, 3, 2, 3, 3, 2, 3, 4, 3], won: [1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 2, 1], rev: 2.6, margin: 9.6 },
+    { k: "Россия → Китай", calcs: [1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2], won: [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1], rev: 5.8, margin: 14.9 },
+    { k: "Москва → Тюмень", calcs: [3, 2, 2, 3, 2, 3, 2, 2, 3, 2, 3, 2], won: [1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0], rev: 1.4, margin: -3.1 },
+  ];
+  const REASONS = [["Цена выше, чем у конкурентов", 0.38], ["Проиграли тендер", 0.22], ["Клиент перенёс перевозку", 0.17], ["Нет свободной техники", 0.13], ["Высокие риски маршрута", 0.1]];
+  let months = 6;
+  const sum = (a) => a.reduce((x, y) => x + y, 0);
+  function render() {
+    const rows = DIRS.map((d) => {
+      const calcs = sum(d.calcs.slice(-months)), won = sum(d.won.slice(-months));
+      const drift = (months === 3 ? 0.6 : months === 12 ? -0.4 : 0);
+      return { k: d.k, calcs, won, rev: won * d.rev, margin: d.margin + (d.margin > 0 ? drift : -drift) };
+    });
+    const calcs = sum(rows.map((r) => r.calcs)), won = sum(rows.map((r) => r.won));
+    const wait = Math.round(calcs * 0.12), work = Math.round(calcs * 0.16), lost = calcs - won - wait - work;
+    const rev = sum(rows.map((r) => r.rev)), res = sum(rows.map((r) => (r.rev * r.margin) / 100));
+    const kpi = [
+      [fmt(calcs), "расчётов за период"],
+      [fmt(won), `стали перевозками, ${fmt((won / calcs) * 100)}%`],
+      [fmt(rev, 1) + " млн", "выручка по ним без НДС, ₽"],
+      [fmt((res / rev) * 100, 1) + "%", "средняя маржа"],
+    ];
+    $("#dash-kpi").innerHTML = kpi.map(([v, t]) => `<div class="kpi"><div class="v">${v}</div><p>${t}</p></div>`).join("");
+    const seg = [["s-won", "Стали перевозками", won], ["s-wait", "Ждём ответа клиента", wait], ["s-work", "В работе", work], ["s-lost", "Отказы", lost]];
+    const f = $("#dash-funnel");
+    f.setAttribute("aria-label", seg.map((s) => s[1] + ": " + s[2]).join(", "));
+    f.innerHTML = seg.map(([c, t, n]) => `<span class="${c}" style="flex-grow:${n}" title="${t}: ${n}"></span>`).join("");
+    $("#dash-legend").innerHTML = seg.map(([c, t, n]) => `<span><i class="${c}"></i>${t} <b class="num">${n}</b></span>`).join("");
+    const max = Math.max(...rows.map((r) => Math.abs(r.margin)));
+    $("#dash-bars").innerHTML = rows
+      .sort((a, b) => b.margin - a.margin)
+      .map((r) => `<div class="bar" tabindex="0" data-k="${r.k}" data-t="${r.k}: расчётов ${r.calcs}, перевозок ${r.won} (${fmt((r.won / r.calcs) * 100)}%), выручка ${fmt(r.rev, 1)} млн ₽"><span>${r.k}</span><span class="track"><span class="fill ${r.margin < 0 ? "neg" : ""}" style="width:${(Math.abs(r.margin) / max) * 100}%"></span></span><span class="num">${fmt(r.margin, 1)}%</span></div>`)
+      .join("");
+    $("#dash-reasons").innerHTML = REASONS.map(([t, p]) => `<div><span>${t}</span><b class="num">${Math.max(1, Math.round(lost * p))}</b></div>`).join("");
+  }
+  $("#dash-period").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    months = +b.dataset.m;
+    $("#dash-period").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    render();
+  });
+  const tip = $("#dash-tip"), box = tip.parentElement;
+  const show = (bar) => {
+    tip.textContent = bar.dataset.t;
+    tip.hidden = false;
+    const r = bar.getBoundingClientRect(), p = box.getBoundingClientRect();
+    tip.style.left = Math.min(r.left - p.left + 120, p.width - 250) + "px";
+    tip.style.top = r.bottom - p.top + 6 + "px";
+  };
+  $("#dash-bars").addEventListener("pointerover", (e) => { const b = e.target.closest(".bar"); if (b) show(b); });
+  $("#dash-bars").addEventListener("pointerleave", () => (tip.hidden = true));
+  $("#dash-bars").addEventListener("focusin", (e) => { const b = e.target.closest(".bar"); if (b) show(b); });
+  $("#dash-bars").addEventListener("focusout", () => (tip.hidden = true));
+  render();
+})();
+
+/* ============ 4. План-факт ============ */
+(() => {
+  const REV = 2400000, RESERVE = 0.05;
+  const ROWS = [
+    { k: "Наёмный тягач, 2 рейса", plan: 1240000 },
+    { k: "Разрешения и согласования", plan: 160000 },
+    { k: "Сопровождение и прикрытие", plan: 220000 },
+    { k: "Кран на выгрузке", plan: 130000 },
+    { k: "Простой и непредвиденное", plan: 0, max: 200000 },
+  ];
+  const fact = ROWS.map((r) => r.plan);
+  fact[0] = 1310000; fact[4] = 45000;
+  $("#pf-rows").innerHTML = ROWS.map((r, i) => {
+    const min = r.max ? 0 : Math.round(r.plan * 0.6 / 5000) * 5000, max = r.max || Math.round(r.plan * 1.6 / 5000) * 5000;
+    return `<div class="pf-row"><label for="pf-${i}">${r.k}<span class="plan" style="display:block">план ${r.plan ? rub(r.plan) : "не было"}</span></label><div><div class="pf-fact" id="pf-f-${i}"></div><div class="delta" id="pf-d-${i}"></div></div><input type="range" id="pf-${i}" min="${min}" max="${max}" step="5000" value="${fact[i]}" aria-label="Факт: ${r.k}"></div>`;
+  }).join("");
+  function render() {
+    const planCost = ROWS.reduce((a, r) => a + r.plan, 0), factCost = fact.reduce((a, v) => a + v, 0);
+    const planRes = REV - planCost * (1 + RESERVE), factRes = REV - factCost;
+    ROWS.forEach((r, i) => {
+      $("#pf-f-" + i).textContent = rub(fact[i]);
+      const d = fact[i] - r.plan;
+      const de = $("#pf-d-" + i);
+      de.textContent = Math.abs(d) < 1 ? "как в плане" : (d > 0 ? "+" : "−") + rub(Math.abs(d));
+      de.className = "delta " + (d > 0 ? "up" : d < 0 ? "down" : "");
+    });
+    const pm = (planRes / REV) * 100, fm = (factRes / REV) * 100, top = Math.max(pm, fm, 1);
+    $("#pf-bars").innerHTML =
+      `<div class="pf-bar plan"><span>План</span><span class="track"><span class="fill" style="width:${Math.max(0, pm / top) * 100}%"></span></span><span class="num">${fmt(pm, 1)}%<small>${fmt(planRes / 1000)} тыс. ₽</small></span></div>` +
+      `<div class="pf-bar fact ${fm < pm ? "bad" : ""}"><span>Факт</span><span class="track"><span class="fill" style="width:${Math.max(0, fm / top) * 100}%"></span></span><span class="num">${fmt(fm, 1)}%<small>${fmt(factRes / 1000)} тыс. ₽</small></span></div>`;
+    const worst = ROWS.map((r, i) => ({ k: r.k, d: fact[i] - r.plan })).filter((x) => x.d > 0).sort((a, b) => b.d - a.d);
+    const diff = factRes - planRes;
+    $("#pf-worse").innerHTML = (diff >= 0 ? `Заработали на <b>${rub(diff)}</b> больше плана.` : `Недобрали <b>${rub(-diff)}</b> к плану.`) + (worst.length ? ` Больше всего ушло: ${worst.slice(0, 2).map((x) => `${x.k.toLowerCase()} (+${rub(x.d)})`).join(", ")}.` : " Ни одна статья не превысила план.") + ` <span class="hint">Суммы без НДС.</span>`;
+  }
+  $("#pf-rows").addEventListener("input", (e) => {
+    const m = e.target.id.match(/^pf-(\d)$/);
+    if (!m) return;
+    fact[+m[1]] = +e.target.value;
+    render();
+  });
+  render();
+})();
+
+/* ============ 5. Бот ============ */
+(() => {
+  const P = "«Поставка котла КВ-30» · ООО «Пример»";
+  const STEPS = [
+    { who: "Анна, менеджер", act: "Отправить на проверку", to: "Пётр, финансист", text: `📋 Сделка на проверку\n${P}\nОтправила: Анна` },
+    { who: "Пётр, финансист", act: "Проверено, можно согласовывать", to: "Анна, менеджер", text: `✅ Сделка проверена, можно отправлять директору\n${P}\nПроверил: Пётр` },
+    { who: "Анна, менеджер", act: "Отправить директору", to: "Ирина, директор", text: `📝 Сделка ждёт вашего решения\n${P}\nОтправила: Анна` },
+    { who: "Ирина, директор", act: "Согласовать", to: "Анна и Пётр", text: `✅ Сделка согласована\n${P}\nРешение: Ирина` },
+  ];
+  let done = 0;
+  function render() {
+    $("#bot-steps").innerHTML =
+      STEPS.map((s, i) => `<div class="step ${i < done ? "done" : i === done ? "now" : ""}"><span class="n">${i < done ? "✓" : i + 1}</span><div><b>${s.who}</b><p>${i < done ? "Готово." : i === done ? "Сейчас очередь этого шага." : "Ждёт своей очереди."}</p>${i === done ? `<button class="btn primary" type="button" data-go style="margin-top:6px">${s.act}</button>` : ""}</div></div>`).join("") +
+      (done ? `<button class="btn" type="button" data-reset style="justify-self:start">Начать заново</button>` : "");
+    const chat = $("#bot-chat");
+    chat.innerHTML = done
+      ? STEPS.slice(0, done).map((s) => `<div><div class="who">бот → ${s.to}</div><div class="msg">${s.text.replace(/\n/g, "<br>")}<span class="open">Открыть проект</span></div></div>`).join("")
+      : `<p class="empty">Здесь появятся сообщения бота. Нажмите кнопку слева.</p>`;
+    chat.scrollTop = chat.scrollHeight;
+  }
+  $("#bot-steps").addEventListener("click", (e) => {
+    if (e.target.closest("[data-go]")) { done++; render(); $("#bot-steps [data-go], #bot-steps [data-reset]")?.focus(); }
+    if (e.target.closest("[data-reset]")) { done = 0; render(); $("#bot-steps [data-go]")?.focus(); }
+  });
+  render();
+})();
+
+/* ============ 6. Заявка ============ */
+(() => {
+  const KINDS = [
+    { k: "crane", t: "Автокран 25 т", rate: 3200, min: 4, km: 110 },
+    { k: "manip", t: "Манипулятор 7 т", rate: 2400, min: 3, km: 90 },
+    { k: "lift", t: "Автовышка 28 м", rate: 2100, min: 3, km: 80 },
+  ];
+  $("#lead-kind").innerHTML = KINDS.map((x, i) => `<label><input type="radio" name="lead-kind" value="${x.k}" ${i === 0 ? "checked" : ""}><b>${x.t}</b><span class="hint num">${fmt(x.rate)} ₽/ч, от ${x.min} ч</span></label>`).join("");
+  const form = $("#lead-form");
+  function calc() {
+    const kind = KINDS.find((x) => x.k === form.querySelector("input[name=lead-kind]:checked").value);
+    const h = +$("#lead-hours").value, km = +$("#lead-km").value;
+    $("#lead-hours-v").textContent = h;
+    $("#lead-km-v").textContent = km;
+    const hours = Math.max(h, kind.min), price = hours * kind.rate + km * kind.km * 2;
+    $("#lead-price").textContent = rub(price);
+    const phone = $("#lead-phone").value.trim() || "не указан";
+    $("#lead-msg").textContent = `🟡 Новая заявка с сайта\n${kind.t}, ${h} ч${h < kind.min ? ` (минимум ${kind.min} ч)` : ""}\nПодача за город: ${km} км\nРасчёт на сайте: ${rub(price)}\nТелефон: ${phone}\n\nКлиент видел цену, звонить можно сразу.`;
+    $("#lead-sent").textContent = "Сообщение меняется вместе с формой.";
+  }
+  form.addEventListener("input", calc);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    $("#lead-sent").textContent = "Это пример: заявка никуда не уходит. На настоящем сайте она пришла бы менеджеру в Telegram за пару секунд.";
+  });
+  calc();
+})();
+
+/* ============ Контакты ============ */
+(() => {
+  const box = $("#contact-links");
+  const items = [];
+  if (CONTACTS.telegram) items.push(`<a href="https://t.me/${CONTACTS.telegram.replace(/^@/, "")}" target="_blank" rel="noopener">Telegram: @${CONTACTS.telegram.replace(/^@/, "")}</a>`);
+  if (CONTACTS.email) items.push(`<span class="addr">${CONTACTS.email}</span><button class="btn copy" type="button" data-copy="${CONTACTS.email}">Скопировать почту</button>`);
+  if (CONTACTS.phone) items.push(`<span class="addr">${CONTACTS.phone}</span>`);
+  box.innerHTML = items.length ? items.join("") : `<span class="addr">Контакты появятся здесь</span>`;
+  box.addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-copy]");
+    if (!b) return;
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Скопировано"; }
+    catch { const r = document.createRange(); r.selectNodeContents(b.previousElementSibling); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = "Выделено, скопируйте"; }
+  });
+})();
+</script>
+</body>
+</html>
