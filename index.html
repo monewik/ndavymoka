@@ -117,15 +117,26 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-block: clamp(48px, 9vw, 104px) 40px; }
 .intro .label { margin-bottom: 18px; }
 .intro h1 { max-width: 16em; }
-.intro .lead { margin-top: 22px; max-width: 34em; font-size: 1.14rem; line-height: 1.6; color: var(--ink-2); }
+.intro .lead { margin-top: 22px; max-width: 26em; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.5; color: var(--ink); }
 .intro .lead b { color: var(--ink); font-weight: 600; }
-.growth { list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 46rem; counter-reset: g; }
-.growth li { counter-increment: g; display: grid; gap: 4px; align-content: start; padding: 14px 16px; border-radius: 18px; background: var(--sheet); border: 1px solid var(--glass-edge); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); font-size: 0.86rem; color: var(--ink-2); line-height: 1.4; }
-.growth b { font: 500 1.05rem var(--font-display); color: var(--ink); }
-.growth b::before { content: "0" counter(g) "  "; font: 500 0.72rem var(--font-body); color: var(--accent); letter-spacing: 0.06em; vertical-align: 2px; white-space: pre; }
-@media (max-width: 640px) { .growth { grid-template-columns: minmax(0, 1fr); } }
+.intro .for { margin-top: 12px; max-width: 34em; font-size: 0.95rem; color: var(--ink-2); }
+.hero-side { display: grid; gap: 22px; width: min(23rem, 100%); }
+.feed-box { display: grid; gap: 10px; }
+.feed-cap { display: flex; align-items: center; gap: 8px; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin: 0; }
+.feed-live { width: 7px; height: 7px; border-radius: 50%; background: #2fb36b; box-shadow: 0 0 0 0 rgb(47 179 107 / 0.5); animation: live 2s infinite; }
+@keyframes live { 70% { box-shadow: 0 0 0 7px rgb(47 179 107 / 0); } 100% { box-shadow: 0 0 0 0 rgb(47 179 107 / 0); } }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; height: 16.6rem; overflow: hidden; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+.feed li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 2px 10px; align-items: start; padding: 10px 12px; border-radius: 16px; background: var(--sheet); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(20px) saturate(170%); backdrop-filter: blur(20px) saturate(170%); font-size: 0.84rem; line-height: 1.35; }
+.feed li.in { animation: feedIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes feedIn { from { opacity: 0; transform: translateY(-14px) scale(0.97); } }
+.feed .ic { grid-row: span 2; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-size: 0.72rem; font-weight: 700; background: hsl(var(--h) 55% 50%); }
+.feed .fsrc { font-size: 0.72rem; color: var(--ink-2); font-weight: 500; }
+.feed .ftime { font-size: 0.7rem; color: var(--ink-2); }
+.feed .txt { grid-column: 2 / -1; color: var(--ink); }
+@media (max-width: 760px) { .hero-side { width: 100%; } .feed { height: 12.4rem; } }
+@media (prefers-reduced-motion: reduce) { .feed li.in { animation: none; } .feed-live { animation: none; } }
 .portrait { display: flex; gap: 14px; align-items: center; }
-.portrait img { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; filter: saturate(0.85); }
+.portrait img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; filter: saturate(0.85); }
 .portrait p { font-size: 0.9rem; color: var(--ink-2); max-width: 15em; }
 .portrait b { display: block; color: var(--ink); font-size: 1rem; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
@@ -361,7 +372,8 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .doc .sign span { border-top: 1px solid var(--doc-ink); padding-top: 4px; }
 
 /* сайты для бизнеса: макеты в рамке браузера, у каждого свой фиксированный стиль */
-#st-site { flex-wrap: wrap; border-radius: 18px; }
+#st-site, #cl-type, #cl-day, #sb-f, #cb-k, #cb-offer, #sk-safe, #sk-cycle { flex-wrap: wrap; border-radius: 18px; }
+.sb-seats, .sb-cls > span { min-width: 0; }
 .st-stage { margin-top: 18px; display: grid; justify-items: center; padding: 18px; border-radius: 18px; background: var(--paper); }
 .st-frame { width: 100%; max-width: 980px; background: #fff; transition: max-width 0.35s ease; box-shadow: 0 18px 40px -20px rgb(15 23 42 / 0.3); border-radius: 14px; }
 .st-stage.phone .st-frame { max-width: 380px; border-radius: 30px; border: 8px solid #16181d; }
@@ -413,7 +425,7 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .ms-tattoo .ms-card { background: transparent; border: 1px solid #2a2a2a; border-radius: 0; }
 .ms-tattoo .ms-rev q { background: #151515; border-radius: 0; }
 .ms-tattoo .ms-foot { border-top: 1px solid #2a2a2a; color: #8a8a8a; }
-/* шаурма */
+/* кафе */
 .ms-food { background: #fff8ee; }
 .ms-food .ms-nav b { color: #c2410c; font-weight: 700; }
 .ms-food .ms-hero { background: #ffb020; color: #2a1606; border-radius: 0 0 28px 28px; }
@@ -422,6 +434,75 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .ms-food .ms-card i { color: #c2410c; }
 .ms-food .ms-rev q { background: #fff; }
 .ms-food .ms-foot { background: #2a1606; color: #ffd98a; }
+/* клининг: план квартиры */
+.cl-top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+.cl { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 26px; margin-top: 16px; align-items: start; }
+.cl-planbox { display: grid; gap: 8px; }
+#cl-plan { width: 100%; height: auto; background: var(--solid); border-radius: 14px; border: 1px solid var(--line); }
+.cl-room rect { fill: var(--paper); stroke: var(--ink); stroke-width: 3; cursor: pointer; transition: fill 0.15s; }
+.cl-room text { font: 500 12px var(--font-body); fill: var(--ink-2); pointer-events: none; }
+.cl-room text.m { font-weight: 400; font-size: 11px; }
+.cl-room.on rect { fill: color-mix(in oklab, #1f8a70 18%, var(--solid)); }
+.cl-room.on text { fill: var(--ink); }
+.cl-room:hover rect, .cl-room:focus-visible rect { fill: color-mix(in oklab, #1f8a70 28%, var(--solid)); outline: none; }
+.cl-win { fill: var(--solid); stroke: #2a9fd8; stroke-width: 2; cursor: pointer; }
+.cl-win.on { fill: #2a9fd8; }
+.cl-ap rect { fill: var(--solid); stroke: var(--ink-2); stroke-width: 1.2; cursor: pointer; }
+.cl-ap text { font: 700 11px var(--font-body); fill: var(--ink-2); pointer-events: none; }
+.cl-ap.on rect { fill: var(--ink); stroke: var(--ink); } .cl-ap.on text { fill: var(--solid); }
+.cl-key { display: inline-block; width: 12px; height: 10px; border-radius: 2px; vertical-align: -1px; border: 1px solid var(--ink); }
+.cl-key.on { background: color-mix(in oklab, #1f8a70 18%, var(--solid)); }
+.cl-key.win { background: #2a9fd8; border-color: #2a9fd8; height: 5px; vertical-align: 1px; }
+.cl-side { display: grid; gap: 14px; }
+.cl-side > .btn { justify-self: start; }
+.cl-sum { display: grid; gap: 4px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.cl-sum > div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.cl-sum b { font: 700 1.9rem var(--font-display); font-variant-numeric: tabular-nums; }
+.cl-own { display: grid; gap: 4px; font-size: 0.88rem; }
+.cl-own .label { margin: 0 0 4px; }
+.cl-own div { display: flex; justify-content: space-between; gap: 10px; }
+.cl-own div b { font-variant-numeric: tabular-nums; font-weight: 500; }
+.cl-own .tot { border-top: 1px solid var(--line); padding-top: 6px; margin-top: 2px; }
+.cl-own .tot b { font-weight: 700; }
+.cl-check { margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 16px; animation: rise 0.3s ease-out; }
+.cl-check-h { font-size: 0.9rem; color: var(--ink-2); }
+.cl-check-h b { color: var(--ink); }
+.cl-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 10px; margin-top: 12px; }
+.cl-cols > div { background: var(--paper); border-radius: 12px; padding: 10px 12px; font-size: 0.82rem; }
+.cl-cols ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 3px; color: var(--ink-2); }
+.cl-cols li::before { content: "☐ "; }
+.cl-cols li.ph { color: #1f8a70; } .cl-cols li.ph::before { content: "◉ "; }
+@media (max-width: 860px) { .cl { grid-template-columns: minmax(0, 1fr); } }
+
+/* тату: силуэт */
+.tt { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 30px; align-items: start; }
+.tt-body { display: grid; gap: 10px; justify-items: center; padding: 14px; border-radius: 18px; background: var(--paper); }
+#tt-svg { width: 100%; max-width: 13rem; height: auto; }
+.tt-sil { fill: color-mix(in oklab, var(--ink-2) 16%, var(--solid)); }
+.tt-z { fill: transparent; stroke: transparent; cursor: pointer; transition: fill 0.15s; }
+.tt-z:hover, .tt-z:focus-visible { fill: color-mix(in oklab, var(--accent) 22%, transparent); outline: none; }
+.tt-z.on { fill: color-mix(in oklab, var(--accent) 16%, transparent); stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 3 2; }
+.tt-body .hint { text-align: center; }
+.tt-in { display: grid; gap: 14px; }
+.tt-styles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.tt-styles button { display: grid; justify-items: center; gap: 4px; padding: 10px 4px 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--solid); color: var(--ink-2); cursor: pointer; font-size: 0.8rem; }
+.tt-styles button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.tt-res { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 24px; align-items: end; border-top: 1px solid var(--line); padding-top: 14px; }
+.tt-price { display: grid; }
+.tt-price b { font: 600 1.7rem var(--font-display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tt-pain { display: grid; gap: 4px; font-size: 0.88rem; }
+.tt-dots { display: inline-flex; gap: 3px; vertical-align: -1px; margin-right: 6px; }
+.tt-dots i { width: 14px; height: 6px; border-radius: 3px; background: var(--line); }
+.tt-dots i.on { background: var(--bad); }
+.tt-plan { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tt-plan li { display: grid; padding: 8px 12px; border-radius: 12px; background: var(--paper); font-size: 0.82rem; border-left: 3px solid var(--ink); }
+.tt-plan li span { color: var(--ink-2); }
+.tt-plan li.free { border-left-color: var(--ok); }
+.tt-in > .btn { justify-self: start; }
+.tt-ticket { display: grid; gap: 3px; padding: 12px 14px; border-radius: 14px; border: 1px dashed var(--ok); font-size: 0.86rem; animation: rise 0.3s ease-out; }
+.tt-ticket span { color: var(--ink-2); }
+@media (max-width: 760px) { .tt { grid-template-columns: minmax(0, 1fr); } .tt-res { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+
 /* автосервис: ТО */
 .to-works { display: grid; }
 .to-w { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; cursor: pointer; }
@@ -476,15 +557,6 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .sk-days { display: inline-block; height: 6px; border-radius: 3px; background: var(--ok); vertical-align: middle; margin-right: 6px; }
 .sk-days.bad { background: var(--bad); } .sk-days.warn { background: var(--warn); } .sk-days.slow { background: var(--ink-2); opacity: 0.5; }
 /* клининг */
-.cl-win small { margin-left: 6px; }
-.cl-extra { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; font-size: 0.88rem; }
-.cl-extra label { display: flex; gap: 8px; align-items: center; cursor: pointer; }
-.cl-extra i { font-style: normal; color: var(--ink-2); font-size: 0.8rem; margin-left: auto; white-space: nowrap; }
-.cl-own { background: var(--paper); border-radius: 14px; padding: 12px 14px; display: grid; gap: 4px; font-size: 0.88rem; }
-.cl-own div { display: flex; justify-content: space-between; gap: 10px; }
-.cl-own div b { font-variant-numeric: tabular-nums; font-weight: 500; }
-.cl-own .tot { border-top: 1px solid var(--line); padding-top: 6px; margin-top: 2px; }
-.cl-own .tot b { font-weight: 700; }
 /* абонементы */
 .sb-cols { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px; margin-top: 4px; }
 .sb-row { grid-template-columns: auto minmax(0, 11rem) minmax(0, 1fr); }
@@ -509,7 +581,7 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .tu-l.plan { border-style: dashed; cursor: default; background: transparent; }
 .debt { color: var(--bad); font-weight: 600; } .zero { color: var(--warn); font-weight: 600; }
 @media (max-width: 960px) { .mp, .sb-cols { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 760px) { .tu-week { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cl-extra { grid-template-columns: minmax(0, 1fr); } .rp-kpi { grid-template-columns: minmax(0, 1fr); } .mp-row { grid-template-columns: 7rem minmax(0, 1fr) 4.6rem; } .sb-row { grid-template-columns: auto minmax(0, 1fr); } .sb-row .cb-msg { grid-column: 1 / -1; } .rp-steps li { font-size: 0.66rem; } }
+@media (max-width: 760px) { .tu-week { grid-template-columns: repeat(3, minmax(0, 1fr)); } .rp-kpi { grid-template-columns: minmax(0, 1fr); } .mp-row { grid-template-columns: 7rem minmax(0, 1fr) 4.6rem; } .sb-row { grid-template-columns: auto minmax(0, 1fr); } .sb-row > :nth-child(3) { grid-column: 1 / -1; } .rp-steps li { font-size: 0.66rem; } }
 /* сайты: автосервис и клининг */
 .ms-auto { background: #0f1419; color: #e6ebf0; }
 .ms-auto .ms-nav b { color: #f5b301; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
@@ -550,7 +622,7 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .doc-note { font-size: 0.86rem; color: var(--ink-2); margin: 0 0 14px; max-width: 46em; }
 /* договор: лист бумаги */
 .paper { position: relative; overflow: hidden; background: #fdfcf8; color: #1d1d1f; border: 1px solid rgb(0 0 0 / 0.08); border-radius: 4px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 18px 40px -18px rgb(0 0 0 / 0.3); padding: 52px 56px 44px; font: 0.88rem/1.55 var(--font-display); font-optical-sizing: auto; }
-.paper::before { content: "ОБРАЗЕЦ"; position: absolute; top: 340px; left: 50%; transform: translateX(-50%) rotate(-28deg); font: 600 6.5rem/1 var(--font-display); letter-spacing: 0.08em; color: rgb(0 0 0 / 0.035); pointer-events: none; white-space: nowrap; }
+.paper::before { content: ""; position: absolute; top: 340px; left: 50%; transform: translateX(-50%) rotate(-28deg); font: 600 6.5rem/1 var(--font-display); letter-spacing: 0.08em; color: rgb(0 0 0 / 0.035); pointer-events: none; white-space: nowrap; }
 .paper .p-title { text-align: center; font-weight: 600; letter-spacing: 0.06em; font-size: 1rem; }
 .paper .p-sub { text-align: center; margin-top: 2px; }
 .paper .p-meta { display: flex; justify-content: space-between; gap: 12px; margin: 22px 0 18px; }
@@ -559,6 +631,11 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .paper .cl { display: grid; grid-template-columns: 2.4em minmax(0, 1fr); }
 .paper .blank { display: inline-block; min-width: 7em; border-bottom: 1px solid #1d1d1f; height: 1em; vertical-align: -2px; }
 .paper .blank.s { min-width: 3em; }
+.paper .fill { font: inherit; color: inherit; border: 0; border-bottom: 1px solid #1d1d1f; background: #fff6cc; padding: 0 3px; border-radius: 2px 2px 0 0; max-width: 100%; vertical-align: baseline; }
+.paper .fill::placeholder { color: #9a9282; font-style: italic; }
+.paper .fill:focus { outline: 2px solid #f0c64a; outline-offset: 1px; background: #fff0b0; }
+.paper textarea.fill { width: 100%; resize: vertical; display: block; border-bottom: 0; line-height: 1.4; }
+.paper input.fill.n { text-align: right; }
 .paper .req { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 10px; }
 .paper .req b { display: block; margin-bottom: 4px; }
 .paper .req p { text-align: left; margin: 0 0 2px; }
@@ -696,7 +773,9 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* частые вопросы */
-.faq { display: grid; gap: 0; margin-top: 14px; border-top: 1px solid var(--line); }
+.faq { columns: 2; column-gap: 44px; margin-top: 14px; border-top: 1px solid var(--line); }
+.faq details { break-inside: avoid; }
+@media (max-width: 860px) { .faq { columns: 1; } }
 .faq details { border-bottom: 1px solid var(--line); }
 .faq summary { cursor: pointer; padding-block: 14px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
 .faq summary::-webkit-details-marker { display: none; }
@@ -892,6 +971,129 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+/* кафе: экран кухни */
+.od { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 22px; align-items: start; }
+.kds { background: #15171b; color: #e9ecef; border-radius: 16px; padding: 12px; display: grid; gap: 10px; box-shadow: 0 18px 40px -22px rgb(0 0 0 / 0.6); }
+.kds-bar { display: flex; justify-content: space-between; font-size: 0.8rem; color: #9aa3ad; padding: 0 4px; }
+.kds-bar b { color: #e9ecef; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.74rem; }
+.kds-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-height: 300px; }
+.kds-col { display: grid; gap: 8px; align-content: start; background: #1d2026; border-radius: 10px; padding: 8px; }
+.kds-h { font-size: 0.72rem; color: #9aa3ad; text-transform: uppercase; letter-spacing: 0.06em; display: flex; justify-content: space-between; }
+.kds-h i { font-style: normal; color: #e9ecef; }
+.kds-t { background: #f3efe6; color: #1c1c1e; border-radius: 6px; padding: 8px 9px 9px; display: grid; gap: 4px; font-size: 0.8rem; border-top: 4px solid #3b82f6; }
+.kds-col:nth-child(2) .kds-t { border-top-color: #f59e0b; }
+.kds-col:nth-child(3) .kds-t { border-top-color: #22a06b; opacity: 0.85; }
+.kds-t.late { border-top-color: #e5484d; box-shadow: 0 0 0 2px #e5484d; }
+.kds-t.fresh { animation: pop 0.35s ease-out; }
+.kds-top { display: flex; justify-content: space-between; align-items: baseline; }
+.kds-time { font-variant-numeric: tabular-nums; font-weight: 600; }
+.kds-t.late .kds-time { color: #c0392b; }
+.kds-t small { color: #6b6b70; font-size: 0.72rem; }
+.kds-t ul { margin: 0; padding-left: 16px; display: grid; gap: 1px; }
+.kds-t button { margin-top: 2px; border: 0; border-radius: 5px; padding: 6px; background: #1c1c1e; color: #fff; font-size: 0.76rem; cursor: pointer; }
+.kds-t button:hover { background: #33363c; }
+.kds-toast { margin: 0; min-height: 1.3em; font-size: 0.8rem; color: #b8f0d2; padding: 0 4px; }
+.od-bars { display: grid; gap: 8px; margin-top: 16px; }
+.od-bar { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 12px; align-items: center; font-size: 0.85rem; }
+.od-bar span { color: var(--ink-2); }
+.od-bar > div { display: flex; height: 30px; border-radius: 8px; overflow: hidden; background: var(--paper); }
+.od-bar i { font-style: normal; display: grid; place-items: center; font-size: 0.76rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; transition: width 0.25s; }
+.od-bar i.lost { background: var(--bad); } .od-bar i.kept { background: var(--ok); }
+.od-save { margin: 4px 0 0; font-size: 0.92rem; color: var(--ink-2); }
+.od-save b { font: 600 1.4rem var(--font-display); color: var(--ok); margin-right: 6px; }
+@media (max-width: 960px) { .od { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .kds-cols { grid-template-columns: minmax(0, 1fr); min-height: 0; } .od-bar { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+/* возврат клиентов: шкала визитов */
+.cb-sum { margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--paper); font-size: 0.95rem; line-height: 1.5; }
+.cb-sum b { font-variant-numeric: tabular-nums; } .cb-sum .good { color: var(--ok); }
+#cb-list { display: grid; gap: 6px; margin-top: 14px; }
+.cbaxis, .cb-row2 { display: grid; grid-template-columns: 22px 9.5rem minmax(0, 1fr) 13rem; gap: 6px 14px; align-items: center; }
+.cbaxis { font-size: 0.7rem; color: var(--ink-2); }
+.cbaxis .ax { display: flex; justify-content: space-between; } .cbaxis i { font-style: normal; }
+.cb-row2 { padding: 10px 12px; border-radius: 14px; background: var(--paper); }
+.cb-row2.off { opacity: 0.5; }
+.cb-row2.fine { background: transparent; border: 1px dashed var(--line); }
+.cb-who small { display: block; color: var(--ink-2); font-size: 0.78rem; }
+.cbline { position: relative; height: 22px; border-bottom: 1px solid var(--line); }
+.cbv { position: absolute; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--ink); }
+.cbexp, .cbnext { position: absolute; bottom: -7px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; border: 2px dashed var(--bad); background: var(--solid); }
+.cbnext { border-color: var(--ok); }
+.cbgap { position: absolute; bottom: -2px; height: 4px; background: repeating-linear-gradient(90deg, var(--bad) 0 6px, transparent 6px 10px); }
+.cb-state { font-size: 0.8rem; }
+.cb-late { color: var(--bad); } .cb-okt { color: var(--ink-2); } .cb-st { color: var(--ok); font-weight: 600; }
+.cb-row2 .cb-msg { grid-column: 2 / -1; }
+@media (max-width: 760px) { .cbaxis { display: none; } .cb-row2 { grid-template-columns: 22px minmax(0, 1fr); } .cbline, .cb-state, .cb-row2 .cb-msg { grid-column: 2; } }
+/* маркетплейс: матрица */
+.mp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+.mp-mx { display: grid; gap: 8px; }
+#mp-matrix { width: 100%; height: auto; background: var(--paper); border-radius: 14px; }
+.mx-zero { stroke: var(--bad); stroke-dasharray: 4 3; stroke-width: 1; }
+.mx-mid { stroke: var(--line); stroke-width: 1; }
+.mx-q { font: 600 8px var(--font-body); letter-spacing: 0.1em; fill: var(--ink-2); }
+.mx-q.bad { fill: var(--bad); }
+.mx-ax { font: 9px var(--font-body); fill: var(--ink-2); }
+.mx-b { cursor: pointer; }
+.mx-b circle { fill: color-mix(in oklab, var(--ok) 55%, transparent); stroke: var(--ok); stroke-width: 1; transition: cx 0.3s, cy 0.3s, r 0.3s; }
+.mx-b.neg circle { fill: color-mix(in oklab, var(--bad) 45%, transparent); stroke: var(--bad); }
+.mx-b.on circle { stroke: var(--ink); stroke-width: 2.5; }
+.mx-b text { font: 500 9px var(--font-body); fill: var(--ink); pointer-events: none; }
+.mx-b:focus-visible { outline: none; } .mx-b:focus-visible circle { stroke: var(--focus); stroke-width: 3; }
+.mp-total { margin: 0; font-size: 0.9rem; color: var(--ink-2); } .mp-total b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.mp-out .label { margin: 0; } .mp-out .label span { color: var(--ink); text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+.mp-in { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 22px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+@media (max-width: 960px) { .mp { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .mp-in { grid-template-columns: minmax(0, 1fr); } }
+/* остатки: спарклайны и заказы */
+.sk-sp { width: 56px; height: 16px; vertical-align: -3px; margin-right: 4px; }
+.sk-sp rect { fill: var(--ink-2); opacity: 0.6; }
+.sk-orders { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 12px; margin-top: 14px; }
+.sk-po { border: 1px solid var(--line); background: var(--solid); border-radius: 14px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; }
+.sk-po.done { border-color: var(--ok); background: color-mix(in oklab, var(--ok) 6%, var(--solid)); }
+.sk-po-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.sk-po-h span { font-size: 0.76rem; color: var(--ink-2); }
+.sk-po.done .sk-po-h span { color: var(--ok); font-weight: 600; }
+.sk-li { display: grid; grid-template-columns: minmax(0, 1fr) auto 4.6rem; gap: 8px; align-items: center; font-size: 0.82rem; padding: 4px 0; border-top: 1px solid var(--line); }
+.sk-li i { font-style: normal; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.sk-li .od-q button { width: 24px; height: 24px; }
+.sk-po-f { display: flex; justify-content: space-between; align-items: center; padding-top: 6px; border-top: 1px solid var(--line); }
+.sk-po-f b { font-variant-numeric: tabular-nums; }
+/* студия: места в группах */
+.sb-seats { display: flex; flex-wrap: wrap; gap: 3px; }
+.sb-seats i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px dashed var(--line); font-style: normal; font-size: 0.6rem; font-weight: 600; display: grid; place-items: center; color: #fff; }
+.sb-seats i.on { border: 0; background: hsl(280 30% 55%); }
+.sb-seats i.new { background: var(--ok); animation: pop 0.4s ease-out; box-shadow: 0 0 0 3px color-mix(in oklab, var(--ok) 30%, transparent); }
+.sb-cls { grid-template-columns: 6rem minmax(0, 1fr) 2.6rem !important; }
+.sb-ans { color: var(--ok); font-size: 0.86rem; font-weight: 500; align-self: center; }
+
+/* автосервис: заказ-наряд */
+.rp-doc { position: relative; background: #fdfcf8; color: #1d1d1f; border: 1px solid rgb(0 0 0 / 0.08); border-radius: 6px; padding: 14px 16px; font: 0.84rem/1.45 var(--font-display); box-shadow: 0 12px 28px -18px rgb(0 0 0 / 0.4); overflow: hidden; }
+.rp-doc-h { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #1d1d1f; padding-bottom: 6px; margin-bottom: 6px; }
+.rp-doc-h span { font: 500 0.72rem var(--font-body); color: #6b6b70; text-transform: uppercase; letter-spacing: 0.06em; }
+.rp-ln { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; border-bottom: 1px dotted rgb(0 0 0 / 0.2); }
+.rp-ln i { font-style: normal; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rp-ln.add { color: #1e6b45; } .rp-ln.add span::before { content: "+ "; }
+.rp-ln.tot { border-bottom: 0; font-weight: 700; padding-top: 6px; }
+.rp-calls { margin: 6px 0 0; font: 0.76rem var(--font-body); color: #6b6b70; }
+.rp-stamp { position: absolute; right: 18px; top: 34px; transform: rotate(-12deg); border: 3px solid #1e6b45; color: #1e6b45; font: 800 1.1rem var(--font-body); letter-spacing: 0.12em; padding: 2px 10px; border-radius: 6px; opacity: 0.85; animation: pop 0.3s ease-out; }
+
+/* ИИ-блок */
+.ai { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+.ai-lead { margin-top: 12px; max-width: 36em; font-size: 0.95rem; }
+.ai-prices { margin-top: 18px; }
+.ai-demo { display: grid; gap: 10px; padding: 18px; border-radius: 24px; background: var(--sheet); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%); }
+#ai-chat { min-height: 340px; max-height: 420px; }
+.ai-qs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ai-qs button { border: 1px solid var(--line); background: var(--solid); border-radius: 14px; padding: 7px 12px; font-size: 0.84rem; cursor: pointer; text-align: left; }
+.ai-qs button:hover { border-color: var(--ink-2); }
+.ai-qs button:disabled { opacity: 0.4; cursor: default; }
+.ai-src { display: block; margin-top: 4px; font-size: 0.7rem; color: var(--tg-meta); }
+.ai-src::before { content: "◆ "; color: #7c5cff; }
+.ai-hand { display: block; margin-top: 4px; font-size: 0.72rem; color: #c77700; font-weight: 600; }
+.ai-typing { display: inline-flex; gap: 3px; padding: 4px 2px; }
+.ai-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--tg-meta); animation: aiDot 1s infinite; }
+.ai-typing i:nth-child(2) { animation-delay: 0.15s; } .ai-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes aiDot { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+@media (max-width: 960px) { .ai { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -902,6 +1104,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     <div class="right">
       <nav aria-label="Разделы">
         <a href="#work">Примеры</a>
+        <a href="#ai">ИИ</a>
         <a href="#process">Как работаю</a>
         <a href="#price">Стоимость</a>
         <a href="#faq">Вопросы</a>
@@ -912,22 +1115,24 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 
   <section class="intro">
     <div>
-      <p class="label">Никита Давымока · цифровые инструменты для малого бизнеса</p>
-      <h1>Больше повторных клиентов и&nbsp;меньше ручной работы</h1>
-      <p class="lead">Восемь лет в операционном управлении: от магазина до территории на 350 курьеров. Теперь делаю для <b>салонов, автосервисов, кафе, магазинов и студий</b> сайты, Telegram-ботов и таблицы учёта. Задача у них одна — чтобы бизнес рос за счёт системы, а не за счёт переработок владельца.</p>
-      <ul class="growth" aria-label="Что даёт работа">
-        <li><b>Привлечь</b><span>Сайт с ценами и онлайн-записью, заявки сразу в Telegram</span></li>
-        <li><b>Удержать</b><span>Напоминания, бонусы, возврат «уснувших» клиентов, отзывы</span></li>
-        <li><b>Посчитать</b><span>Себестоимость, зарплаты, маржа — чтобы решения опирались на цифры</span></li>
-      </ul>
+      <p class="label">Никита Давымока · автоматизация для малого бизнеса</p>
+      <h1>Больше клиентов&nbsp;—<br>меньше ручной работы</h1>
+      <p class="lead">Автоматизирую рутину, чтобы бизнес рос за&nbsp;счёт системы, а&nbsp;не&nbsp;ваших переработок.</p>
+      <p class="for">Сайты, Telegram-боты и таблицы учёта для салонов, автосервисов, кафе, магазинов и студий.</p>
       <div class="cta">
         <a class="main" data-tg href="#contact">Обсудить задачу в Telegram</a>
         <a class="alt" href="#work">Посмотреть примеры ↓</a>
       </div>
     </div>
-    <div class="portrait">
-      <img src="assets/nikita.jpg" alt="Никита Давымока" width="108" height="108">
-      <p><b>Никита Давымока</b>Бизнес-процессы и автоматизация. Самозанятость (НПД): договор и чек.</p>
+    <div class="hero-side">
+      <div class="feed-box" aria-label="Пример: что делает система, пока вы заняты">
+        <p class="feed-cap"><span class="feed-live"></span>Пока вы заняты делом</p>
+        <ol class="feed" id="feed"></ol>
+      </div>
+      <div class="portrait">
+        <img src="assets/nikita.jpg" alt="Никита Давымока" width="80" height="80">
+        <p><b>Никита Давымока</b>Бизнес-процессы и автоматизация. Самозанятость (НПД): договор и чек.</p>
+      </div>
     </div>
   </section>
 
@@ -965,7 +1170,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="beauty" id="comeback" aria-labelledby="cb-h">
     <div class="tool-head">
       <h2 id="cb-h">Возврат «спящих» клиентов</h2>
-      <p class="what">Клиентка ходила на маникюр раз в три недели и пропала. Таблица сама находит таких клиентов по их обычному интервалу и готовит личное сообщение. Администратор отправляет его одной кнопкой в WhatsApp или Telegram.</p>
+      <p class="what">Клиентка ходила на маникюр раз в три недели и пропала. Таблица видит историю визитов каждого клиента и замечает, когда пауза стала дольше обычной. Для каждого готово личное сообщение от имени его мастера — администратор отправляет всё одной кнопкой.</p>
       <p class="origin">Вернуть знакомого клиента в разы дешевле, чем найти нового через рекламу.</p>
     </div>
     <div class="sheet">
@@ -973,8 +1178,9 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <div class="row"><span class="hint">Считать «спящим», если не был</span><div class="seg" role="group" id="cb-k"><button type="button" data-k="1.5" aria-pressed="true">в 1,5 раза дольше обычного</button><button type="button" data-k="2" aria-pressed="false">в 2 раза дольше</button></div></div>
         <div class="row"><span class="hint">Повод</span><div class="seg" role="group" id="cb-offer"><button type="button" data-o="remind" aria-pressed="true">Напомнить</button><button type="button" data-o="sale" aria-pressed="false">Скидка 10%</button><button type="button" data-o="slots" aria-pressed="false">Окна на неделе</button></div></div>
       </div>
-      <div class="dash-kpi" id="cb-kpi"></div>
-      <div class="cb-list" id="cb-list"></div>
+      <p class="cb-sum" id="cb-kpi"></p>
+      <div id="cb-list"></div>
+      <div class="row" style="margin-top: 14px;"><button type="button" class="btn primary" id="cb-send">Отправить</button><button type="button" class="btn" id="cb-all">Показать всех клиентов</button></div>
     </div>
   </section>
 
@@ -1001,26 +1207,26 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="tattoo" id="tattoo" aria-labelledby="tt-h">
     <div class="tool-head">
       <h2 id="tt-h">Предзапись с расчётом цены</h2>
-      <p class="what">Клиент выбирает стиль, место и размер и сразу видит примерную цену и время. Мастеру приходит готовая заявка с референсами и предоплатой, а не десятое за день «сколько будет стоить тату?».</p>
-      <p class="origin">Предоплата отсекает тех, кто записывается и не приходит, а вилка цены — тех, кому дорого.</p>
+      <p class="what">Клиент отмечает место прямо на силуэте, выбирает стиль и размер и видит вилку цены, план сеансов и насколько больно будет в этой зоне. Мастер получает готовую заявку с предоплатой, а не десятое за день «сколько будет стоить тату?».</p>
+      <p class="origin">Предоплата отсекает тех, кто записывается и не приходит, а честная вилка цены — тех, кому дорого.</p>
     </div>
-    <div class="sheet lead-tool">
-      <div class="mini-site">
-        <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-lock>ваш-сайт.рф/zapis</span></div>
-        <div class="bar-top">Тату-студия «Чернила» <span>предзапись · пример</span></div>
-        <div class="bk-form">
-          <div class="field"><span>Стиль</span><div class="chipset" id="tt-style"></div></div>
-          <div class="field"><span>Место</span><div class="chipset" id="tt-zone"></div></div>
-          <div class="field"><label for="tt-size">Размер: <b id="tt-size-v" class="num">10</b> см</label><input type="range" id="tt-size" min="3" max="30" step="1" value="10"></div>
-          <div class="field"><span>Цвет</span><div class="seg" role="group" id="tt-color"><button type="button" data-c="bw" aria-pressed="true">Чёрно-белая</button><button type="button" data-c="col" aria-pressed="false">Цветная</button></div></div>
-          <div class="price"><span class="hint" id="tt-time"></span><span class="v" id="tt-price"></span></div>
-          <button class="btn primary" type="button" id="tt-go">Записаться с предоплатой 2 000 ₽</button>
-          <p class="hint">Эскиз и референсы клиент прикладывает фото. В примере они условные.</p>
-        </div>
+    <div class="sheet tt">
+      <div class="tt-body">
+        <div class="seg" role="group" id="tt-side"><button type="button" data-side="front" aria-pressed="true">Спереди</button><button type="button" data-side="back" aria-pressed="false">Сзади</button></div>
+        <svg id="tt-svg" viewBox="0 0 200 420" role="group" aria-label="Выберите место на теле"></svg>
+        <p class="hint" id="tt-zone-v"></p>
       </div>
-      <div style="display: grid; gap: 8px; align-content: start;">
-        <p class="label">Что получит мастер</p>
-        <div class="tg" id="tt-tg"><div class="tg-body" id="tt-chat" aria-live="polite"></div></div>
+      <div class="tt-in">
+        <div class="field"><span>Стиль</span><div class="tt-styles" id="tt-style"></div></div>
+        <div class="field"><label for="tt-size">Размер: <b id="tt-size-v" class="num">10</b> см</label><input type="range" id="tt-size" min="3" max="30" step="1" value="10"></div>
+        <div class="field"><span>Цвет</span><div class="seg" role="group" id="tt-color"><button type="button" data-c="bw" aria-pressed="true">Чёрно-белая</button><button type="button" data-c="col" aria-pressed="false">Цветная</button></div></div>
+        <div class="tt-res">
+          <div class="tt-price"><span class="hint">Примерная цена</span><b id="tt-price"></b></div>
+          <div class="tt-pain"><span class="hint">Боль в этой зоне</span><span id="tt-pain"></span></div>
+        </div>
+        <ol class="tt-plan" id="tt-plan"></ol>
+        <button class="btn primary" type="button" id="tt-go">Записаться с предоплатой 2 000 ₽</button>
+        <div class="tt-ticket" id="tt-ticket" hidden></div>
       </div>
     </div>
   </section>
@@ -1045,36 +1251,37 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <!-- Еда: заказ без агрегатора -->
   <section class="tool demo" data-area="food" id="order" aria-labelledby="od-h">
     <div class="tool-head">
-      <h2 id="od-h">Заказ без агрегаторов</h2>
-      <p class="what">Меню по ссылке или QR-коду на стойке. Гость собирает заказ, выбирает, когда заберёт, и заказ падает в Telegram кухни. Ниже посчитайте, сколько комиссии уходит агрегатору.</p>
+      <h2 id="od-h">Свои заказы и экран кухни</h2>
+      <p class="what">Гость заказывает с сайта или по QR-коду на столе, и заказ сразу появляется на экране кухни с таймером. Повар двигает карточку, а когда нажимает «Готово», гостю приходит сообщение, что заказ можно забирать. Соберите заказ слева и проведите его через кухню.</p>
       <p class="origin">Агрегатор хорош, чтобы находить новых гостей. Постоянных выгоднее принимать напрямую, без 25–35% комиссии.</p>
     </div>
     <div class="sheet">
-      <div class="lead-tool">
+      <div class="od">
         <div class="mini-site">
           <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-lock>ваш-сайт.рф/menu</span></div>
-          <div class="bar-top">Шаурма на Садовой <span>заказ навынос · пример</span></div>
+          <div class="bar-top">Кафе «Угол» <span>заказ · пример</span></div>
           <div class="bk-form">
             <div class="od-menu" id="od-menu"></div>
-            <div class="field"><span>Заберу</span><div class="seg" role="group" id="od-when"><button type="button" data-w="15" aria-pressed="true">через 15 минут</button><button type="button" data-w="30" aria-pressed="false">через 30 минут</button></div></div>
+            <div class="field"><span>Как получить</span><div class="seg" role="group" id="od-when"><button type="button" data-w="Навынос через 20 мин" aria-pressed="true">С собой</button><button type="button" data-w="В зале, стол 6" aria-pressed="false">За столом по QR</button></div></div>
             <div class="price"><span class="hint" id="od-count">Корзина пуста</span><span class="v" id="od-sum">0 ₽</span></div>
             <button class="btn primary" type="button" id="od-go" disabled>Заказать</button>
           </div>
         </div>
-        <div style="display: grid; gap: 8px; align-content: start;">
-          <p class="label">Кухня видит в Telegram</p>
-          <div class="tg" id="od-tg"><div class="tg-body" id="od-chat" aria-live="polite"></div></div>
+        <div class="kds">
+          <div class="kds-bar"><b>Экран кухни</b><span id="kds-clock"></span></div>
+          <div class="kds-cols" id="kds"></div>
+          <p class="kds-toast" id="kds-toast" aria-live="polite"></p>
         </div>
       </div>
       <div class="od-calc">
-        <h3>Сколько уходит агрегатору</h3>
+        <h3>Сколько остаётся у вас вместо агрегатора</h3>
         <div class="od-grid">
-          <div class="field"><label for="od-n">Заказов в день: <b id="od-n-v" class="num">40</b></label><input type="range" id="od-n" min="10" max="150" step="5" value="40"></div>
-          <div class="field"><label for="od-chk">Средний чек: <b id="od-chk-v" class="num">520 ₽</b></label><input type="range" id="od-chk" min="250" max="1200" step="10" value="520"></div>
+          <div class="field"><label for="od-n">Заказов через агрегатор в день: <b id="od-n-v" class="num">40</b></label><input type="range" id="od-n" min="10" max="150" step="5" value="40"></div>
+          <div class="field"><label for="od-chk">Средний чек: <b id="od-chk-v" class="num">780 ₽</b></label><input type="range" id="od-chk" min="300" max="2000" step="10" value="780"></div>
           <div class="field"><label for="od-com">Комиссия агрегатора: <b id="od-com-v" class="num">30%</b></label><input type="range" id="od-com" min="15" max="40" step="1" value="30"></div>
-          <div class="field"><label for="od-share">Перевести на свой заказ: <b id="od-share-v" class="num">40%</b></label><input type="range" id="od-share" min="10" max="100" step="5" value="40"></div>
+          <div class="field"><label for="od-share">Перевести на свои заказы: <b id="od-share-v" class="num">40%</b></label><input type="range" id="od-share" min="10" max="100" step="5" value="40"></div>
         </div>
-        <div class="dash-kpi" id="od-kpi"></div>
+        <div class="od-bars" id="od-bars"></div>
       </div>
     </div>
   </section>
@@ -1083,18 +1290,18 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="food" id="foodcost" aria-labelledby="fc-h">
     <div class="tool-head">
       <h2 id="fc-h">Техкарта и фудкост</h2>
-      <p class="what">Себестоимость шаурмы по граммам. Подвиньте цену курицы, как после очередного письма поставщика, и посмотрите, какое блюдо стало невыгодным и какую цену ставить.</p>
+      <p class="what">Себестоимость бургера по граммам. Подвиньте цену говядины, как после очередного письма поставщика, и посмотрите, какое блюдо стало невыгодным и какую цену ставить.</p>
       <p class="origin">Цены поставщиков растут понемногу, и маржа тает незаметно. Техкарта показывает это в тот же день.</p>
     </div>
     <div class="sheet fc">
       <div>
-        <div class="field"><label for="fc-chick">Курица у поставщика: <b id="fc-chick-v" class="num">420 ₽/кг</b></label><input type="range" id="fc-chick" min="300" max="700" step="10" value="420"></div>
-        <div class="field" style="margin-top: 10px;"><label for="fc-price">Цена классической в меню: <b id="fc-price-v" class="num">290 ₽</b></label><input type="range" id="fc-price" min="180" max="450" step="10" value="290"></div>
-        <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Техкарта · Шаурма классическая</div><div class="tablewrap"><table class="gs" id="fc-card"></table></div></div>
+        <div class="field"><label for="fc-chick">Говядина у поставщика: <b id="fc-chick-v" class="num">720 ₽/кг</b></label><input type="range" id="fc-chick" min="550" max="1100" step="10" value="720"></div>
+        <div class="field" style="margin-top: 10px;"><label for="fc-price">Цена классической в меню: <b id="fc-price-v" class="num">490 ₽</b></label><input type="range" id="fc-price" min="300" max="800" step="10" value="490"></div>
+        <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Техкарта · Бургер классический</div><div class="tablewrap"><table class="gs" id="fc-card"></table></div></div>
       </div>
       <div class="fc-side">
         <div class="dash-kpi fc-kpi" id="fc-kpi"></div>
-        <h3 style="margin-top: 6px;">Всё меню при этой цене курицы</h3>
+        <h3 style="margin-top: 6px;">Всё меню при этой цене говядины</h3>
         <div class="tablewrap"><table id="fc-menu"></table></div>
         <p class="pf-worse" id="fc-note"></p>
       </div>
@@ -1398,7 +1605,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
           <div class="rp-car"><b>Kia Rio · А 123 ВС 31</b><small>Заказ-наряд № 1048 · ТО-4, стук спереди справа</small></div>
           <ol class="rp-steps" id="rp-steps"></ol>
           <div class="rp-panel" id="rp-panel"></div>
-          <div class="dash-kpi rp-kpi" id="rp-kpi"></div>
+          <div class="rp-doc" id="rp-kpi"></div>
         </div>
         <div style="display: grid; gap: 8px; align-content: start;">
           <p class="label">Клиент видит в Telegram</p>
@@ -1411,25 +1618,31 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <!-- Маркетплейсы: юнит-экономика -->
   <section class="tool demo" data-area="shop" id="mp" aria-labelledby="mp-h">
     <div class="tool-head">
-      <h2 id="mp-h">Юнит-экономика товара на маркетплейсе</h2>
-      <p class="what">Сколько на самом деле остаётся с одной продажи после комиссии, логистики, возвратов, рекламы и налога. Подвигайте цену и процент выкупа и посмотрите, где товар перестаёт зарабатывать.</p>
-      <p class="origin">Оборот на маркетплейсе легко принять за прибыль. Такая таблица по каждому товару показывает, какие позиции кормят магазин, а какие съедают деньги.</p>
+      <h2 id="mp-h">Какие товары на маркетплейсе кормят магазин</h2>
+      <p class="what">Пять товаров на карте: по горизонтали — сколько продаётся, по вертикали — какая маржа остаётся после комиссии, логистики, возвратов, рекламы и налога. Нажмите на товар и двигайте его цену, выкуп и рекламу. Шарик переедет, а итог магазина пересчитается.</p>
+      <p class="origin">Оборот на маркетплейсе легко принять за прибыль. Карта сразу показывает, какие позиции стоит раскручивать, а какие тихо съедают деньги.</p>
     </div>
-    <div class="sheet mp">
+    <div class="sheet">
+      <div class="mp">
+        <div class="mp-mx">
+          <svg id="mp-matrix" viewBox="0 0 400 215" role="group" aria-label="Матрица товаров"></svg>
+          <p class="mp-total" id="mp-total"></p>
+        </div>
+        <div class="mp-out">
+          <p class="label">Выбран: <span id="mp-name"></span></p>
+          <div class="mp-fall" id="mp-fall" role="img" aria-label="Из чего складывается цена"></div>
+          <p class="pf-worse" id="mp-note"></p>
+        </div>
+      </div>
       <div class="mp-in">
-        <div class="field"><label for="mp-price">Цена для покупателя: <b id="mp-price-v" class="num"></b></label><input type="range" id="mp-price" min="400" max="4000" step="10" value="1490"></div>
-        <div class="field"><label for="mp-cost">Закупка и доставка до склада: <b id="mp-cost-v" class="num"></b></label><input type="range" id="mp-cost" min="100" max="2500" step="10" value="520"></div>
-        <div class="field"><label for="mp-com">Комиссия площадки: <b id="mp-com-v" class="num"></b></label><input type="range" id="mp-com" min="5" max="35" step="1" value="23"></div>
-        <div class="field"><label for="mp-log">Логистика до покупателя: <b id="mp-log-v" class="num"></b></label><input type="range" id="mp-log" min="30" max="300" step="5" value="95"></div>
-        <div class="field"><label for="mp-buy">Выкуп: <b id="mp-buy-v" class="num"></b></label><input type="range" id="mp-buy" min="30" max="100" step="5" value="80"></div>
-        <div class="field"><label for="mp-ad">Реклама, от цены: <b id="mp-ad-v" class="num"></b></label><input type="range" id="mp-ad" min="0" max="30" step="1" value="8"></div>
-        <p class="hint">Налог — УСН 6% с цены продажи. Возврат невыкупленного товара — 50 ₽.</p>
+        <div class="field"><label for="mp-price">Цена: <b id="mp-price-v" class="num"></b></label><input type="range" id="mp-price" min="300" max="4000" step="10"></div>
+        <div class="field"><label for="mp-cost">Закупка с доставкой: <b id="mp-cost-v" class="num"></b></label><input type="range" id="mp-cost" min="100" max="2500" step="10"></div>
+        <div class="field"><label for="mp-com">Комиссия: <b id="mp-com-v" class="num"></b></label><input type="range" id="mp-com" min="5" max="35" step="1"></div>
+        <div class="field"><label for="mp-log">Логистика: <b id="mp-log-v" class="num"></b></label><input type="range" id="mp-log" min="30" max="300" step="5"></div>
+        <div class="field"><label for="mp-buy">Выкуп: <b id="mp-buy-v" class="num"></b></label><input type="range" id="mp-buy" min="30" max="100" step="5"></div>
+        <div class="field"><label for="mp-ad">Реклама: <b id="mp-ad-v" class="num"></b></label><input type="range" id="mp-ad" min="0" max="30" step="1"></div>
       </div>
-      <div class="mp-out">
-        <div class="mp-fall" id="mp-fall" role="img" aria-label="Из чего складывается цена"></div>
-        <div class="dash-kpi" id="mp-kpi"></div>
-        <p class="pf-worse" id="mp-note"></p>
-      </div>
+      <p class="hint" style="margin-top: 8px;">Налог — УСН 6% с цены продажи, возврат невыкупленного — 50 ₽. В работе данные берутся из отчётов площадки.</p>
     </div>
   </section>
 
@@ -1437,7 +1650,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="shop" id="stock" aria-labelledby="sk-h">
     <div class="tool-head">
       <h2 id="sk-h">Остатки и заказ поставщикам</h2>
-      <p class="what">Зоомагазин, данные из кассы за две недели. Таблица считает, на сколько дней хватит каждого товара с учётом срока поставки, и собирает заказы поставщикам. Отдельно видно деньги, замороженные в залежавшемся товаре.</p>
+      <p class="what">Зоомагазин, продажи из кассы за две недели. Таблица считает, на сколько дней хватит каждого товара с учётом срока поставки, и сама собирает заказы поставщикам с учётом минимальной партии. Поправьте количество и отправьте.</p>
       <p class="origin">Пустая полка — это покупатель, который ушёл к конкурентам. Лишний товар на складе — деньги, которых не хватает на ходовой.</p>
     </div>
     <div class="sheet">
@@ -1446,40 +1659,35 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <div class="row"><span class="hint">Заказываем на</span><div class="seg" role="group" id="sk-cycle"><button type="button" data-v="7" aria-pressed="false">неделю</button><button type="button" data-v="14" aria-pressed="true">две недели</button></div></div>
       </div>
       <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Остатки · «Хвост и лапы» · по данным кассы</div><div class="tablewrap"><table class="gs sk-t" id="sk-table"></table></div></div>
-      <div class="dash-kpi" id="sk-kpi"></div>
-      <div class="row" style="margin-top: 14px;"><button type="button" class="btn primary" id="sk-send">Отправить заказы поставщикам</button><span class="hint" id="sk-hint"></span></div>
-      <div class="tg" id="sk-tg" hidden style="margin-top: 14px; max-width: 30rem;"><div class="tg-body" id="sk-chat" style="min-height: 0;"></div></div>
+      <p class="cb-sum" id="sk-kpi"></p>
+      <div class="sk-orders" id="sk-orders"></div>
     </div>
   </section>
 
   <!-- Клининг: калькулятор и заявка -->
   <section class="tool demo" data-area="service" id="clean" aria-labelledby="cl-h">
     <div class="tool-head">
-      <h2 id="cl-h">Калькулятор уборки с заявкой</h2>
-      <p class="what">Клиент сам считает цену на сайте: тип уборки, площадь, окна и дополнительные услуги. Заявка с расчётом приходит менеджеру в Telegram, а владелец сразу видит, сколько останется с заказа.</p>
-      <p class="origin">Фиксированная цена на сайте снимает главный страх клиента — «насчитают на месте». А владельцу видно, какие заказы выгодны, а какие нет.</p>
+      <h2 id="cl-h">Расчёт уборки по плану квартиры</h2>
+      <p class="what">Клиент отмечает на плане комнаты и окна, которые нужно убрать, отдельно — холодильник и духовку. Цена считается сразу, а бригада получает чек-лист по каждой комнате. Владелец видит, сколько останется с заказа.</p>
+      <p class="origin">Фиксированная цена снимает главный страх клиента — «насчитают на месте». Чек-лист и фотоотчёт по нему снимают споры о качестве.</p>
     </div>
     <div class="sheet">
-      <div class="lead-tool">
-        <div class="mini-site">
-          <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-lock>ваш-сайт.рф</span></div>
-          <div class="bar-top">Клининг «Чистый дом» <span>расчёт · пример</span></div>
-          <div class="bk-form">
-            <div class="field"><span>Уборка</span><div class="seg" role="group" id="cl-type"><button type="button" data-t="0" aria-pressed="true">Поддерживающая</button><button type="button" data-t="1" aria-pressed="false">Генеральная</button><button type="button" data-t="2" aria-pressed="false">После ремонта</button></div></div>
-            <div class="field"><label for="cl-area">Площадь: <b id="cl-area-v" class="num"></b></label><input type="range" id="cl-area" min="20" max="160" step="2" value="54"></div>
-            <div class="field"><span>Окна, створок</span><div class="od-q cl-win"><button type="button" data-win="-1" aria-label="Меньше">−</button><b id="cl-win">0</b><button type="button" data-win="1" aria-label="Больше">+</button><small class="hint">по 450 ₽</small></div></div>
-            <div class="cl-extra" id="cl-extra"></div>
-            <div class="field"><span>Когда</span><div class="seg" role="group" id="cl-day"><button type="button" data-d="0" aria-pressed="true">В будни</button><button type="button" data-d="1" aria-pressed="false">В выходные, +10%</button></div></div>
-            <div class="price"><span class="hint" id="cl-crew"></span><span class="v" id="cl-sum"></span></div>
-            <button class="btn primary" type="button" id="cl-go">Оставить заявку</button>
-          </div>
+      <div class="cl-top">
+        <div class="seg" role="group" id="cl-type"><button type="button" data-t="0" aria-pressed="true">Поддерживающая</button><button type="button" data-t="1" aria-pressed="false">Генеральная</button><button type="button" data-t="2" aria-pressed="false">После ремонта</button></div>
+        <div class="seg" role="group" id="cl-day"><button type="button" data-d="0" aria-pressed="true">Будни</button><button type="button" data-d="1" aria-pressed="false">Выходные, +10%</button></div>
+      </div>
+      <div class="cl">
+        <div class="cl-planbox">
+          <svg id="cl-plan" viewBox="0 0 400 262" role="group" aria-label="План квартиры: нажмите на комнату или окно"></svg>
+          <p class="hint"><span class="cl-key on"></span> убираем · <span class="cl-key win"></span> моем окно · нажмите, чтобы включить или выключить</p>
         </div>
-        <div style="display: grid; gap: 10px; align-content: start;">
-          <p class="label">Видит владелец</p>
+        <div class="cl-side">
+          <div class="cl-sum"><div><span class="hint" id="cl-area-v"></span><b id="cl-sum"></b></div><span class="hint" id="cl-crew"></span></div>
           <div class="cl-own" id="cl-own"></div>
-          <div class="tg" id="cl-tg"><div class="tg-body" id="cl-chat" aria-live="polite" style="min-height: 160px;"></div></div>
+          <button class="btn primary" type="button" id="cl-go">Оставить заявку</button>
         </div>
       </div>
+      <div class="cl-check" id="cl-check" hidden></div>
     </div>
   </section>
 
@@ -1487,7 +1695,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="edu" id="subs" aria-labelledby="sb-h">
     <div class="tool-head">
       <h2 id="sb-h">Абонементы и заполняемость групп</h2>
-      <p class="what">Студия пилатеса. Таблица видит, у кого заканчивается абонемент и у кого вот-вот сгорят занятия, и готовит личные сообщения. Отправьте их — ответы клиентов заполнят пустые места в расписании.</p>
+      <p class="what">Студия пилатеса. Таблица видит, у кого заканчивается абонемент и у кого вот-вот сгорят занятия, и готовит личные сообщения. Отправьте их и посмотрите, как ответы клиентов занимают свободные места в группах.</p>
       <p class="origin">Продлить абонемент действующему клиенту проще, чем привести нового. А сгоревшие занятия — это клиент, который в следующий раз не продлит.</p>
     </div>
     <div class="sheet">
@@ -1495,13 +1703,13 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <div class="seg" role="group" id="sb-f"><button type="button" data-f="end" aria-pressed="true">Пора продлить</button><button type="button" data-f="burn" aria-pressed="false">Сгорают занятия</button><button type="button" data-f="all" aria-pressed="false">Все клиенты</button></div>
         <button type="button" class="btn primary" id="sb-send">Отправить сообщения</button>
       </div>
-      <div class="dash-kpi" id="sb-kpi"></div>
+      <p class="cb-sum" id="sb-kpi"></p>
       <div class="sb-cols">
         <div class="cb-list" id="sb-list"></div>
         <div style="display: grid; gap: 10px; align-content: start;">
           <p class="label">Группы на этой неделе</p>
           <div class="sb-week" id="sb-week"></div>
-          <div class="tg" id="sb-tg" hidden><div class="tg-body" id="sb-chat" style="min-height: 0;"></div></div>
+          
         </div>
       </div>
     </div>
@@ -1537,7 +1745,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
           <button type="button" data-s="nails" aria-pressed="true">Ногтевая студия</button>
           <button type="button" data-s="barber" aria-pressed="false">Барбершоп</button>
           <button type="button" data-s="tattoo" aria-pressed="false">Тату</button>
-          <button type="button" data-s="food" aria-pressed="false">Шаурма</button>
+          <button type="button" data-s="food" aria-pressed="false">Кафе</button>
           <button type="button" data-s="auto" aria-pressed="false">Автосервис</button>
           <button type="button" data-s="clean" aria-pressed="false">Клининг</button>
         </div>
@@ -1548,6 +1756,33 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       </div>
       <div class="st-stage" id="st-stage"><div class="mini-site st-frame" id="st-frame"><div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span class="url" data-lock><span id="st-url"></span></span></div><div class="st-view" id="st-view"></div></div></div>
       <ul class="st-incl"><li>Адаптивно для телефона</li><li>Заявки и запись — сразу в Telegram</li><li>Карта, отзывы, цены</li><li>Домен и бесплатный хостинг на GitHub</li></ul>
+    </div>
+  </section>
+  </section>
+
+  <!-- ИИ в работе -->
+  <section class="tool" id="ai" aria-labelledby="ai-h">
+    <div class="ai">
+      <div class="ai-text">
+        <p class="label">Искусственный интеллект</p>
+        <h2 id="ai-h">ИИ, который снимает рутину, а не просто модная игрушка</h2>
+        <p class="hint ai-lead">Нейросеть отвечает клиентам по вашему прайсу и расписанию, разбирает отзывы, пишет описания товаров и вытаскивает данные из накладных. Работает на российских моделях — GigaChat или YandexGPT, — без VPN и с оплатой в рублях. То, в чём ИИ не уверен, он передаёт человеку.</p>
+        <dl class="prices ai-prices">
+          <div><dt>Разбор: где ИИ сэкономит время<small>созвон и письменный план с расчётом экономии</small></dt><dd>от 5 000 ₽</dd></div>
+          <div><dt>ИИ-администратор в Telegram или на сайте<small>отвечает по прайсу и расписанию, записывает, зовёт человека</small></dt><dd>от 30 000 ₽</dd></div>
+          <div><dt>Отзывы и сообщения<small>разбор по темам, черновики ответов владельцу на согласование</small></dt><dd>от 15 000 ₽</dd></div>
+          <div><dt>Тексты для товаров и соцсетей<small>описания карточек, посты по вашему стилю</small></dt><dd>от 15 000 ₽</dd></div>
+          <div><dt>Документы в таблицу<small>накладные, чеки и счета по фото — сразу в учёт</small></dt><dd>от 20 000 ₽</dd></div>
+          <div><dt>Сопровождение<small>обновление базы знаний, контроль ответов; модель оплачивается отдельно по тарифу</small></dt><dd>от 3 000 ₽/мес</dd></div>
+        </dl>
+        <p class="hint" style="margin-top: 10px;">Для сравнения: у студий внедрение ИИ обычно начинается от 50 000 ₽, экспресс-аудит — от 10 000 ₽.</p>
+      </div>
+      <div class="ai-demo">
+        <div class="row" style="justify-content: space-between;"><p class="label" style="margin: 0;">Пример: ИИ-администратор</p><div class="seg" role="group" id="ai-biz"><button type="button" data-b="salon" aria-pressed="true">Салон</button><button type="button" data-b="auto" aria-pressed="false">Автосервис</button><button type="button" data-b="cafe" aria-pressed="false">Кафе</button></div></div>
+        <div class="tg" id="ai-tg"><div class="tg-body" id="ai-chat" aria-live="polite"></div></div>
+        <div class="ai-qs" id="ai-qs" role="group" aria-label="Вопросы клиента"></div>
+        <p class="hint">Нажимайте на вопросы клиента. Под каждым ответом видно, откуда ИИ взял информацию.</p>
+      </div>
     </div>
   </section>
 
@@ -1626,9 +1861,10 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <h2>Документы</h2>
         <div style="margin-top: 14px;">
           <p>Налоговый режим: самозанятость (НПД). Подходит компаниям, ИП и частным клиентам.</p>
-          <p><span class="tip-word"><button type="button" class="linky" data-open="dlg-contract"><b>Договор</b></button><span class="tip-card" role="tooltip"><b>Договор на разработку</b>Сроки, оплата по этапам, приёмка, гарантия, права на код, конфиденциальность и приложение с ТЗ и ценой. Нажмите, чтобы прочитать образец.</span></span> с составом работ, сроком и ценой. Права на результат переходят вам после оплаты.</p>
+          <p><span class="tip-word"><button type="button" class="linky" data-open="dlg-contract"><b>Договор</b></button><span class="tip-card" role="tooltip"><b>Договор на разработку</b>Сроки, аванс и оплата после приёмки, гарантия, права на код, конфиденциальность, ТЗ с ценой. Можно заполнить на сайте и распечатать.</span></span> с составом работ, сроком и ценой. Права на результат переходят вам после оплаты.</p>
           <p><b>Чек из «Мой налог»</b> на каждую оплату, акт по запросу вашей бухгалтерии. НДС нет.</p>
-          <p><b>Оплата по этапам:</b> часть после согласования прототипа, остальное после передачи.</p>
+          <p><b>Оплата:</b> аванс 50% после подписания договора, остальное — после приёмки. Если работа большая, по этапам.</p>
+          <p><button type="button" class="btn" data-open="dlg-contract">Открыть договор и заполнить</button></p>
         </div>
       </div>
     </div>
@@ -1644,6 +1880,16 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <details><summary>Что нужно от нас, чтобы начать?</summary><p>Показать, как задача решается сейчас: таблицу, выгрузку, пример переписки. Рабочие данные не нужны, хватит примера с изменёнными цифрами. И человек, который ответит на вопросы по процессу.</p></details>
       <details><summary>Можно ли работать с компанией без ЭДО?</summary><p>Да. <button type="button" class="linky" data-open="dlg-contract">Договор</button> подписываем на бумаге или сканами, на каждую оплату приходит чек из приложения «Мой налог». Акт делаю, если его просит ваша бухгалтерия. Если вы работаете через ЭДО, подключусь по вашему приглашению.</p></details>
       <details><summary>Кому принадлежит результат и что будет после сдачи?</summary><p>Результат и исходники передаю вам, это записывается в <button type="button" class="linky" data-open="dlg-contract">договоре</button>. После сдачи показываю команде, как пользоваться, и оставляю короткую инструкцию. Доработки после сдачи — по часам.</p></details>
+      <details><summary>Работаете только в своём городе?</summary><p>Нет, работаю удалённо с любым городом. Созвон, демонстрация экрана и переписка в Telegram — этого хватает. Если вы рядом, можно встретиться лично.</p></details>
+      <details><summary>Я не разбираюсь в технике. Справлюсь?</summary><p>Да. Я делаю так, чтобы пользоваться было не сложнее, чем Telegram и обычной таблицей. После сдачи показываю всё на созвоне и оставляю короткую инструкцию с картинками.</p></details>
+      <details><summary>Что, если результат не понравится?</summary><p>Работа идёт этапами: сначала вы видите прототип на своих примерах и говорите, что поправить. Замечания в рамках задания исправляю без доплаты. Если решите остановиться, оплачиваете только сделанную часть, остаток аванса возвращаю.</p></details>
+      <details><summary>Можно ли сначала сделать маленькую часть и посмотреть?</summary><p>Да, так даже лучше. Начнём с одной вещи, которая мешает сильнее всего, — например, с бота отзывов или расчёта зарплаты. Если понравится, добавим остальное.</p></details>
+      <details><summary>Как вы обращаетесь с данными клиентов?</summary><p>Работаю только с теми данными, которые нужны для задачи, и не передаю их третьим лицам. Это прописано в договоре. После окончания работ удаляю копии и возвращаю доступы. Для примеров достаточно обезличенной выгрузки.</p></details>
+      <details><summary>Что будет, если вы пропадёте или заболеете?</summary><p>Всё сделанное принадлежит вам и лежит в ваших аккаунтах: таблицы, боты, сайт. Код и инструкция передаются вместе с работой, поэтому продолжить сможет любой другой специалист.</p></details>
+      <details><summary>Нужны ли ежемесячные платежи?</summary><p>За саму работу — нет, вы платите один раз. Ежемесячно платите только за сторонние сервисы, если они нужны: домен — около 200 ₽ в месяц, нейросеть — по тарифу GigaChat или YandexGPT. Сопровождение по желанию, от 3 000 ₽ в месяц.</p></details>
+      <details><summary>Можно оплатить с расчётного счёта компании?</summary><p>Да. Выставлю счёт, после оплаты пришлю чек из «Мой налог» — он подходит для расходов на УСН и ОСН. НДС нет, акт подпишем по запросу вашей бухгалтерии.</p></details>
+      <details><summary>Вы работаете с YCLIENTS, 1С, МойСклад, iiko?</summary><p>Беру из них данные через выгрузку или API, если сервис его даёт. Сами программы не заменяю, а дополняю тем, чего в них нет: отчётами, ботами, расчётами.</p></details>
+      <details><summary>Можно ли потом самим что-то поменять?</summary><p>Да. Цены, тексты сообщений и списки хранятся в обычной таблице, которую вы правите сами. Если нужно больше — доработки по 1 500 ₽ в час.</p></details>
     </div>
   </section>
 
@@ -1660,39 +1906,37 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   </footer>
   <!-- Договор: образец -->
   <dialog class="dlg wide" id="dlg-contract" aria-labelledby="dlg-contract-h">
-    <div class="dlg-head"><div><p class="label">Образец</p><h2 id="dlg-contract-h">Договор на разработку</h2></div><button class="dlg-x" type="button" data-close aria-label="Закрыть">×</button></div>
+    <div class="dlg-head"><div><p class="label">Договор</p><h2 id="dlg-contract-h">Договор на разработку</h2></div><button class="dlg-x" type="button" data-close aria-label="Закрыть">×</button></div>
     <div class="dlg-body dlg-paperbg">
-      <p class="doc-note">По этому шаблону я работаю. Под каждую задачу заполняю Приложение № 1: что делаю, сроки этапов и цену. Подписать можно в ЭДО, например в Контур.Диадоке, или обменяться сканами — это прописано в пункте 11.</p>
+      <p class="doc-note">Жёлтые поля можно заполнить прямо здесь. Потом нажмите «Печатная форма»: сохраните PDF или распечатайте, подпишите и пришлите скан или фото в Telegram. Я подпишу со своей стороны и верну. Условия раздела 11 делают такой обмен сканами юридически значимым.</p>
       <article class="paper" id="contract-paper">
-        <p class="p-title">ДОГОВОР № <span class="blank s"></span></p>
-        <p class="p-sub">на выполнение работ по разработке</p>
-        <div class="p-meta"><span>г. <span class="blank"></span></span><span>«<span class="blank s"></span>» <span class="blank"></span> 20<span class="blank s"></span> г.</span></div>
-        <p>Давымока Никита <span class="blank"></span>, ИНН <span class="blank"></span>, применяющий специальный налоговый режим «Налог на профессиональный доход», именуемый в дальнейшем «Исполнитель», с одной стороны, и <span class="blank"></span><span class="blank"></span>, в лице <span class="blank"></span>, действующего на основании <span class="blank"></span>, именуемый в дальнейшем «Заказчик», с другой стороны, вместе именуемые «Стороны», заключили настоящий договор (далее — Договор) о нижеследующем:</p>
-        <h4>1. Предмет договора</h4><p class="cl"><span>1.1.</span><span>Исполнитель обязуется по заданию Заказчика выполнить работы по созданию цифрового инструмента (сайта, бота, таблицы или отчёта, далее — Результат), а Заказчик обязуется принять и оплатить работы.</span></p><p class="cl"><span>1.2.</span><span>Состав и функции Результата, этапы, сроки и стоимость работ указываются в Техническом задании (Приложение № 1), которое является неотъемлемой частью Договора.</span></p><h4>2. Сроки выполнения работ</h4><p class="cl"><span>2.1.</span><span>Исполнитель приступает к работам в течение 3 (трёх) рабочих дней после получения от Заказчика материалов, данных и доступов, перечисленных в Приложении № 1.</span></p><p class="cl"><span>2.2.</span><span>Если Заказчик задерживает передачу материалов или ответы на вопросы Исполнителя, срок выполнения работ продлевается на время задержки.</span></p><h4>3. Стоимость и порядок расчётов</h4><p class="cl"><span>3.1.</span><span>Стоимость работ указана в Приложении № 1 и является фиксированной. Изменение стоимости возможно только по дополнительному соглашению Сторон.</span></p><p class="cl"><span>3.2.</span><span>Оплата производится в два этапа: 50% стоимости — в течение 3 (трёх) рабочих дней после согласования прототипа, оставшиеся 50% — в течение 3 (трёх) рабочих дней после подписания акта.</span></p><p class="cl"><span>3.3.</span><span>Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход» (Федеральный закон от 27.11.2018 № 422-ФЗ). НДС не облагается. На каждый платёж Исполнитель передаёт Заказчику чек, сформированный в приложении «Мой налог».</span></p><h4>4. Сдача и приёмка работ</h4><p class="cl"><span>4.1.</span><span>По завершении работ Исполнитель передаёт Заказчику Результат, инструкцию по использованию и акт сдачи-приёмки.</span></p><p class="cl"><span>4.2.</span><span>Заказчик в течение 5 (пяти) рабочих дней принимает работы либо направляет Исполнителю мотивированный перечень замечаний одним списком. Замечания в пределах Приложения № 1 Исполнитель устраняет без доплаты.</span></p><p class="cl"><span>4.3.</span><span>Если в указанный срок Заказчик не подписал акт и не направил замечания, работы считаются принятыми без замечаний.</span></p><h4>5. Гарантии</h4><p class="cl"><span>5.1.</span><span>Ошибки в работе Результата, выявленные в течение 14 (четырнадцати) календарных дней после приёмки, Исполнитель устраняет безвозмездно.</span></p><p class="cl"><span>5.2.</span><span>Изменения и новые функции сверх Приложения № 1 выполняются по отдельному согласованию по ставке 1 500 (одна тысяча пятьсот) рублей за час.</span></p><p class="cl"><span>5.3.</span><span>Гарантия не распространяется на сбои, вызванные изменениями, внесёнными Заказчиком или третьими лицами, а также изменениями в работе сторонних сервисов.</span></p><h4>6. Права на результат</h4><p class="cl"><span>6.1.</span><span>Исключительное право на Результат, включая исходный код, переходит к Заказчику в полном объёме с момента полной оплаты работ. Вознаграждение за отчуждение права включено в стоимость работ.</span></p><p class="cl"><span>6.2.</span><span>Исполнитель вправе упоминать выполненную работу в своём портфолио только в обезличенном виде и с письменного согласия Заказчика.</span></p><h4>7. Конфиденциальность и персональные данные</h4><p class="cl"><span>7.1.</span><span>Стороны не раскрывают третьим лицам сведения, полученные при исполнении Договора, в течение срока его действия и 3 (трёх) лет после его окончания.</span></p><p class="cl"><span>7.2.</span><span>Персональные данные клиентов Заказчика Исполнитель обрабатывает только по поручению Заказчика и в объёме, необходимом для выполнения работ. По окончании работ Исполнитель удаляет полученные данные и возвращает доступы.</span></p><h4>8. Сторонние сервисы</h4><p class="cl"><span>8.1.</span><span>Домен, хостинг и платные сервисы, если они нужны для работы Результата, оформляются на Заказчика и оплачиваются им напрямую. Исполнитель сообщает о таких расходах до их возникновения.</span></p><h4>9. Ответственность сторон</h4><p class="cl"><span>9.1.</span><span>За нарушение сроков работ по вине Исполнителя Заказчик вправе потребовать неустойку 0,1% от стоимости просроченного этапа за каждый день просрочки, но не более 10% стоимости работ.</span></p><p class="cl"><span>9.2.</span><span>За просрочку оплаты Исполнитель вправе потребовать неустойку 0,1% от неоплаченной суммы за каждый день просрочки, но не более 10% этой суммы.</span></p><p class="cl"><span>9.3.</span><span>Общий размер ответственности Исполнителя по Договору ограничен стоимостью работ.</span></p><h4>10. Изменение и расторжение договора</h4><p class="cl"><span>10.1.</span><span>Каждая Сторона вправе отказаться от Договора, письменно уведомив другую Сторону не менее чем за 5 (пять) рабочих дней. Фактически выполненные к этому моменту работы оплачиваются.</span></p><p class="cl"><span>10.2.</span><span>Исполнитель уведомляет Заказчика об утрате статуса плательщика налога на профессиональный доход в течение 3 (трёх) рабочих дней.</span></p><h4>11. Обмен документами</h4><p class="cl"><span>11.1.</span><span>Договор, приложения, акты и уведомления Стороны подписывают через систему электронного документооборота либо обмениваются сканами или фотографиями подписанных документов по адресам электронной почты и в мессенджерах, указанным в разделе 13. Такие документы имеют силу оригиналов.</span></p><p class="cl"><span>11.2.</span><span>Сообщение считается полученным в день его отправки по указанному адресу.</span></p><h4>12. Разрешение споров</h4><p class="cl"><span>12.1.</span><span>Споры Стороны решают путём переговоров. Срок ответа на письменную претензию — 10 (десять) рабочих дней. Если спор не урегулирован, он передаётся в суд в соответствии с законодательством Российской Федерации.</span></p>
-        <h4>13. Реквизиты и подписи сторон</h4>
+        <p class="p-title">ДОГОВОР № <input class="fill" data-f="num" style="width:4em" placeholder="" aria-label="num"></p>
+        <p class="p-sub">на выполнение работ по разработке и отчуждение исключительного права</p>
+        <div class="p-meta"><span>г. <input class="fill" data-f="city" style="width:9em" placeholder="город" aria-label="город"></span><span>«<input class="fill" data-f="dd" style="width:2.2em" placeholder="" aria-label="dd">» <input class="fill" data-f="mm" style="width:7em" placeholder="месяц" aria-label="месяц"> 20<input class="fill" data-f="yy" style="width:2.2em" placeholder="" aria-label="yy"> г.</span></div>
+        <p>Давымока Никита <input class="fill" data-f="mid" style="width:8em" placeholder="отчество" aria-label="отчество">, ИНН <input class="fill" data-f="einn" style="width:9em" placeholder="" aria-label="einn">, применяющий специальный налоговый режим «Налог на профессиональный доход», именуемый в дальнейшем «Исполнитель», с одной стороны, и <input class="fill" data-f="cname" style="width:18em" placeholder="ООО, ИП или ФИО" aria-label="ООО, ИП или ФИО">, в лице <input class="fill" data-f="crep" style="width:12em" placeholder="должность, ФИО" aria-label="должность, ФИО">, действующего на основании <input class="fill" data-f="cbasis" style="width:8em" placeholder="устава" aria-label="устава">, именуемый в дальнейшем «Заказчик», с другой стороны, вместе именуемые «Стороны», заключили настоящий договор (далее — Договор) о нижеследующем:</p>
+        <h4>1. Предмет договора</h4><p class="cl"><span>1.1.</span><span>Исполнитель обязуется по заданию Заказчика выполнить работы по созданию результата, описанного в Техническом задании (Приложение № 1, далее — ТЗ): сайта, бота, таблицы или иного цифрового инструмента (далее — Результат), и передать Заказчику исключительное право на Результат, а Заказчик обязуется принять и оплатить работы.</span></p><p class="cl"><span>1.2.</span><span>Состав и функции Результата, этапы, сроки и стоимость работ указываются в ТЗ. ТЗ является неотъемлемой частью Договора.</span></p><p class="cl"><span>1.3.</span><span>Исполнитель выполняет работы лично, без привлечения работников.</span></p><h4>2. Сроки</h4><p class="cl"><span>2.1.</span><span>Исполнитель приступает к работам в течение 3 (трёх) рабочих дней после получения аванса и материалов, указанных в ТЗ (данные, доступы, тексты, изображения).</span></p><p class="cl"><span>2.2.</span><span>Срок окончания работ указан в ТЗ. Если Заказчик задерживает аванс, материалы или ответы на вопросы Исполнителя, срок продлевается на время задержки.</span></p><h4>3. Стоимость и порядок оплаты</h4><p class="cl"><span>3.1.</span><span>Стоимость работ указана в ТЗ и является фиксированной. В неё включено вознаграждение за отчуждение исключительного права. Изменение стоимости — только по дополнительному соглашению Сторон.</span></p><p class="cl"><span>3.2.</span><span>Аванс 50% стоимости Заказчик оплачивает в течение 3 (трёх) рабочих дней после подписания Договора. Оставшиеся 50% — в течение 3 (трёх) рабочих дней после подписания акта сдачи-приёмки. ТЗ может предусматривать оплату по этапам.</span></p><p class="cl"><span>3.3.</span><span>Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход» (Федеральный закон от 27.11.2018 № 422-ФЗ). НДС не облагается. На каждый платёж Исполнитель формирует чек в приложении «Мой налог» и передаёт его Заказчику.</span></p><p class="cl"><span>3.4.</span><span>Оплата сторонних сервисов (домен, хостинг, платные подписки) в стоимость работ не входит и производится Заказчиком напрямую, на его имя.</span></p><h4>4. Сдача и приёмка</h4><p class="cl"><span>4.1.</span><span>По окончании работ Исполнитель передаёт Заказчику Результат, доступы к нему, краткую инструкцию и акт сдачи-приёмки.</span></p><p class="cl"><span>4.2.</span><span>Заказчик в течение 5 (пяти) рабочих дней подписывает акт или направляет мотивированные замечания одним списком. Замечания в пределах ТЗ Исполнитель устраняет без доплаты; пожелания сверх ТЗ оформляются дополнительным соглашением.</span></p><p class="cl"><span>4.3.</span><span>Если в этот срок Заказчик не подписал акт и не направил мотивированных замечаний, работы считаются принятыми, а акт — подписанным.</span></p><h4>5. Гарантия</h4><p class="cl"><span>5.1.</span><span>Ошибки в работе Результата, выявленные в течение 14 (четырнадцати) календарных дней после приёмки, Исполнитель устраняет безвозмездно в разумный срок.</span></p><p class="cl"><span>5.2.</span><span>Гарантия не распространяется на сбои, вызванные изменениями, внесёнными Заказчиком или третьими лицами, а также изменениями в работе сторонних сервисов (Telegram, Google, хостинга и др.).</span></p><p class="cl"><span>5.3.</span><span>Доработки сверх ТЗ после приёмки выполняются по ставке 1 500 (одна тысяча пятьсот) рублей за час по предварительному согласованию объёма.</span></p><h4>6. Права на результат</h4><p class="cl"><span>6.1.</span><span>Исключительное право на Результат, включая исходный код, переходит к Заказчику в полном объёме с момента полной оплаты работ. До этого Заказчик вправе использовать Результат для проверки и приёмки.</span></p><p class="cl"><span>6.2.</span><span>Право авторства остаётся за Исполнителем. Исполнитель вправе упоминать работу в портфолио только в обезличенном виде и с письменного согласия Заказчика.</span></p><p class="cl"><span>6.3.</span><span>Сторонние библиотеки, шрифты и сервисы, использованные в Результате, применяются на условиях их собственных лицензий. Исполнитель использует только те из них, которые допускают коммерческое использование.</span></p><h4>7. Конфиденциальность и персональные данные</h4><p class="cl"><span>7.1.</span><span>Стороны не раскрывают третьим лицам сведения, полученные при исполнении Договора, в течение срока его действия и 3 (трёх) лет после его окончания.</span></p><p class="cl"><span>7.2.</span><span>Если для работ нужны персональные данные клиентов Заказчика, Заказчик поручает Исполнителю их обработку (запись, хранение, использование, удаление) исключительно для выполнения работ. Исполнитель соблюдает конфиденциальность и требования ст. 19 Федерального закона № 152-ФЗ «О персональных данных», а по окончании работ удаляет данные и возвращает доступы.</span></p><h4>8. Ответственность</h4><p class="cl"><span>8.1.</span><span>За нарушение срока работ по вине Исполнителя Заказчик вправе потребовать неустойку 0,1% от стоимости просроченного этапа за каждый день, но не более 10% стоимости работ.</span></p><p class="cl"><span>8.2.</span><span>За просрочку оплаты Исполнитель вправе потребовать неустойку 0,1% от неоплаченной суммы за каждый день, но не более 10% этой суммы.</span></p><p class="cl"><span>8.3.</span><span>Ответственность Исполнителя ограничена реальным ущербом и не превышает стоимости работ по Договору.</span></p><p class="cl"><span>8.4.</span><span>Если Заказчик — гражданин, заказывающий работы для личных нужд, условия раздела применяются в части, не противоречащей Закону «О защите прав потребителей».</span></p><h4>9. Расторжение</h4><p class="cl"><span>9.1.</span><span>Заказчик вправе отказаться от Договора в любой момент, письменно уведомив Исполнителя и оплатив работы, выполненные до получения уведомления. Неотработанную часть аванса Исполнитель возвращает в течение 5 (пяти) рабочих дней.</span></p><p class="cl"><span>9.2.</span><span>Исполнитель вправе отказаться от Договора, если Заказчик более 15 (пятнадцати) рабочих дней не передаёт материалы или не вносит оплату после письменного напоминания. Выполненные работы оплачиваются.</span></p><h4>10. Налоговый статус Исполнителя</h4><p class="cl"><span>10.1.</span><span>Исполнитель подтверждает, что зарегистрирован как плательщик налога на профессиональный доход, и по запросу передаёт Заказчику справку о постановке на учёт.</span></p><p class="cl"><span>10.2.</span><span>Исполнитель подтверждает, что Заказчик не является и в течение последних двух лет не являлся его работодателем.</span></p><p class="cl"><span>10.3.</span><span>Об утрате статуса плательщика налога на профессиональный доход Исполнитель уведомляет Заказчика в течение 3 (трёх) рабочих дней.</span></p><p class="cl"><span>10.4.</span><span>Договор не порождает трудовых отношений: Исполнитель самостоятельно определяет порядок и время выполнения работ.</span></p><h4>11. Обмен документами</h4><p class="cl"><span>11.1.</span><span>Стороны подписывают Договор, приложения, акты и уведомления через систему электронного документооборота либо обмениваются сканами или фотографиями подписанных документов по адресам электронной почты и в аккаунтах Telegram, указанных в разделе 13. Такие документы имеют силу оригиналов (ст. 160, 434 ГК РФ).</span></p><p class="cl"><span>11.2.</span><span>По требованию любой Стороны Стороны обмениваются оригиналами на бумаге в течение 30 (тридцати) дней.</span></p><p class="cl"><span>11.3.</span><span>Сообщение считается полученным в день его отправки по указанному адресу.</span></p><h4>12. Споры</h4><p class="cl"><span>12.1.</span><span>Споры Стороны решают переговорами. Срок ответа на письменную претензию — 10 (десять) рабочих дней. Если спор не урегулирован, он передаётся в суд по правилам законодательства Российской Федерации.</span></p>
+        <h4>13. Реквизиты и подписи Сторон</h4>
         <div class="req">
-          <div><b>Исполнитель</b><p>Давымока Никита <span class="blank"></span></p><p>Плательщик НПД, ИНН <span class="blank"></span></p><p>Р/с <span class="blank"></span></p><p>Банк <span class="blank"></span>, БИК <span class="blank"></span></p><p>Telegram: @davymoka_n</p><p>E-mail: <span class="blank"></span></p><div class="sign"><span class="blank"></span><span>/ Н. Давымока /</span></div></div>
-          <div><b>Заказчик</b><p><span class="blank"></span><span class="blank"></span></p><p>ИНН <span class="blank"></span>, ОГРН/ОГРНИП <span class="blank"></span></p><p>Адрес <span class="blank"></span><span class="blank"></span></p><p>Р/с <span class="blank"></span></p><p>Банк <span class="blank"></span>, БИК <span class="blank"></span></p><p>E-mail, Telegram: <span class="blank"></span></p><div class="sign"><span class="blank"></span><span>/ <span class="blank"></span> /</span></div></div>
+          <div><b>Исполнитель</b><p>Давымока Никита <input class="fill" data-f="mid2" style="width:7em" placeholder="отчество" aria-label="отчество"></p><p>Плательщик НПД, ИНН <input class="fill" data-f="einn2" style="width:9em" placeholder="" aria-label="einn2"></p><p>Р/с <input class="fill" data-f="eacc" style="width:13em" placeholder="" aria-label="eacc"></p><p>Банк <input class="fill" data-f="ebank" style="width:8em" placeholder="" aria-label="ebank">, БИК <input class="fill" data-f="ebik" style="width:6em" placeholder="" aria-label="ebik"></p><p>Telegram: @davymoka_n</p><p>E-mail: <input class="fill" data-f="email" style="width:11em" placeholder="" aria-label="email"></p><div class="sign"><span class="blank"></span><span>/ Н. Давымока /</span></div></div>
+          <div><b>Заказчик</b><p><input class="fill" data-f="cname2" style="width:15em" placeholder="наименование или ФИО" aria-label="наименование или ФИО"></p><p>ИНН <input class="fill" data-f="cinn" style="width:9em" placeholder="" aria-label="cinn">, ОГРН/ОГРНИП <input class="fill" data-f="cogrn" style="width:8em" placeholder="" aria-label="cogrn"></p><p>Адрес <input class="fill" data-f="caddr" style="width:14em" placeholder="" aria-label="caddr"></p><p>Р/с <input class="fill" data-f="cacc" style="width:13em" placeholder="" aria-label="cacc"></p><p>Банк <input class="fill" data-f="cbank" style="width:8em" placeholder="" aria-label="cbank">, БИК <input class="fill" data-f="cbik" style="width:6em" placeholder="" aria-label="cbik"></p><p>E-mail, Telegram: <input class="fill" data-f="ccont" style="width:10em" placeholder="" aria-label="ccont"></p><div class="sign"><span class="blank"></span><span>/ <input class="fill" data-f="csig" style="width:8em" placeholder="Фамилия И. О." aria-label="Фамилия И. О."> /</span></div></div>
         </div>
         <section class="p-app">
-          <p class="p-right">Приложение № 1<br>к Договору № <span class="blank s"></span> от «<span class="blank s"></span>» <span class="blank"></span> 20<span class="blank s"></span> г.</p>
+          <p class="p-right">Приложение № 1 к Договору</p>
           <p class="p-title" style="margin-top: 14px;">ТЕХНИЧЕСКОЕ ЗАДАНИЕ</p>
-          <p class="p-sub">пример заполнения</p>
           <table><tbody>
-            <tr><th style="width: 34%;">Результат</th><td>Telegram-бот сбора отзывов для студии маникюра</td></tr>
-            <tr><th>Функции</th><td>Сообщение клиенту через 2 часа после визита с просьбой оценить работу; при оценке 4–5 — ссылка на карточку студии в Яндекс Картах; при оценке 1–3 — вопрос «что пошло не так» и уведомление владельцу в Telegram; таблица всех оценок по мастерам.</td></tr>
-            <tr><th>Что передаёт Заказчик</th><td>Выгрузку визитов из YCLIENTS, ссылку на карточку в Яндекс Картах, Telegram владельца</td></tr>
+            <tr><th style="width: 30%;">Результат</th><td><textarea class="fill" data-f="res" rows="2" placeholder="Например: Telegram-бот сбора отзывов для студии маникюра"></textarea></td></tr>
+            <tr><th>Функции</th><td><textarea class="fill" data-f="fun" rows="3" placeholder="Например: сообщение клиенту через 2 часа после визита; оценки 4–5 — ссылка на Яндекс Карты; 1–3 — уведомление владельцу; таблица оценок по мастерам"></textarea></td></tr>
+            <tr><th>Что передаёт Заказчик</th><td><textarea class="fill" data-f="mat" rows="2" placeholder="Например: выгрузка визитов из YCLIENTS, ссылка на карточку в Яндекс Картах"></textarea></td></tr>
           </tbody></table>
-          <table><thead><tr><th>Этап</th><th>Срок</th><th class="n">Стоимость</th></tr></thead><tbody>
-            <tr><td>1. Прототип: тексты сообщений и сценарий бота</td><td>2 рабочих дня</td><td class="n">6 000 ₽</td></tr>
-            <tr><td>2. Настройка, подключение к выгрузке, запуск, инструкция</td><td>3 рабочих дня</td><td class="n">6 000 ₽</td></tr>
-            <tr><th colspan="2">Итого, НДС не облагается</th><th class="n">12 000 ₽</th></tr>
+          <table><thead><tr><th>Этап</th><th style="width: 22%;">Срок</th><th class="n" style="width: 20%;">Стоимость</th></tr></thead><tbody>
+            <tr><td><textarea class="fill" data-f="st0" rows="2" placeholder="Например: прототип, тексты и сценарий бота"></textarea></td><td><input class="fill" data-f="sd0" placeholder="2 раб. дня" style="width:100%"></td><td class="n"><input class="fill n" data-f="sp0" placeholder="6 000 ₽" style="width:100%"></td></tr><tr><td><textarea class="fill" data-f="st1" rows="2" placeholder="Настройка, запуск, инструкция"></textarea></td><td><input class="fill" data-f="sd1" placeholder="3 раб. дня" style="width:100%"></td><td class="n"><input class="fill n" data-f="sp1" placeholder="6 000 ₽" style="width:100%"></td></tr><tr><td><textarea class="fill" data-f="st2" rows="2" placeholder=""></textarea></td><td><input class="fill" data-f="sd2" placeholder="" style="width:100%"></td><td class="n"><input class="fill n" data-f="sp2" placeholder="" style="width:100%"></td></tr>
+            <tr><th colspan="2">Итого, НДС не облагается</th><th class="n"><input class="fill n" data-f="total" placeholder="12 000 ₽" style="width:100%"></th></tr>
           </tbody></table>
           <div class="req" style="margin-top: 16px;"><div class="sign"><span>Исполнитель</span><span class="blank"></span></div><div class="sign"><span>Заказчик</span><span class="blank"></span></div></div>
         </section>
       </article>
     </div>
-    <div class="dlg-foot"><button class="btn" type="button" id="contract-print">Сохранить в PDF</button><a class="btn primary" data-tg href="#contact">Обсудить договор в Telegram</a></div>
+    <div class="dlg-foot"><button class="btn" type="button" id="contract-clear">Очистить поля</button><button class="btn" type="button" id="contract-print">Печатная форма</button><a class="btn primary" data-tg href="#contact">Обсудить договор в Telegram</a></div>
   </dialog>
 
   <!-- Обработка персональных данных -->
@@ -2472,11 +2716,11 @@ const el = (tag, attrs = {}, parent) => {
       foot: ["ул. Лермонтова, 18 · по записи", "@chernila_tattoo"],
     },
     food: {
-      url: "ваш-сайт.рф", cls: "ms-food", name: "Шаурма на Садовой", nav: ["Меню", "Заказать", "Как добраться"],
-      h: "Закажите заранее — заберёте без очереди", p: "Шаурма на углях, фалафель и картошка. Оформите заказ онлайн, и он будет готов к вашему приходу.", btn: "Открыть меню",
-      cards: [["Шаурма классическая", "Курица, овощи, фирменный соус", "260 ₽"], ["Шаурма XL", "Двойная порция курицы", "340 ₽"], ["Комбо обед", "Шаурма, фри и айран", "430 ₽"]],
-      rev: ["«Заказываю с работы, забираю горячей» — Дима", "«Лучшая шаурма в районе, без вариантов» — Максим"],
-      foot: ["ул. Садовая, 3 · 10:00–23:00", "+7 900 000-00-00"],
+      url: "ваш-сайт.рф", cls: "ms-food", name: "Кафе «Угол»", nav: ["Меню", "Заказать", "Как добраться"],
+      h: "Обед без очереди: закажите заранее", p: "Боулы, супы, бургеры и завтраки весь день. Закажите с сайта — заберёте горячим к своему времени или получите за столом по QR-коду.", btn: "Открыть меню",
+      cards: [["Боул терияки", "Рис, курица, овощи, кунжут", "420 ₽"], ["Том ям", "С креветками и кокосовым молоком", "450 ₽"], ["Бизнес-ланч", "Суп, горячее и морс, 12:00–16:00", "390 ₽"]],
+      rev: ["«Заказываю из офиса, забираю горячим» — Дмитрий", "«Сканировал QR за столом — без ожидания официанта» — Мария"],
+      foot: ["ул. Победы, 3 · 9:00–23:00", "+7 900 000-00-00"],
     },
     auto: {
       url: "ваш-сайт.рф", cls: "ms-auto", name: "Гараж 31", nav: ["Услуги", "Цены", "Запись"],
@@ -2569,30 +2813,52 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     { n: "Юлия", svc: "маникюр", every: 21, ago: 90, chk: 1900, m: "Катя" },
     { n: "Ксения", svc: "наращивание", every: 21, ago: 30, chk: 3500, m: "Алина" },
   ];
-  let k = 1.5, offer = "remind";
-  const off = new Set();
+  const SPAN = 150; /* дней на шкале */
+  let k = 1.5, offer = "remind", showAll = false;
+  const off = new Set(), sent = new Set();
   const weeks = (d) => { const w = Math.round(d / 7); return `${w} ${plural(w, "неделю", "недели", "недель")}`; };
+  const gen = (m) => (m === "Алина" ? "Алины" : m === "Вика" ? "Вики" : "Кати");
+  const dat = (m) => (m === "Алина" ? "Алине" : m === "Вика" ? "Вике" : "Кате");
   const text = (c) => {
-    const head = `${c.n}, здравствуйте! Это студия «Ноготок». Ваш последний ${c.svc} был ${weeks(c.ago)} назад`;
+    const head = `${c.n}, здравствуйте! Это студия «Ноготок». С вашего последнего визита (${c.svc}) прошло ${weeks(c.ago)}`;
     if (offer === "sale") return `${head} — соскучились 🙂 До воскресенья для вас скидка 10%. ${c.m} будет рада вас видеть, записаться можно ответом на это сообщение.`;
-    if (offer === "slots") return `${head}. У ${c.m === "Алина" ? "Алины" : c.m === "Вика" ? "Вики" : "Кати"} на этой неделе есть свободные окна: четверг 16:00 и суббота 11:30. Записать вас?`;
-    return `${head}. Самое время обновить — записать вас к мастеру ${c.m}?`;
+    if (offer === "slots") return `${head}. У ${gen(c.m)} на этой неделе есть свободные окна: четверг 16:00 и суббота 11:30. Записать вас?`;
+    return `${head}. Самое время обновить — записать вас к ${dat(c.m)}?`;
   };
+  /* Визиты: от последнего назад с обычным интервалом и небольшим разбросом */
+  const visits = (c, i) => { const v = []; for (let d = c.ago, j = 0; d < SPAN; d += c.every + ((i + j) % 3) - 1, j++) v.push(d); return v; };
+  const X = (d) => 100 - (d / SPAN) * 100;
+  function line(c, i, sleepy) {
+    const exp = c.ago - c.every * k; /* сколько дней назад клиент «должен был» прийти; <0 — ещё не пора */
+    const dots = visits(c, i).map((d) => `<i class="cbv" style="left:${X(d)}%" title="визит ${d} дн. назад"></i>`).join("");
+    const due = c.ago - c.every;
+    const gap = sleepy ? `<span class="cbgap" style="left:${X(due)}%;right:0"></span>` : "";
+    const next = !sleepy ? `<i class="cbnext" style="left:${Math.min(100, X(due))}%" title="ждём визит"></i>` : `<i class="cbexp" style="left:${X(due)}%" title="обычно приходит к этому дню"></i>`;
+    return `<div class="cbline">${gap}${dots}${next}</div>`;
+  }
   function render() {
-    const sleep = C.filter((c) => c.ago > c.every * k);
-    const sel = sleep.filter((c) => !off.has(c.n));
-    const monthly = sel.reduce((a, c) => a + (c.chk * 30) / c.every, 0);
-    $("#cb-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${sleep.length} из ${C.length}</div><p>клиентов «уснули»</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.round(monthly / 100) * 100)}</div><p>в месяц приносили выбранные</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.round(monthly / 3 / 100) * 100)}</div><p>вернётся, если откликнется каждый третий</p></div>` +
-      `<div class="kpi"><div class="v">${sel.length}</div><p>сообщений к отправке</p></div>`;
-    $("#cb-list").innerHTML = sleep.length ? sleep.map((c) => `<div class="cb-row ${off.has(c.n) ? "off" : ""}"><input type="checkbox" data-n="${c.n}" ${off.has(c.n) ? "" : "checked"} aria-label="Написать ${c.n}"><div><b>${c.n}</b><small>${c.svc}, обычно раз в ${weeks(c.every)}</small><small class="late">не было ${c.ago} дней</small></div><div class="cb-msg">${text(c)}</div><div class="cb-send"><span class="wa">WhatsApp</span><span class="tgm">Telegram</span></div></div>`).join("") : `<p class="hint">Все клиенты ходят по графику.</p>`;
+    const R = C.map((c, i) => ({ c, i, sleepy: c.ago > c.every * k }));
+    const sleep = R.filter((r) => r.sleepy), sel = sleep.filter((r) => !off.has(r.c.n));
+    const monthly = sel.reduce((a, r) => a + (r.c.chk * 30) / r.c.every, 0);
+    const back = sent.size ? Math.ceil(sent.size / 3) : 0;
+    $("#cb-kpi").innerHTML = `<b>${sleep.length} из ${C.length}</b> клиентов «уснули». Вместе они приносили <b>${rub(Math.round(monthly / 100) * 100)}</b> в месяц. Если вернётся каждый третий — это <b class="good">+${rub(Math.round(monthly / 3 / 100) * 100)}</b> в месяц без рекламы.`;
+    const rows = showAll ? R : sleep;
+    $("#cb-list").innerHTML = `<div class="cbaxis"><span></span><span></span><span class="ax"><i>5 мес. назад</i><i>2,5 мес.</i><i>сегодня</i></span></div>` + rows.map(({ c, i, sleepy }) => {
+      const st = sent.has(c.n) ? `<span class="cb-st">${i % 3 === 0 ? "✓ записалась на четверг" : "доставлено"}</span>` : sleepy ? `<span class="cb-late">не была ${c.ago} дней при обычных ${c.every}</span>` : `<span class="cb-okt">ходит по графику</span>`;
+      return `<div class="cb-row2 ${sleepy && off.has(c.n) ? "off" : ""} ${sleepy ? "" : "fine"}">${sleepy ? `<input type="checkbox" data-n="${c.n}" ${off.has(c.n) ? "" : "checked"} aria-label="Написать ${c.n}">` : "<span></span>"}<div class="cb-who"><b>${c.n}</b><small>${c.svc}</small></div>${line(c, i, sleepy)}<div class="cb-state">${st}</div>${sleepy ? `<div class="cb-msg">${text(c)}</div>` : ""}</div>`;
+    }).join("");
+    $("#cb-send").disabled = !sel.filter((r) => !sent.has(r.c.n)).length;
+    $("#cb-send").textContent = sel.length && sel.every((r) => sent.has(r.c.n)) ? "Отправлено" : `Отправить ${sel.filter((r) => !sent.has(r.c.n)).length} ${plural(sel.filter((r) => !sent.has(r.c.n)).length, "сообщение", "сообщения", "сообщений")}`;
   }
   $("#comeback").addEventListener("click", (e) => {
     const b = e.target.closest("button");
-    if (b?.dataset.k) { k = +b.dataset.k; $("#cb-k").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); render(); }
-    if (b?.dataset.o) { offer = b.dataset.o; $("#cb-offer").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); render(); }
+    if (!b) return;
+    if (b.dataset.k) { k = +b.dataset.k; $("#cb-k").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
+    else if (b.dataset.o) { offer = b.dataset.o; $("#cb-offer").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
+    else if (b.id === "cb-all") { showAll = !showAll; b.textContent = showAll ? "Только «уснувших»" : "Показать всех клиентов"; }
+    else if (b.id === "cb-send") C.filter((c) => c.ago > c.every * k && !off.has(c.n)).forEach((c) => sent.add(c.n));
+    else return;
+    render();
   });
   $("#comeback").addEventListener("change", (e) => { const n = e.target.dataset.n; if (!n) return; e.target.checked ? off.delete(n) : off.add(n); render(); });
   render();
@@ -2640,37 +2906,75 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
 /* ============ Тату: предзапись с расчётом ============ */
 (() => {
   const STY = [["mini", "Минимализм", 1], ["line", "Графика", 1.2], ["real", "Реализм", 1.8], ["text", "Надпись", 0.8]];
-  const ZON = [["wrist", "Запястье", 1], ["fore", "Предплечье", 1], ["shoulder", "Плечо", 1.05], ["calf", "Голень", 1.05], ["back", "Спина", 1.15], ["ribs", "Рёбра", 1.3]];
-  let st = "line", zn = "fore", col = "bw", sent = false;
-  const chips = (list, cur, key) => list.map(([k, t]) => `<button type="button" data-${key}="${k}" aria-pressed="${k === cur}">${t}</button>`).join("");
+  /* Зоны: [ключ, название, коэффициент цены, боль 1–5, форма на силуэте] */
+  const Z = {
+    front: [
+      ["chest", "Грудь", 1.1, 4, { e: [100, 112, 30, 20] }],
+      ["ribs", "Рёбра", 1.3, 5, { r: [122, 132, 20, 54, 8] }],
+      ["shoulder", "Плечо", 1.05, 2, { r: [140, 84, 22, 80, 11] }],
+      ["fore", "Предплечье", 1, 2, { r: [150, 168, 20, 62, 10] }],
+      ["wrist", "Запястье", 1, 3, { r: [150, 230, 20, 16, 6] }],
+      ["thigh", "Бедро", 1, 2, { r: [104, 210, 36, 94, 16] }],
+      ["calf", "Голень", 1.05, 3, { r: [108, 308, 28, 86, 12] }],
+    ],
+    back: [
+      ["neck", "Шея", 1.2, 4, { r: [90, 62, 20, 16, 6] }],
+      ["blade", "Лопатка", 1.05, 3, { e: [80, 108, 20, 18] }],
+      ["back", "Спина", 1.15, 3, { e: [100, 158, 34, 34] }],
+      ["shoulder", "Плечо", 1.05, 2, { r: [38, 84, 22, 80, 11] }],
+      ["calf", "Икра", 1.05, 3, { r: [64, 308, 28, 86, 12] }],
+    ],
+  };
+  const BODY = '<circle cx="100" cy="38" r="22"/><rect x="91" y="58" width="18" height="16" rx="5"/><path d="M60 78 Q100 68 140 78 L146 198 Q100 214 54 198 Z"/><rect x="38" y="82" width="22" height="84" rx="11"/><rect x="140" y="82" width="22" height="84" rx="11"/><rect x="30" y="166" width="20" height="82" rx="10"/><rect x="150" y="166" width="20" height="82" rx="10"/><circle cx="40" cy="258" r="10"/><circle cx="160" cy="258" r="10"/><rect x="60" y="204" width="36" height="102" rx="16"/><rect x="104" y="204" width="36" height="102" rx="16"/><rect x="64" y="304" width="28" height="94" rx="12"/><rect x="108" y="304" width="28" height="94" rx="12"/><ellipse cx="78" cy="406" rx="16" ry="7"/><ellipse cx="122" cy="406" rx="16" ry="7"/>';
+  let side = "front", zn = "fore", st = "line", col = "bw", sent = false;
+  const zone = () => Z[side].find((z) => z[0] === zn) || Z[side][0];
+  const center = (f) => (f.e ? [f.e[0], f.e[1]] : [f.r[0] + f.r[2] / 2, f.r[1] + f.r[3] / 2]);
+  const shape = (f, attrs) => (f.e ? `<ellipse cx="${f.e[0]}" cy="${f.e[1]}" rx="${f.e[2]}" ry="${f.e[3]}" ${attrs}/>` : `<rect x="${f.r[0]}" y="${f.r[1]}" width="${f.r[2]}" height="${f.r[3]}" rx="${f.r[4]}" ${attrs}/>`);
+  const GLYPH = {
+    mini: '<path d="M6 20 L14 6 L22 20" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+    line: '<circle cx="14" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 13h16M14 5v16" stroke="currentColor" stroke-width="1"/>',
+    real: '<circle cx="14" cy="13" r="8" fill="currentColor" opacity="0.35"/><circle cx="12" cy="11" r="3.5" fill="currentColor" opacity="0.7"/>',
+    text: '<text x="14" y="18" text-anchor="middle" font-size="13" font-family="Georgia, serif" font-style="italic" fill="currentColor">Aa</text>',
+  };
   const r500 = (n) => Math.round(n / 500) * 500;
   function est() {
-    const size = +$("#tt-size").value, s = STY.find((x) => x[0] === st), z = ZON.find((x) => x[0] === zn);
+    const size = +$("#tt-size").value, s = STY.find((x) => x[0] === st), z = zone();
     const base = Math.max(3500, (1500 + Math.pow(size, 1.6) * 90) * s[2] * z[2] * (col === "col" ? 1.35 : 1));
     const hours = Math.max(1, Math.round(base / 3000));
-    return { size, s: s[1], z: z[1], lo: r500(base * 0.85), hi: r500(base * 1.15), hours, sessions: Math.ceil(hours / 5) };
+    return { size, s, z, lo: r500(base * 0.85), hi: r500(base * 1.15), hours, sessions: Math.ceil(hours / 5) };
   }
   function render() {
-    $("#tt-style").innerHTML = chips(STY, st, "s");
-    $("#tt-zone").innerHTML = chips(ZON, zn, "z");
+    const e = est(), [cx, cy] = center(e.z[4]), rr = Math.max(4, e.size * 1.1);
+    const sketch = st === "real"
+      ? `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="url(#tt-grad)"/>`
+      : st === "text"
+        ? `<text x="${cx}" y="${cy + 3}" text-anchor="middle" font-size="${Math.max(6, rr * 0.7)}" font-family="Georgia, serif" font-style="italic" fill="${col === "col" ? "#b0306a" : "#1c1c1e"}">amor</text>`
+        : `<circle cx="${cx}" cy="${cy}" r="${rr}" fill="none" stroke="${col === "col" ? "#b0306a" : "#1c1c1e"}" stroke-width="${st === "mini" ? 1 : 1.6}" ${st === "line" ? 'stroke-dasharray="3 2"' : ""}/>${st === "line" ? `<circle cx="${cx}" cy="${cy}" r="${rr * 0.55}" fill="none" stroke="${col === "col" ? "#2a7fb0" : "#1c1c1e"}" stroke-width="1"/>` : ""}`;
+    $("#tt-svg").innerHTML = `<defs><radialGradient id="tt-grad"><stop offset="0" stop-color="${col === "col" ? "#b0306a" : "#1c1c1e"}" stop-opacity="0.85"/><stop offset="1" stop-color="${col === "col" ? "#2a7fb0" : "#1c1c1e"}" stop-opacity="0.15"/></radialGradient></defs><g class="tt-sil">${BODY}</g>` +
+      Z[side].map((z) => shape(z[4], `class="tt-z ${z[0] === e.z[0] ? "on" : ""}" data-z="${z[0]}" tabindex="0" role="button" aria-label="${z[1]}"`)).join("") + `<g class="tt-sketch" pointer-events="none">${sketch}</g>`;
+    $("#tt-zone-v").innerHTML = `Место: <b>${e.z[1].toLowerCase()}</b>. Нажмите на другую зону, чтобы сравнить.`;
+    $("#tt-style").innerHTML = STY.map(([k, t, m]) => `<button type="button" data-s="${k}" aria-pressed="${k === st}"><svg viewBox="0 0 28 26" width="28" height="26" aria-hidden="true">${GLYPH[k]}</svg><span>${t}</span></button>`).join("");
     $("#tt-color").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.c === col));
-    const e = est();
     $("#tt-size-v").textContent = e.size;
     $("#tt-price").textContent = `${fmt(e.lo)}–${fmt(e.hi)} ₽`;
-    $("#tt-time").textContent = `≈ ${e.hours} ${plural(e.hours, "час", "часа", "часов")}, ${e.sessions} ${plural(e.sessions, "сеанс", "сеанса", "сеансов")}`;
-    const c = $("#tt-chat");
-    c.innerHTML = `<span class="tg-date">Сегодня</span>` + (sent
-      ? tgMsg({ html: `🖋 <b>Новая заявка</b>\nСтиль: ${e.s.toLowerCase()}\nМесто: ${e.z.toLowerCase()}, ~${e.size} см, ${col === "col" ? "цветная" : "ч/б"}\nОценка: ${fmt(e.lo)}–${fmt(e.hi)} ₽, ≈ ${e.hours} ч\nРеференсы: 2 фото\nПредоплата: <b>2 000 ₽ ✅ получена</b>`, time: tgTime(0), kb: ["Предложить дату", "Написать клиенту"], cols: 2 })
-      : `<div class="tg-sys">Здесь появится заявка, когда клиент запишется</div>`);
+    $("#tt-pain").innerHTML = `<span class="tt-dots" aria-label="${e.z[3]} из 5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= e.z[3] ? "on" : ""}"></i>`).join("")}</span> ${["", "почти не больно", "терпимо", "ощутимо", "больно", "очень больно"][e.z[3]]}`;
+    const per = Math.ceil(e.hours / e.sessions);
+    $("#tt-plan").innerHTML = Array.from({ length: e.sessions }, (_, i) => `<li><b>Сеанс ${i + 1}</b><span>${i === e.sessions - 1 ? e.hours - per * (e.sessions - 1) : per} ч${i ? " · через 3–4 недели" : ""}</span></li>`).join("") + `<li class="free"><b>Коррекция</b><span>бесплатно, через 1–2 месяца</span></li>`;
+    $("#tt-ticket").hidden = !sent;
+    if (sent) $("#tt-ticket").innerHTML = `<b>Заявка №317 у мастера</b><span>${e.s[1]}, ${e.z[1].toLowerCase()}, ${e.size} см, ${col === "col" ? "цвет" : "ч/б"} · ${fmt(e.lo)}–${fmt(e.hi)} ₽</span><span>Предоплата 2 000 ₽ получена и засчитается в последний сеанс. Мастер пришлёт эскиз и даты в Telegram.</span>`;
   }
-  $("#tt-tg").insertAdjacentHTML("afterbegin", tgHead("Ч", 0, "Заявки · мастер", "бот студии «Чернила»"));
   $("#tattoo").addEventListener("click", (e) => {
-    const b = e.target.closest("button");
-    if (!b) return;
-    if (b.dataset.s) st = b.dataset.s; else if (b.dataset.z) zn = b.dataset.z; else if (b.dataset.c) col = b.dataset.c; else if (b.id === "tt-go") sent = true; else return;
-    if (b.id !== "tt-go") sent = false;
+    const z = e.target.closest("[data-z]"), b = e.target.closest("button");
+    if (z) zn = z.dataset.z;
+    else if (b?.dataset.side) { side = b.dataset.side; $("#tt-side").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); if (!Z[side].some((q) => q[0] === zn)) zn = Z[side][0][0]; }
+    else if (b?.dataset.s) st = b.dataset.s;
+    else if (b?.dataset.c) col = b.dataset.c;
+    else if (b?.id === "tt-go") { sent = true; render(); return; }
+    else return;
+    sent = false;
     render();
   });
+  $("#tt-svg").addEventListener("keydown", (e) => { const z = e.target.closest("[data-z]"); if (z && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); zn = z.dataset.z; sent = false; render(); } });
   $("#tt-size").addEventListener("input", () => { sent = false; render(); });
   render();
 })();
@@ -2716,58 +3020,89 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
-/* ============ Еда: заказ без агрегаторов ============ */
+/* ============ Кафе: свои заказы и экран кухни ============ */
 (() => {
-  const MENU = [["Шаурма классическая", 260, "курица, овощи, фирменный соус"], ["Шаурма сырная", 290, "с сыром и халапеньо"], ["Шаурма XL", 340, "двойная порция курицы"], ["Фалафель в лаваше", 250, "без мяса"], ["Картофель фри", 120, ""], ["Айран", 90, "0,5 л"]];
+  const MENU = [["Боул с курицей терияки", 420, "рис, курица, овощи, кунжут"], ["Бургер классический", 390, "говядина 150 г, чеддер"], ["Том ям", 450, "креветки, кокосовое молоко"], ["Сырники", 290, "сметана и ягоды"], ["Капучино", 190, "0,3 л"], ["Лимонад облепиховый", 170, "0,4 л"]];
   const q = MENU.map(() => 0);
-  q[0] = 2; q[5] = 1;
-  let when = 15, orders = [];
-  $("#od-tg").insertAdjacentHTML("afterbegin", tgHead("К", 20, "Кухня · Шаурма на Садовой", "группа, 4 участника"));
+  q[1] = 1; q[4] = 2;
+  let when = "Навынос через 20 мин", num = 48;
+  const now = () => Date.now();
+  /* Карточки кухни: col 0 — новые, 1 — готовятся, 2 — готово */
+  const T = [
+    { n: 45, how: "Доставка своим курьером", items: ["Том ям", "Сырники"], col: 1, t0: now() - 13 * 60000 },
+    { n: 46, how: "В зале, стол 4", items: ["Боул с курицей терияки", "2 × Капучино"], col: 1, t0: now() - 6 * 60000 },
+    { n: 47, how: "Навынос через 15 мин", items: ["Бургер классический", "Лимонад облепиховый"], col: 0, t0: now() - 60000 },
+  ];
+  const COLS = ["Новые", "Готовятся", "Готово"], NEXT = ["Взять в работу", "Готово", "Выдан"];
+  const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  function board() {
+    $("#kds").innerHTML = COLS.map((c, ci) => `<div class="kds-col"><span class="kds-h">${c} <i>${T.filter((t) => t.col === ci).length}</i></span>${T.filter((t) => t.col === ci).map((t) => `<div class="kds-t ${t.fresh ? "fresh" : ""}" data-n="${t.n}"><div class="kds-top"><b>№${t.n}</b><span class="kds-time" data-t0="${t.t0}"></span></div><small>${t.how}</small><ul>${t.items.map((i) => `<li>${i}</li>`).join("")}</ul><button type="button" data-move="${t.n}">${NEXT[ci]}</button></div>`).join("")}</div>`).join("");
+    T.forEach((t) => (t.fresh = false));
+    tick();
+  }
+  function tick() {
+    if ($("#order").hidden) return;
+    $("#kds-clock").textContent = new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+    document.querySelectorAll("#kds .kds-time").forEach((e) => {
+      const ms = now() - +e.dataset.t0, col = e.closest(".kds-col") === $("#kds").children[2];
+      e.textContent = col ? "✓" : mmss(ms);
+      e.closest(".kds-t").classList.toggle("late", !col && ms > 12 * 60000);
+    });
+  }
+  setInterval(tick, 1000);
   function render() {
     $("#od-menu").innerHTML = MENU.map(([t, p, d], i) => `<div class="od-item"><span>${t}${d ? `<small>${d}</small>` : ""}</span><span class="num">${p} ₽</span><span class="od-q"><button type="button" data-i="${i}" data-d="-1" aria-label="Убрать ${t}">−</button><b>${q[i]}</b><button type="button" data-i="${i}" data-d="1" aria-label="Добавить ${t}">+</button></span></div>`).join("");
     const n = q.reduce((a, b) => a + b, 0), sum = q.reduce((a, v, i) => a + v * MENU[i][1], 0);
     $("#od-count").textContent = n ? `${n} ${plural(n, "позиция", "позиции", "позиций")}` : "Корзина пуста";
     $("#od-sum").textContent = rub(sum);
     $("#od-go").disabled = !n;
-    $("#od-chat").innerHTML = `<span class="tg-date">Сегодня</span>` + (orders.length ? orders.join("") : `<div class="tg-sys">Сюда придёт заказ, когда гость нажмёт «Заказать»</div>`);
-    $("#od-chat").scrollTop = 1e6;
   }
   function calc() {
     const n = +$("#od-n").value, chk = +$("#od-chk").value, com = +$("#od-com").value, share = +$("#od-share").value;
     $("#od-n-v").textContent = n; $("#od-chk-v").textContent = rub(chk); $("#od-com-v").textContent = com + "%"; $("#od-share-v").textContent = share + "%";
-    const month = n * chk * 30, fee = month * com / 100, save = fee * share / 100, cost = 25000;
-    $("#od-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${rub(Math.round(month / 1000) * 1000)}</div><p>заказов через агрегатор в месяц</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.round(fee / 100) * 100)}</div><p>комиссия в месяц</p></div>` +
-      `<div class="kpi"><div class="v good-v">${rub(Math.round(save / 100) * 100)}</div><p>остаётся у вас, если ${share}% гостей заказывают напрямую</p></div>` +
-      `<div class="kpi"><div class="v">${Math.max(1, Math.ceil(cost / (save / 30)))} ${plural(Math.max(1, Math.ceil(cost / (save / 30))), "день", "дня", "дней")}</div><p>окупится своя система за ${rub(cost)}</p></div>`;
+    const month = n * chk * 30, moved = (month * share) / 100, feeAgg = (moved * com) / 100, feeOwn = moved * 0.025, save = feeAgg - feeOwn, cost = 25000;
+    const days = Math.max(1, Math.ceil(cost / (save / 30)));
+    const r100 = (v) => Math.round(v / 100) * 100;
+    $("#od-bars").innerHTML =
+      `<div class="od-bar"><span>Эти заказы через агрегатор</span><div><i class="lost" style="width:${com}%">${rub(r100(feeAgg))}</i><i class="kept" style="width:${100 - com}%">${rub(r100(moved - feeAgg))}</i></div></div>` +
+      `<div class="od-bar"><span>Те же заказы напрямую</span><div><i class="lost" style="width:2.5%"></i><i class="kept" style="width:97.5%">${rub(r100(moved - feeOwn))}</i></div></div>` +
+      `<p class="od-save"><b>+${rub(r100(save))}</b> в месяц остаётся у вас. Эквайринг 2,5% уже вычтен. Своя система за ${rub(cost)} окупится за ${days} ${plural(days, "день", "дня", "дней")}.</p>`;
   }
   $("#order").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
     if (b.dataset.i) { const i = +b.dataset.i; q[i] = Math.max(0, Math.min(9, q[i] + +b.dataset.d)); render(); }
-    else if (b.dataset.w) { when = +b.dataset.w; $("#od-when").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
+    else if (b.dataset.w) { when = b.dataset.w; $("#od-when").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
     else if (b.id === "od-go") {
-      const lines = q.map((v, i) => (v ? `${v} × ${MENU[i][0]}` : "")).filter(Boolean).join("\n"), sum = q.reduce((a, v, i) => a + v * MENU[i][1], 0);
-      orders.push(tgMsg({ html: `🔥 <b>Заказ №${47 + orders.length} · навынос через ${when} мин</b>\n${lines}\n\nИтого: <b>${rub(sum)}</b> · оплата при получении\nГость: Дмитрий, +7 900 000-00-00`, time: tgTime(0), from: "Бот заказов", hue: 20, kb: ["Принят", "Готов, позвать гостя"], cols: 2 }));
-      orders = orders.slice(-3);
-      render();
+      T.push({ n: num++, how: when, items: q.map((v, i) => (v ? `${v > 1 ? v + " × " : ""}${MENU[i][0]}` : "")).filter(Boolean), col: 0, t0: now(), fresh: true });
+      while (T.length > 7) T.splice(T.findIndex((t) => t.col === 2) >= 0 ? T.findIndex((t) => t.col === 2) : 0, 1);
+      $("#kds-toast").textContent = `Заказ №${num - 1} появился на экране кухни. Гость получил: «Заказ принят, ${when.startsWith("Навынос") ? "будет готов через 20 минут" : "принесём к столу"}».`;
+      board();
+    } else if (b.dataset.move) {
+      const t = T.find((x) => x.n === +b.dataset.move);
+      if (t.col === 2) { T.splice(T.indexOf(t), 1); $("#kds-toast").textContent = `Заказ №${t.n} выдан.`; }
+      else {
+        t.col++;
+        if (t.col === 1) t.t0 = now() - 1000;
+        if (t.col === 2) $("#kds-toast").textContent = t.how.startsWith("В зале") ? `Официанту: заказ №${t.n} готов, ${t.how.replace("В зале, ", "")}.` : `Гостю ушло сообщение: «Заказ №${t.n} готов, заберите на стойке».`;
+      }
+      board();
     }
   });
   $("#order").addEventListener("input", (e) => { if (e.target.type === "range") calc(); });
-  render(); calc();
+  render(); board(); calc();
 })();
 
 /* ============ Еда: техкарта и фудкост ============ */
 (() => {
   /* Ингредиенты: [название, ед., кол-во, цена за кг или за шт; null — цена курицы с ползунка] */
-  const CARD = [["Лаваш", "шт", 1, 18], ["Курица (филе бедра)", "г", 110, null], ["Овощи", "г", 60, 120], ["Соус", "г", 30, 200], ["Сыр", "г", 15, 600], ["Упаковка", "шт", 1, 6]];
+  const CARD = [["Булочка бриошь", "шт", 1, 24], ["Котлета, говядина", "г", 150, null], ["Сыр чеддер", "г", 20, 700], ["Овощи и салат", "г", 50, 160], ["Соус", "г", 25, 240], ["Упаковка", "шт", 1, 9]];
   const rest = (extra = {}) => CARD.filter((r) => r[3] !== null).reduce((a, [n, u, q, p]) => a + (u === "г" ? ((q + (extra[n] || 0)) * p) / 1000 : q * p), 0);
   const MENU = [
-    { n: "Классическая", g: 110, extra: {}, price: null },
-    { n: "Сырная", g: 110, extra: { "Сыр": 40 }, price: 350 },
-    { n: "XL", g: 200, extra: { "Овощи": 30 }, price: 390 },
-    { n: "Фалафель", g: 0, extra: {}, price: 270, own: 33 },
+    { n: "Классический", g: 150, extra: {}, price: null },
+    { n: "Чизбургер", g: 150, extra: { "Сыр чеддер": 40 }, price: 520 },
+    { n: "Двойной", g: 300, extra: {}, price: 640 },
+    { n: "Веджи", g: 0, extra: {}, price: 450, own: 70 },
   ];
   const TARGET = 30;
   function render() {
@@ -2789,12 +3124,12 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
       const pr = m.price ?? price, c = m.own ? rest() + m.own : rest(m.extra) + (m.g * chick) / 1000, f = (c / pr) * 100;
       return { n: m.n, pr, c, f };
     });
-    $("#fc-menu").innerHTML = `<thead><tr><th>Шаурма</th><th class="n">Себест.</th><th class="n">Цена</th><th class="n">Фудкост</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td class="n">${fmt(r.c)} ₽</td><td class="n">${r.pr} ₽</td><td class="n ${r.f > 35 ? "fc-bad" : r.f > TARGET ? "fc-warn" : "fc-ok"}">${fmt(r.f, 1)}%</td></tr>`).join("")}</tbody>`;
+    $("#fc-menu").innerHTML = `<thead><tr><th>Бургер</th><th class="n">Себест.</th><th class="n">Цена</th><th class="n">Фудкост</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td class="n">${fmt(r.c)} ₽</td><td class="n">${r.pr} ₽</td><td class="n ${r.f > 35 ? "fc-bad" : r.f > TARGET ? "fc-warn" : "fc-ok"}">${fmt(r.f, 1)}%</td></tr>`).join("")}</tbody>`;
     const bad = rows.filter((r) => r.f > 35);
-    const limit = Math.floor(((price * 0.35 - rest()) / 110) * 1000 / 10) * 10;
+    const limit = Math.floor(((price * 0.35 - rest()) / 150) * 1000 / 10) * 10;
     $("#fc-note").innerHTML = bad.length
-      ? `При курице по ${chick} ₽/кг невыгодными стали: <b>${bad.map((r) => r.n.toLowerCase()).join(", ")}</b>. Поднимите цену или пересмотрите граммовку.`
-      : `Все позиции в норме. Если курица подорожает до ${limit} ₽/кг, классическая при цене ${price} ₽ выйдет за 35%.`;
+      ? `При говядине по ${chick} ₽/кг невыгодными стали: <b>${bad.map((r) => r.n.toLowerCase()).join(", ")}</b>. Поднимите цену или пересмотрите граммовку.`
+      : `Все позиции в норме. Если говядина подорожает до ${limit} ₽/кг, классический при цене ${price} ₽ выйдет за 35%.`;
   }
   $("#foodcost").addEventListener("input", render);
   render();
@@ -2918,10 +3253,8 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     if (step === 3) panel = `<p class="hint">Согласовано: ${ok.length ? ok.map((i) => FIND[i].n.toLowerCase()).join(", ") : "только ТО"}.</p><button type="button" class="btn primary" data-a="done">Работы выполнены</button>`;
     if (step === 4) panel = `<p class="hint">Клиент получил сообщение, что машина готова, и ссылку на оплату.</p><button type="button" class="btn" data-a="reset">Начать заново</button>`;
     $("#rp-panel").innerHTML = panel;
-    $("#rp-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${rub(sum())}</div><p>заказ-наряд</p></div>` +
-      `<div class="kpi"><div class="v">${ok.length ? "+" + rub(sum() - BASE) : "—"}</div><p>доп. работы</p></div>` +
-      `<div class="kpi"><div class="v">${calls}</div><p>${plural(calls, "звонок", "звонка", "звонков")} клиенту, обычно 3–4</p></div>`;
+    const lines = [["ТО-4: масло, фильтры, свечи", 9800], ["Диагностика ходовой", 1000], ...ok.map((x) => [FIND[x].n, FIND[x].p, true])];
+    $("#rp-kpi").innerHTML = `<div class="rp-doc-h"><b>Заказ-наряд № 1048</b><span>${STEPS[step].toLowerCase()}</span></div>${lines.map(([n, p, add]) => `<div class="rp-ln ${add ? "add" : ""}"><span>${n}</span><i>${rub(p)}</i></div>`).join("")}<div class="rp-ln tot"><span>Итого</span><i>${rub(sum())}</i></div><p class="rp-calls">${calls ? "Был 1 звонок клиенту" : "Ни одного звонка клиенту"} — обычно их 3–4 на ремонт</p>${step === 4 ? '<span class="rp-stamp">ГОТОВ</span>' : ""}`;
     if (!$("#rp-tg .tg-head")) $("#rp-tg").insertAdjacentHTML("afterbegin", tgHead("Г", 40, "Гараж 31", "статус ремонта"));
     $("#rp-chat").innerHTML = chat.join("");
     $("#rp-chat").scrollTop = 1e6;
@@ -2957,200 +3290,238 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
-/* ============ Маркетплейс: юнит-экономика ============ */
+/* ============ Маркетплейс: юнит-экономика и матрица товаров ============ */
 (() => {
   const RET = 50, TAX = 0.06;
+  /* [товар, цена, закупка, комиссия %, логистика, выкуп %, реклама %, продаж в месяц] */
+  const P = [
+    ["Органайзер для косметики", 1490, 520, 23, 95, 80, 8, 320],
+    ["Термокружка 450 мл", 990, 410, 21, 85, 90, 12, 540],
+    ["Плед флисовый 150×200", 1790, 980, 19, 160, 70, 10, 180],
+    ["Зарядное устройство 20 Вт", 690, 290, 24, 70, 85, 15, 610],
+    ["Подставка для ноутбука", 2290, 860, 20, 140, 88, 6, 140],
+  ].map(([n, price, cost, com, log, buy, ad, sales]) => ({ n, price, cost, com, log, buy, ad, sales }));
   const ids = ["price", "cost", "com", "log", "buy", "ad"];
+  let cur = 0;
+  const unit = (v) => {
+    const b = v.buy / 100;
+    const parts = [["Комиссия площадки", (v.price * v.com) / 100], ["Логистика и возвраты", v.log / b + (RET * (1 - b)) / b], ["Реклама", (v.price * v.ad) / 100], ["Налог 6%", v.price * TAX], ["Закупка", v.cost]];
+    const profit = parts.reduce((a, [, x]) => a - x, v.price);
+    return { parts, profit, margin: (profit / v.price) * 100 };
+  };
+  function load() { ids.forEach((k) => ($("#mp-" + k).value = P[cur][k])); }
   function render() {
-    const v = Object.fromEntries(ids.map((k) => [k, +$("#mp-" + k).value]));
+    const v = P[cur];
+    ids.forEach((k) => (v[k] = +$("#mp-" + k).value));
+    $("#mp-name").textContent = v.n;
     $("#mp-price-v").textContent = rub(v.price); $("#mp-cost-v").textContent = rub(v.cost); $("#mp-com-v").textContent = v.com + "%";
     $("#mp-log-v").textContent = rub(v.log); $("#mp-buy-v").textContent = v.buy + "%"; $("#mp-ad-v").textContent = v.ad + "%";
-    const b = v.buy / 100;
-    /* на одну выкупленную единицу: доставка всех заказов и возврат невыкупленных */
-    const parts = [
-      ["Комиссия площадки", (v.price * v.com) / 100],
-      ["Логистика и возвраты", v.log / b + (RET * (1 - b)) / b],
-      ["Реклама", (v.price * v.ad) / 100],
-      ["Налог 6%", v.price * TAX],
-      ["Закупка", v.cost],
-    ];
-    const profit = parts.reduce((a, [, x]) => a - x, v.price);
+    const { parts, profit, margin } = unit(v);
     const W = (x) => Math.max(0, Math.min(100, (x / v.price) * 100));
     let rem = v.price;
     $("#mp-fall").innerHTML = `<div class="mp-row mp-first"><span>Цена</span><div class="mp-bar"><i style="left:0;width:100%"></i></div><b>${rub(v.price)}</b></div>` +
       parts.map(([n, x]) => { const r = `<div class="mp-row"><span>${n}</span><div class="mp-bar"><i style="left:${W(rem - x)}%;width:${W(rem) - W(rem - x)}%"></i></div><b>−${rub(x)}</b></div>`; rem -= x; return r; }).join("") +
-      `<div class="mp-row mp-res ${profit < 0 ? "neg" : ""}"><span>Остаётся вам</span><div class="mp-bar"><i style="left:0;width:${W(Math.abs(profit))}%"></i></div><b>${rub(profit)}</b></div>`;
+      `<div class="mp-row mp-res ${profit < 0 ? "neg" : ""}"><span>Остаётся с продажи</span><div class="mp-bar"><i style="left:0;width:${W(Math.abs(profit))}%"></i></div><b>${rub(profit)} · ${fmt(margin, 1)}%</b></div>`;
+    /* матрица: по горизонтали продажи, по вертикали маржа, размер — прибыль в месяц */
+    const all = P.map((p, i) => ({ p, i, ...unit(p), month: unit(p).profit * p.sales }));
+    const total = all.reduce((a, x) => a + x.month, 0);
+    const sx = (s) => 40 + (s / 700) * 340, sy = (m) => 190 - ((Math.max(-20, Math.min(40, m)) + 20) / 60) * 170;
+    $("#mp-matrix").innerHTML = `<line x1="40" y1="${sy(0)}" x2="380" y2="${sy(0)}" class="mx-zero"/><line x1="${sx(300)}" y1="20" x2="${sx(300)}" y2="190" class="mx-mid"/><line x1="40" y1="${sy(20)}" x2="380" y2="${sy(20)}" class="mx-mid"/>` +
+      `<text x="376" y="34" text-anchor="end" class="mx-q">ЗВЁЗДЫ</text><text x="46" y="34" class="mx-q">НИША</text><text x="46" y="${sy(0) + 14}" class="mx-q bad">ТЯНУТ ВНИЗ</text>` +
+      `<text x="210" y="208" text-anchor="middle" class="mx-ax">продаж в месяц →</text><text x="12" y="105" transform="rotate(-90 12 105)" text-anchor="middle" class="mx-ax">маржа →</text>` +
+      all.map(({ p, i, margin, month }) => `<g class="mx-b ${i === cur ? "on" : ""} ${month < 0 ? "neg" : ""}" data-p="${i}" tabindex="0" role="button" aria-label="${p.n}"><circle cx="${sx(p.sales)}" cy="${sy(margin)}" r="${6 + Math.sqrt(Math.abs(month)) / 9}"/><text x="${sx(p.sales)}" y="${sy(margin) - 12 - Math.sqrt(Math.abs(month)) / 9}" text-anchor="middle">${p.n.split(" ")[0]}</text></g>`).join("");
+    $("#mp-total").innerHTML = `Прибыль магазина за месяц: <b class="${total < 0 ? "fc-bad" : ""}">${rub(Math.round(total / 1000) * 1000)}</b>. Выбранный товар даёт <b class="${profit < 0 ? "fc-bad" : ""}">${rub(Math.round((profit * v.sales) / 100) * 100)}</b>.`;
     const varShare = (v.com + v.ad) / 100 + TAX, fixed = v.cost + parts[1][1];
-    const even = fixed / (1 - varShare), t20 = 1 - varShare - 0.2 > 0 ? fixed / (1 - varShare - 0.2) : Infinity;
-    const margin = (profit / v.price) * 100;
-    $("#mp-kpi").innerHTML =
-      `<div class="kpi"><div class="v ${profit < 0 ? "fc-bad" : ""}">${rub(profit)}</div><p>прибыль с продажи</p></div>` +
-      `<div class="kpi"><div class="v ${margin < 10 ? "fc-bad" : margin < 20 ? "fc-warn" : "fc-ok"}">${fmt(margin, 1)}%</div><p>маржа от цены</p></div>` +
-      `<div class="kpi"><div class="v">${fmt((profit / v.cost) * 100)}%</div><p>возврат на закупку</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.ceil(even / 10) * 10)}</div><p>цена без убытка</p></div>`;
+    const t20 = 1 - varShare - 0.2 > 0 ? fixed / (1 - varShare - 0.2) : Infinity;
     $("#mp-note").innerHTML = profit < 0
-      ? `Каждая продажа в минус на ${rub(-profit)}. Чем больше продаж, тем больше убыток.${isFinite(t20) ? ` Для маржи 20% цена должна быть не ниже ${rub(Math.ceil(t20 / 10) * 10)}.` : ""}`
+      ? `«${v.n}» продаётся в минус: ${rub(-profit)} с каждой продажи. ${isFinite(t20) ? `Для маржи 20% нужна цена от ${rub(Math.ceil(t20 / 10) * 10)} или ниже закупка.` : ""}`
       : margin < 20
-        ? `Товар зарабатывает, но тонко: падение выкупа до ${Math.max(30, v.buy - 15)}% или рост рекламы съедят прибыль. Для маржи 20% нужна цена ${isFinite(t20) ? rub(Math.ceil(t20 / 10) * 10) : "выше"}.`
-        : `Хорошая позиция: при выкупе ${v.buy}% на каждые 100 заказов остаётся около ${rub(Math.round((profit * v.buy) / 100) * 100)}.`;
+        ? `«${v.n}» зарабатывает тонко. Падение выкупа до ${Math.max(30, v.buy - 15)}% или рост рекламы съедят прибыль. Для маржи 20% — цена ${isFinite(t20) ? rub(Math.ceil(t20 / 10) * 10) : "выше"}.`
+        : `«${v.n}» — сильная позиция. Её стоит поддержать рекламой и не допускать пустого склада.`;
   }
   $("#mp").addEventListener("input", render);
-  render();
+  const pick = (el) => { const g = el.closest("[data-p]"); if (!g) return; cur = +g.dataset.p; load(); render(); };
+  $("#mp-matrix").addEventListener("click", (e) => pick(e.target));
+  $("#mp-matrix").addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(e.target); } });
+  load(); render();
 })();
 
 /* ============ Магазин: остатки и заказ поставщикам ============ */
 (() => {
-  /* [товар, остаток, продаж в день, поставка дней, закупка ₽, поставщик] */
+  /* [товар, остаток, продаж в день, поставка дней, закупка ₽, поставщик, мин. партия] */
   const P = [
-    ["Корм для кошек сухой, 1,5 кг", 9, 1.6, 4, 780, "Зоо-Опт"],
-    ["Корм для собак сухой, 3 кг", 22, 1.1, 4, 1150, "Зоо-Опт"],
-    ["Влажный корм, пауч 85 г", 140, 9, 4, 38, "Зоо-Опт"],
-    ["Наполнитель древесный, 10 л", 6, 2.4, 2, 210, "ЭкоНаполнитель"],
-    ["Пелёнки впитывающие, 30 шт", 5, 0.9, 3, 330, "ЭкоНаполнитель"],
-    ["Когтеточка-столбик", 3, 0.4, 10, 650, "ПетДом"],
-    ["Лакомство «палочки», 10 шт", 48, 0.6, 7, 95, "ПетДом"],
-    ["Шлейка для собак, размер M", 12, 0.1, 10, 420, "ПетДом"],
+    ["Корм для кошек сухой, 1,5 кг", 9, 1.6, 4, 780, "Зоо-Опт", 6],
+    ["Корм для собак сухой, 3 кг", 22, 1.1, 4, 1150, "Зоо-Опт", 4],
+    ["Влажный корм, пауч 85 г", 140, 9, 4, 38, "Зоо-Опт", 24],
+    ["Наполнитель древесный, 10 л", 6, 2.4, 2, 210, "ЭкоНаполнитель", 10],
+    ["Пелёнки впитывающие, 30 шт", 5, 0.9, 3, 330, "ЭкоНаполнитель", 5],
+    ["Когтеточка-столбик", 3, 0.4, 10, 650, "ПетДом", 2],
+    ["Лакомство «палочки», 10 шт", 48, 0.6, 7, 95, "ПетДом", 10],
+    ["Шлейка для собак, размер M", 12, 0.1, 10, 420, "ПетДом", 3],
   ];
+  /* продажи за 14 дней: детерминированный «шум» вокруг среднего, выходные выше */
+  const hist = P.map(([, , pd], i) => Array.from({ length: 14 }, (_, d) => Math.max(0, Math.round(pd * (0.6 + ((i * 7 + d * 13) % 9) / 10 + (d % 7 >= 5 ? 0.5 : 0))))));
   let safe = 4, cycle = 14;
-  const calc = () => P.map(([n, st, pd, lead, cost, sup]) => {
+  const qty = {}, sent = new Set();
+  const calc = () => P.map(([n, st, pd, lead, cost, sup, pack], i) => {
     const days = st / pd, need = days <= lead + safe;
-    const qty = need ? Math.ceil(pd * (lead + cycle + safe) - st) : 0;
+    const auto = need ? Math.ceil(Math.max(pack, pd * (lead + cycle + safe) - st) / pack) * pack : 0;
+    const q = qty[n] ?? auto;
     const cls = days < lead ? "bad" : need ? "warn" : days > 60 ? "slow" : "ok";
-    const label = days < lead ? "закончится до поставки" : need ? "пора заказать" : days > 60 ? "залежался" : "в норме";
-    return { n, st, pd, lead, cost, sup, days, qty, cls, label };
+    const label = days < lead ? "кончится до поставки" : need ? "пора заказать" : days > 60 ? "залежался" : "в норме";
+    return { i, n, st, pd, lead, cost, sup, pack, days, q, cls, label };
   });
+  const spark = (h) => { const m = Math.max(...h, 1); return `<svg class="sk-sp" viewBox="0 0 56 16" aria-hidden="true">${h.map((v, d) => `<rect x="${d * 4}" y="${16 - (v / m) * 15}" width="3" height="${(v / m) * 15}" rx="0.5"/>`).join("")}</svg>`; };
   function render() {
     const R = calc();
-    $("#sk-table").innerHTML = `<thead><tr><th>Товар</th><th>Остаток</th><th>Продаж в день</th><th>Хватит на</th><th>Поставка</th><th>Статус</th><th>Заказать</th></tr></thead><tbody>${R.map((r) => `<tr><td>${r.n}</td><td class="n">${r.st} шт</td><td class="n">${fmt(r.pd, 1)}</td><td class="n"><span class="sk-days ${r.cls}" style="width:${Math.min(60, r.days) * 0.8}px"></span>${fmt(r.days)} дн.</td><td class="n">${r.lead} дн.</td><td><span class="st ${r.cls}">${r.label}</span></td><td class="n">${r.qty ? `<b>${r.qty} шт</b>` : "—"}</td></tr>`).join("")}</tbody>`;
-    const ord = R.filter((r) => r.qty), sum = ord.reduce((a, r) => a + r.qty * r.cost, 0);
+    $("#sk-table").innerHTML = `<thead><tr><th>Товар</th><th>Остаток</th><th>Продажи, 14 дней</th><th>Хватит на</th><th>Поставка</th><th>Статус</th></tr></thead><tbody>${R.map((r) => `<tr><td>${r.n}</td><td class="n">${r.st} шт</td><td>${spark(hist[r.i])} <span class="muted">${fmt(r.pd, 1)}/день</span></td><td class="n"><span class="sk-days ${r.cls}" style="width:${Math.min(60, r.days) * 0.8}px"></span>${fmt(r.days)} дн.</td><td class="n">${r.lead} дн.</td><td><span class="st ${r.cls}">${r.label}</span></td></tr>`).join("")}</tbody>`;
+    const ord = R.filter((r) => r.q > 0), sups = [...new Set(ord.map((r) => r.sup))];
     const frozen = R.filter((r) => r.cls === "slow").reduce((a, r) => a + (r.st - r.pd * 30) * r.cost, 0);
-    $("#sk-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${ord.length}</div><p>${plural(ord.length, "позиция", "позиции", "позиций")} к заказу</p></div>` +
-      `<div class="kpi"><div class="v">${rub(sum)}</div><p>сумма заказов</p></div>` +
-      `<div class="kpi"><div class="v ${R.some((r) => r.cls === "bad") ? "fc-bad" : ""}">${R.filter((r) => r.cls === "bad").length}</div><p>закончится раньше, чем приедет поставка</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.round(frozen / 100) * 100)}</div><p>лишнего товара сверх месячного запаса</p></div>`;
-    const sups = [...new Set(ord.map((r) => r.sup))];
-    $("#sk-hint").textContent = ord.length ? `${sups.length} ${plural(sups.length, "поставщик", "поставщика", "поставщиков")}: ${sups.join(", ")}` : "Заказывать пока нечего";
-    $("#sk-send").disabled = !ord.length;
-    return { ord, sups };
+    $("#sk-kpi").innerHTML = `К заказу <b>${ord.length} ${plural(ord.length, "позиция", "позиции", "позиций")}</b> на <b>${rub(ord.reduce((a, r) => a + r.q * r.cost, 0))}</b>. ${R.some((r) => r.cls === "bad") ? `<b class="fc-bad">${R.filter((r) => r.cls === "bad").map((r) => r.n.split(",")[0].toLowerCase()).join(", ")}</b> закончится раньше, чем приедет поставка. ` : ""}В залежавшемся товаре заморожено <b>${rub(Math.round(frozen / 100) * 100)}</b>.`;
+    $("#sk-orders").innerHTML = sups.length ? sups.map((s) => {
+      const items = ord.filter((r) => r.sup === s), sum = items.reduce((a, r) => a + r.q * r.cost, 0), done = sent.has(s);
+      return `<div class="sk-po ${done ? "done" : ""}"><div class="sk-po-h"><b>${s}</b><span>${done ? "отправлено в WhatsApp ✓" : `поставка ${Math.max(...items.map((r) => r.lead))} дн.`}</span></div>${items.map((r) => `<div class="sk-li"><span>${r.n}</span><span class="od-q"><button type="button" data-q="${r.n}" data-d="-${r.pack}" ${done ? "disabled" : ""} aria-label="Меньше">−</button><b>${r.q}</b><button type="button" data-q="${r.n}" data-d="${r.pack}" ${done ? "disabled" : ""} aria-label="Больше">+</button></span><i>${rub(r.q * r.cost)}</i></div>`).join("")}<div class="sk-po-f"><b>${rub(sum)}</b><button type="button" class="btn ${done ? "" : "primary"}" data-send="${s}" ${done ? "disabled" : ""}>${done ? "Отправлено" : "Отправить заказ"}</button></div></div>`;
+    }).join("") : `<p class="hint">Заказывать пока нечего.</p>`;
   }
   $("#stock").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.closest("#sk-safe")) { safe = +b.dataset.v; $("#sk-safe").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); render(); }
-    if (b.closest("#sk-cycle")) { cycle = +b.dataset.v; $("#sk-cycle").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); render(); }
-    if (b.id === "sk-send") {
-      const { ord, sups } = render();
-      if (!$("#sk-tg .tg-head")) $("#sk-tg").insertAdjacentHTML("afterbegin", tgHead("Х", 150, "Хвост и лапы · закупки", "отправлено поставщикам"));
-      $("#sk-tg").hidden = false;
-      $("#sk-chat").innerHTML = sups.map((s, i) => tgMsg({ html: `<b>→ ${s}</b>\nЗдравствуйте! Заказ от «Хвост и лапы»:\n${ord.filter((r) => r.sup === s).map((r) => `• ${r.n} — ${r.qty} шт`).join("\n")}\nПривезите, пожалуйста, до ${ord.filter((r) => r.sup === s).some((r) => r.cls === "bad") ? "послезавтра" : "конца недели"}. Спасибо!`, out: true, time: tgTime(sups.length - i) })).join("");
-      $("#sk-tg").scrollIntoView({ block: "nearest", behavior: "smooth" });
-    }
-  });
-  render();
-})();
-
-/* ============ Клининг: калькулятор и заявка ============ */
-(() => {
-  /* [название, ₽ за м², часов на м²] */
-  const TYPES = [["Поддерживающая", 65, 0.045], ["Генеральная", 130, 0.09], ["После ремонта", 190, 0.13]];
-  const EXTRA = [["fridge", "Холодильник внутри", 700, 0.7], ["oven", "Духовка внутри", 700, 0.7], ["balcony", "Балкон", 900, 0.8], ["iron", "Глажка, 1 час", 600, 1]];
-  const MIN = 2900, WIN = 450;
-  let t = 0, win = 0, day = 0, sent = false;
-  const ex = new Set();
-  $("#cl-extra").innerHTML = EXTRA.map(([k, n, p]) => `<label><input type="checkbox" data-x="${k}"> ${n}<i>${rub(p)}</i></label>`).join("");
-  function calc() {
-    const area = +$("#cl-area").value, [tn, rate, hm] = TYPES[t];
-    const ext = EXTRA.filter(([k]) => ex.has(k));
-    let sum = Math.max(MIN, area * rate) + win * WIN + ext.reduce((a, e) => a + e[2], 0);
-    if (day) sum *= 1.1;
-    sum = Math.round(sum / 10) * 10;
-    const hours = area * hm + win * 0.3 + ext.reduce((a, e) => a + e[3], 0);
-    const crew = hours > 9 ? 3 : hours > 4 ? 2 : 1, time = Math.ceil((hours / crew) * 2) / 2;
-    return { area, tn, ext, sum, crew, time };
-  }
-  function render() {
-    const c = calc();
-    $("#cl-area-v").textContent = `${c.area} м²`;
-    $("#cl-win").textContent = win;
-    $("#cl-sum").textContent = rub(c.sum);
-    $("#cl-crew").innerHTML = `${c.crew} ${plural(c.crew, "клинер", "клинера", "клинеров")}, около ${fmt(c.time, c.time % 1 ? 1 : 0)} ч<br>химия и инвентарь наши`;
-    const staff = c.sum * 0.4, chem = c.sum * 0.06, road = 300 * c.crew, rest = c.sum - staff - chem - road;
-    $("#cl-own").innerHTML = `<div><span>Заказ</span><b>${rub(c.sum)}</b></div><div><span>Клинерам, 40%</span><b>−${rub(staff)}</b></div><div><span>Химия и расходники, 6%</span><b>−${rub(chem)}</b></div><div><span>Дорога</span><b>−${rub(road)}</b></div><div class="tot"><span>Остаётся компании</span><b class="${rest / c.sum < 0.4 ? "fc-warn" : "fc-ok"}">${rub(rest)} · ${fmt((rest / c.sum) * 100)}%</b></div>`;
-    if (!$("#cl-tg .tg-head")) $("#cl-tg").insertAdjacentHTML("afterbegin", tgHead("Ч", 165, "Чистый дом · заявки", "бот"));
-    if (!sent) $("#cl-chat").innerHTML = `<div class="tg-sys">Нажмите «Оставить заявку» — она придёт сюда</div>`;
-  }
-  $("#clean").addEventListener("input", render);
-  $("#clean").addEventListener("change", (e) => { const k = e.target.dataset.x; if (!k) return; e.target.checked ? ex.add(k) : ex.delete(k); render(); });
-  $("#clean").addEventListener("click", (e) => {
-    const b = e.target.closest("button");
-    if (!b) return;
-    if (b.dataset.t) { t = +b.dataset.t; $("#cl-type").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
-    if (b.dataset.d) { day = +b.dataset.d; $("#cl-day").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
-    if (b.dataset.win) win = Math.max(0, Math.min(20, win + +b.dataset.win));
-    if (b.id === "cl-go") {
-      const c = calc();
-      sent = true;
-      $("#cl-chat").insertAdjacentHTML("beforeend", tgMsg({ html: `🧽 <b>Новая заявка</b>\n${c.tn} уборка, ${c.area} м²${win ? `, окна: ${win} ${plural(win, "створка", "створки", "створок")}` : ""}${c.ext.length ? "\n+ " + c.ext.map((x) => x[1].toLowerCase()).join(", ") : ""}\n${day ? "Выходные" : "Будни"} · ${c.crew} ${plural(c.crew, "клинер", "клинера", "клинеров")}, около ${fmt(c.time, c.time % 1 ? 1 : 0)} ч\n\n<b>${rub(c.sum)}</b> · клиент: Ольга, +7 900 ***-**-12`, kb: ["Назначить бригаду", "Позвонить"], cols: 2 }));
-      $("#cl-chat").scrollTop = 1e6;
-    }
+    if (b.closest("#sk-safe")) { safe = +b.dataset.v; $("#sk-safe").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); for (const k in qty) delete qty[k]; }
+    else if (b.closest("#sk-cycle")) { cycle = +b.dataset.v; $("#sk-cycle").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); for (const k in qty) delete qty[k]; }
+    else if (b.dataset.q) { const r = calc().find((x) => x.n === b.dataset.q); qty[r.n] = Math.max(0, r.q + +b.dataset.d); }
+    else if (b.dataset.send) sent.add(b.dataset.send);
+    else return;
     render();
   });
   render();
 })();
 
-/* ============ Студия: абонементы и заполняемость ============ */
+/* ============ Клининг: расчёт по плану квартиры ============ */
+(() => {
+  /* [название, ₽ за м², часов на м²] */
+  const TYPES = [["Поддерживающая", 65, 0.045], ["Генеральная", 130, 0.09], ["После ремонта", 190, 0.13]];
+  /* Комнаты: [ключ, название, м², x, y, w, h] */
+  const ROOMS = [
+    ["r1", "Комната", 18, 10, 10, 170, 150], ["kit", "Кухня", 10, 180, 10, 130, 105], ["bath", "Санузел", 4, 310, 10, 80, 70],
+    ["hall", "Коридор", 7, 180, 115, 210, 45], ["r2", "Спальня", 14, 180, 160, 140, 92], ["bal", "Балкон", 4, 10, 166, 164, 86], ["st", "Кладовая", 3, 320, 160, 70, 92],
+  ];
+  /* Окна: [ключ, комната, x, y, w, h] — у каждого две створки */
+  const WINS = [["w1", "r1", 4, 40, 8, 40], ["w2", "r1", 4, 96, 8, 40], ["w3", "kit", 220, 4, 46, 8], ["w4", "r2", 224, 248, 50, 8], ["w5", "bal", 40, 248, 46, 8], ["w6", "bal", 110, 248, 46, 8]];
+  const APPL = [["fridge", "Х", "Холодильник внутри", 700, 0.7, 284, 22], ["oven", "Д", "Духовка внутри", 700, 0.7, 284, 52]];
+  const CHECK = {
+    r1: ["пыль на всех поверхностях", "зеркала и стекло", "полы и плинтусы"], r2: ["пыль, тумбочки, изголовье", "полы и плинтусы", "смена белья по просьбе"],
+    kit: ["фасады и столешница", "плита и раковина", "фартук"], bath: ["сантехника с дезинфекцией", "плитка и швы", "зеркало и полки"],
+    hall: ["входная дверь и ручки", "обувница снаружи", "полы"], bal: ["подоконник и пол", "паутина и пыль"], st: ["полки снаружи", "пол"],
+  };
+  const EXTRA_CHECK = { 1: ["шкафы внутри", "батареи и двери", "люстры и плафоны"], 2: ["строительная пыль со всех поверхностей", "следы краски и затирки", "вынос мелкого мусора"] };
+  const MIN = 2900, SASH = 450;
+  const on = new Set(["r1", "kit", "bath", "hall", "r2"]), win = new Set(["w3"]), appl = new Set();
+  let t = 0, day = 0, sent = false;
+  function calc() {
+    const [tn, rate, hm] = TYPES[t];
+    const area = ROOMS.filter((r) => on.has(r[0])).reduce((a, r) => a + r[2], 0);
+    const ap = APPL.filter((a) => appl.has(a[0]));
+    let sum = area ? Math.max(MIN, area * rate) + win.size * 2 * SASH + ap.reduce((a, x) => a + x[3], 0) : 0;
+    if (day) sum *= 1.1;
+    sum = Math.round(sum / 10) * 10;
+    const hours = area * hm + win.size * 0.6 + ap.reduce((a, x) => a + x[4], 0);
+    const crew = hours > 9 ? 3 : hours > 4 ? 2 : 1, time = Math.ceil((hours / crew) * 2) / 2;
+    return { tn, area, ap, sum, crew, time };
+  }
+  function render() {
+    const c = calc();
+    $("#cl-plan").innerHTML = ROOMS.map(([k, n, m, x, y, w, h]) => `<g class="cl-room ${on.has(k) ? "on" : ""}" data-room="${k}" tabindex="0" role="button" aria-pressed="${on.has(k)}" aria-label="${n}, ${m} м²"><rect x="${x}" y="${y}" width="${w}" height="${h}"/><text x="${x + 10}" y="${y + 22}">${n}</text><text class="m" x="${x + 10}" y="${y + 38}">${m} м²</text></g>`).join("") +
+      WINS.map(([k, , x, y, w, h]) => `<rect class="cl-win ${win.has(k) ? "on" : ""}" data-win="${k}" x="${x}" y="${y}" width="${w}" height="${h}" rx="2" tabindex="0" role="button" aria-pressed="${win.has(k)}" aria-label="Окно, 2 створки"/>`).join("") +
+      APPL.map(([k, l, n, , , x, y]) => `<g class="cl-ap ${appl.has(k) ? "on" : ""}" data-ap="${k}" tabindex="0" role="button" aria-pressed="${appl.has(k)}" aria-label="${n}"><rect x="${x}" y="${y}" width="20" height="24" rx="3"/><text x="${x + 10}" y="${y + 16}" text-anchor="middle">${l}</text></g>`).join("");
+    $("#cl-area-v").textContent = c.area ? `${c.tn.toLowerCase()} уборка, ${c.area} м²${win.size ? `, ${win.size * 2} ${plural(win.size * 2, "створка", "створки", "створок")}` : ""}` : "Отметьте комнаты на плане";
+    $("#cl-sum").textContent = rub(c.sum);
+    $("#cl-crew").textContent = c.area ? `${c.crew} ${plural(c.crew, "клинер", "клинера", "клинеров")}, около ${fmt(c.time, c.time % 1 ? 1 : 0)} ч · химия и инвентарь наши` : "";
+    const staff = c.sum * 0.4, chem = c.sum * 0.06, road = c.area ? 300 * c.crew : 0, rest = c.sum - staff - chem - road;
+    $("#cl-own").innerHTML = `<p class="label">Видит владелец</p><div><span>Клинерам, 40%</span><b>−${rub(staff)}</b></div><div><span>Химия и расходники</span><b>−${rub(chem)}</b></div><div><span>Дорога бригады</span><b>−${rub(road)}</b></div><div class="tot"><span>Остаётся компании</span><b class="${c.sum && rest / c.sum < 0.4 ? "fc-warn" : "fc-ok"}">${rub(rest)}${c.sum ? ` · ${fmt((rest / c.sum) * 100)}%` : ""}</b></div>`;
+    $("#cl-go").disabled = !c.area;
+    const box = $("#cl-check");
+    box.hidden = !sent;
+    if (sent) {
+      const rooms = ROOMS.filter((r) => on.has(r[0]));
+      box.innerHTML = `<div class="cl-check-h"><b>Заявка №214 принята.</b> Бригада получила чек-лист, клиенту после уборки придёт фотоотчёт по каждому пункту.</div><div class="cl-cols">${rooms.map(([k, n]) => {
+        const items = [...CHECK[k], ...(t && k !== "bal" && k !== "st" ? EXTRA_CHECK[t].slice(0, k === "bath" || k === "hall" ? 1 : 2) : []), ...(k === "kit" ? c.ap.map((a) => a[2].toLowerCase()) : []), ...WINS.filter((w) => w[1] === k && win.has(w[0])).map(() => "окно: 2 створки с двух сторон")];
+        return `<div><b>${n}</b><ul>${items.map((i) => `<li>${i}</li>`).join("")}<li class="ph">фото после</li></ul></div>`;
+      }).join("")}</div>`;
+    }
+  }
+  const toggle = (set, k) => { set.has(k) ? set.delete(k) : set.add(k); sent = false; render(); };
+  function hit(el) {
+    const g = el.closest("[data-room],[data-win],[data-ap]");
+    if (!g) return false;
+    if (g.dataset.win) toggle(win, g.dataset.win);
+    else if (g.dataset.ap) { toggle(appl, g.dataset.ap); if (appl.size) on.add("kit"); render(); }
+    else { toggle(on, g.dataset.room); }
+    return true;
+  }
+  $("#cl-plan").addEventListener("click", (e) => hit(e.target));
+  $("#cl-plan").addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && hit(e.target)) e.preventDefault(); });
+  $("#clean").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.t) { t = +b.dataset.t; $("#cl-type").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); sent = false; }
+    else if (b.dataset.d) { day = +b.dataset.d; $("#cl-day").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); sent = false; }
+    else if (b.id === "cl-go") sent = true;
+    else return;
+    render();
+  });
+  render();
+})();
+
+/* ============ Студия: абонементы и места в группах ============ */
 (() => {
   const PRICE = { 4: 3200, 8: 5600, 12: 7800 };
-  /* [имя, занятий в абонементе, осталось, дней до конца срока] */
   const C = [
     ["Анна", 8, 1, 9], ["Марина", 12, 5, 4], ["Ольга", 8, 0, 12], ["Дарья", 8, 6, 20],
     ["Екатерина", 12, 3, 2], ["Наталья", 8, 2, 15], ["Вера", 4, 0, 0], ["Алёна", 12, 9, 25], ["Ирина", 8, 4, 3],
-  ].map(([n, plan, left, exp]) => ({ n, plan, left, exp }));
+  ].map(([n, plan, left, exp]) => ({ n, plan, left, exp, st: "" }));
   const W = [
-    { d: "Пн 19:00", n: "Реформер", b: 6, cap: 6 },
-    { d: "Вт 10:00", n: "Мягкий фитнес", b: 3, cap: 10 },
-    { d: "Ср 19:00", n: "Стретчинг", b: 4, cap: 10 },
-    { d: "Чт 19:00", n: "Реформер", b: 5, cap: 6 },
-    { d: "Сб 11:00", n: "Пилатес на коврике", b: 7, cap: 12 },
+    { d: "Пн 19:00", n: "Реформер", who: ["Л", "Т", "Ю", "С", "К", "О"], cap: 6 },
+    { d: "Вт 10:00", n: "Мягкий фитнес", who: ["Г", "Р", "Н"], cap: 10 },
+    { d: "Ср 19:00", n: "Стретчинг", who: ["П", "Е", "Ж", "З"], cap: 10 },
+    { d: "Чт 19:00", n: "Реформер", who: ["Д", "А", "М", "Ф", "Б"], cap: 6 },
+    { d: "Сб 11:00", n: "Пилатес на коврике", who: ["В", "Х", "Ц", "Ч", "Ш", "Я", "У"], cap: 12 },
   ];
   let f = "end", sent = false;
-  const off = new Set(), added = new Set();
-  const kind = (c) => (c.left <= 1 ? "end" : c.left >= 3 && c.exp <= 4 ? "burn" : "ok");
+  const off = new Set(), fresh = new Set();
+  const kind = (c) => (c.st ? "done" : c.left <= 1 ? "end" : c.left >= 3 && c.exp <= 4 ? "burn" : "ok");
   const msg = (c) => kind(c) === "end"
-    ? `${c.n}, добрый день! ${c.left ? "У вас осталось одно занятие" : "Ваш абонемент закончился"}. Продлите до воскресенья — ${c.plan} занятий за ${rub(PRICE[c.plan] * 0.95)} вместо ${rub(PRICE[c.plan])}. Ответьте «да», и мы всё оформим.`
-    : kind(c) === "burn"
-      ? `${c.n}, через ${c.exp} ${plural(c.exp, "день", "дня", "дней")} сгорят ${c.left} ${plural(c.left, "занятие", "занятия", "занятий")}. Есть места: вторник 10:00 мягкий фитнес и среда 19:00 стретчинг. Записать вас?`
-      : `${c.n}, всё в порядке: осталось ${c.left} ${plural(c.left, "занятие", "занятия", "занятий")}, срок — ${c.exp} ${plural(c.exp, "день", "дня", "дней")}.`;
+    ? `${c.n}, добрый день! ${c.left ? "У вас осталось одно занятие" : "Ваш абонемент закончился"}. Продлите до воскресенья — ${c.plan} занятий за ${rub(PRICE[c.plan] * 0.95)} вместо ${rub(PRICE[c.plan])}.`
+    : `${c.n}, через ${c.exp} ${plural(c.exp, "день", "дня", "дней")} сгорят ${c.left} ${plural(c.left, "занятие", "занятия", "занятий")}. Есть места во вторник в 10:00 и в среду в 19:00 — записать вас?`;
   function render() {
-    const list = C.filter((c) => (f === "all" ? true : kind(c) === f));
+    const list = C.filter((c) => (f === "all" ? true : kind(c) === f || (sent && c.st && (f === "end" ? c.was === "end" : c.was === "burn"))));
     const endC = C.filter((c) => kind(c) === "end"), burnC = C.filter((c) => kind(c) === "burn");
-    const fill = W.reduce((a, w) => a + w.b, 0) / W.reduce((a, w) => a + w.cap, 0);
-    $("#sb-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${endC.length}</div><p>пора продлить абонемент</p></div>` +
-      `<div class="kpi"><div class="v">${rub(endC.reduce((a, c) => a + PRICE[c.plan] * 0.95, 0))}</div><p>продлений, если согласятся все</p></div>` +
-      `<div class="kpi"><div class="v">${burnC.reduce((a, c) => a + c.left, 0)}</div><p>занятий сгорят на этой неделе</p></div>` +
-      `<div class="kpi"><div class="v">${fmt(fill * 100)}%</div><p>заполнены группы недели</p></div>`;
-    $("#sb-list").innerHTML = list.map((c) => `<div class="cb-row sb-row ${off.has(c.n) || kind(c) === "ok" ? "off" : ""}"><input type="checkbox" data-n="${c.n}" ${off.has(c.n) || kind(c) === "ok" ? "" : "checked"} ${kind(c) === "ok" ? "disabled" : ""} aria-label="Написать ${c.n}"><div><b>${c.n}</b><small>абонемент на ${c.plan}, осталось ${c.left}</small><small class="${c.exp <= 4 ? "late" : ""}">${c.exp ? `до конца срока ${c.exp} ${plural(c.exp, "день", "дня", "дней")}` : "срок абонемента истёк"}</small></div><div class="cb-msg">${msg(c)}</div></div>`).join("");
-    $("#sb-week").innerHTML = W.map((w, i) => `<div class="sb-cls ${added.has(i) ? "grew" : ""}"><span>${w.d}<small>${w.n}</small></span><div class="sb-cap"><i class="${w.b >= w.cap ? "full" : ""}" style="width:${(w.b / w.cap) * 100}%"></i></div><b>${w.b}/${w.cap}</b></div>`).join("");
-    const n = C.filter((c) => kind(c) !== "ok" && !off.has(c.n)).length;
-    $("#sb-send").disabled = sent || !n;
-    $("#sb-send").textContent = sent ? "Сообщения отправлены" : `Отправить сообщения (${n})`;
+    const seats = W.reduce((a, w) => a + w.who.length, 0), cap = W.reduce((a, w) => a + w.cap, 0);
+    const renewed = C.filter((c) => c.st === "renew");
+    $("#sb-kpi").innerHTML = `Пора продлить: <b>${endC.length}</b> · сгорят на этой неделе: <b>${burnC.reduce((a, c) => a + c.left, 0)} ${plural(burnC.reduce((a, c) => a + c.left, 0), "занятие", "занятия", "занятий")}</b> · группы заполнены на <b>${fmt((seats / cap) * 100)}%</b>${renewed.length ? ` · продлили: <b class="good">${rub(renewed.reduce((a, c) => a + PRICE[c.plan] * 0.95, 0))}</b>` : ""}`;
+    $("#sb-list").innerHTML = list.map((c) => {
+      const k = kind(c);
+      return `<div class="cb-row sb-row ${off.has(c.n) || k === "ok" ? "off" : ""}"><input type="checkbox" data-n="${c.n}" ${off.has(c.n) || k === "ok" || k === "done" ? "" : "checked"} ${k === "ok" || k === "done" ? "disabled" : ""} aria-label="Написать ${c.n}"><div><b>${c.n}</b><small>абонемент на ${c.plan}, осталось ${c.left}</small><small class="${c.exp <= 4 && k !== "done" ? "late" : ""}">${c.exp ? `до конца срока ${c.exp} ${plural(c.exp, "день", "дня", "дней")}` : "срок абонемента истёк"}</small></div>${k === "done" ? `<div class="sb-ans">${c.st === "renew" ? "✓ Ответила «да», абонемент продлён" : `✓ Записана: ${c.slot}`}</div>` : k === "ok" ? `<div class="hint">Всё в порядке</div>` : `<div class="cb-msg">${msg(c)}</div>`}</div>`;
+    }).join("") || `<p class="hint">Здесь никого — все ответили.</p>`;
+    $("#sb-week").innerHTML = W.map((w, i) => `<div class="sb-cls"><span>${w.d}<small>${w.n}</small></span><div class="sb-seats">${Array.from({ length: w.cap }, (_, s) => { const who = w.who[s]; return `<i class="${who ? "on" : ""} ${who && fresh.has(i + ":" + s) ? "new" : ""}">${who || ""}</i>`; }).join("")}</div><b>${w.who.length}/${w.cap}</b></div>`).join("");
+    const n = C.filter((c) => (kind(c) === "end" || kind(c) === "burn") && !off.has(c.n)).length;
+    $("#sb-send").disabled = !n;
+    $("#sb-send").textContent = n ? `Отправить ${n} ${plural(n, "сообщение", "сообщения", "сообщений")}` : "Сообщения отправлены";
   }
   $("#subs").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (b?.dataset.f) { f = b.dataset.f; $("#sb-f").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); render(); }
     if (b?.id === "sb-send") {
-      sent = true;
-      const to = C.filter((c) => kind(c) !== "ok" && !off.has(c.n));
-      const yesEnd = to.filter((c) => kind(c) === "end").slice(0, 2), yesBurn = to.filter((c) => kind(c) === "burn");
-      yesBurn.forEach((c, i) => { const w = W[i % 2 ? 2 : 1]; if (w.b < w.cap) { w.b++; added.add(W.indexOf(w)); } c.left--; });
-      yesEnd.forEach((c) => { c.left += c.plan; c.exp = 30; });
-      if (!$("#sb-tg .tg-head")) $("#sb-tg").insertAdjacentHTML("afterbegin", tgHead("Л", 280, "Студия «Линия»", "ответы клиентов"));
-      $("#sb-tg").hidden = false;
-      $("#sb-chat").innerHTML = `<div class="tg-sys">Отправлено ${to.length} ${plural(to.length, "сообщение", "сообщения", "сообщений")}</div>` +
-        yesEnd.map((c, i) => tgMsg({ html: `<b>${c.n}</b>: Да, продлеваю 🙌`, time: tgTime(40 - i * 9) })).join("") +
-        yesBurn.map((c, i) => tgMsg({ html: `<b>${c.n}</b>: Запишите на ${i % 2 ? "среду" : "вторник"}, пожалуйста`, time: tgTime(30 - i * 7) })).join("");
+      sent = true; fresh.clear();
+      const to = C.filter((c) => (kind(c) === "end" || kind(c) === "burn") && !off.has(c.n));
+      let alt = 0;
+      to.forEach((c, i) => {
+        c.was = kind(c);
+        if (c.was === "end" && i % 3 !== 2) { c.st = "renew"; c.left += c.plan; c.exp = 30; }
+        if (c.was === "burn") {
+          const w = W[alt++ % 2 ? 2 : 1];
+          if (w.who.length < w.cap) { fresh.add(W.indexOf(w) + ":" + w.who.length); w.who.push(c.n[0]); c.st = "slot"; c.slot = `${w.d.startsWith("Вт") ? "вторник 10:00" : "среда 19:00"}, ${w.n.toLowerCase()}`; c.left--; }
+        }
+      });
       render();
     }
   });
@@ -3199,12 +3570,91 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
+/* ============ Первый экран: лента «пока вы заняты» ============ */
+(() => {
+  /* [значок, оттенок, источник, текст] */
+  const F = [
+    ["З", 340, "Бот записи", "Новая запись: маникюр с покрытием, четверг 16:00, мастер Вика"],
+    ["В", 200, "Возврат клиентов", "Анна записалась после напоминания — не была 38 дней"],
+    ["★", 45, "Отзывы", "Новый отзыв 5★ на Яндекс Картах. Рейтинг 4,9"],
+    ["Р", 25, "Автосервис", "Клиент согласовал замену колодок в Telegram · +4 200 ₽"],
+    ["С", 150, "Склад", "Корм для кошек закончится через 3 дня. Заказ поставщику готов"],
+    ["₽", 260, "Оплаты", "Пришла предоплата за тату-сеанс · 2 000 ₽"],
+    ["О", 210, "Отчёт за неделю", "Выручка 412 000 ₽, фудкост 29%, загрузка мастеров 81%"],
+    ["З", 120, "Зарплата", "Расчётные листы отправлены трём мастерам"],
+  ];
+  const box = $("#feed");
+  let k = 0;
+  const item = (f, t, fresh) => `<li class="${fresh ? "in" : ""}"><span class="ic" style="--h:${f[1]}">${f[0]}</span><span class="fsrc">${f[2]}</span><span class="ftime">${t}</span><span class="txt">${f[3]}</span></li>`;
+  box.innerHTML = [2, 1, 0].map((i) => item(F[i], ["сейчас", "2 мин", "9 мин"][2 - i], false)).reverse().join("");
+  k = 3;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!still) setInterval(() => {
+    if (document.hidden) return;
+    const old = [...box.children];
+    old.forEach((li, i) => { li.classList.remove("in"); li.querySelector(".ftime").textContent = ["2 мин", "9 мин", "14 мин", "20 мин"][i] || "давно"; });
+    box.insertAdjacentHTML("afterbegin", item(F[k % F.length], "сейчас", true));
+    while (box.children.length > 4) box.lastElementChild.remove();
+    k++;
+  }, 3200);
+})();
+
+/* ============ ИИ-администратор: пример сценария ============
+   Ответы заранее написаны: это демонстрация, как бот отвечает по базе знаний и когда зовёт человека. */
+(() => {
+  const B = {
+    salon: { name: "Студия «Ноготок»", ini: "Н", hue: 340, qa: [
+      ["Сколько стоит маникюр с покрытием и сколько по времени?", "Маникюр с покрытием — 1 900 ₽, около 1,5 часа. Дизайн — от 100 ₽ за ноготь. Записать вас?", "Прайс, строка 2"],
+      ["Есть окно в субботу утром?", "В субботу свободно у Вики в 10:00 и у Кати в 11:30. Какое время удобнее?", "Расписание YCLIENTS, суббота", ["10:00, Вика", "11:30, Катя"]],
+      ["У меня аллергия на гель-лак, что посоветуете?", "Это лучше обсудить с мастером, чтобы ничего не напутать. Я передала вопрос администратору — он ответит в течение 15 минут.", null, null, true],
+    ] },
+    auto: { name: "Гараж 31", ini: "Г", hue: 40, qa: [
+      ["Сколько стоит замена масла на Kia Rio?", "ТО с заменой масла и фильтра для Kia Rio 1.6 — около 4 400 ₽ с материалами, займёт 30–40 минут. Ближайшее окно — завтра в 11:30.", "Прайс ТО, Kia Rio 1.6"],
+      ["Стучит спереди справа на кочках, что это может быть?", "Чаще всего так стучит стойка стабилизатора или её втулки. Точно скажем после диагностики ходовой — 1 000 ₽, 30 минут. Записать?", "База частых неисправностей", ["Записаться на диагностику"]],
+      ["Можно оставить машину на ночь и забрать в выходные?", "Про хранение машины решает мастер-приёмщик. Передал ему ваш вопрос, он перезвонит в течение 10 минут.", null, null, true],
+    ] },
+    cafe: { name: "Кафе «Угол»", ini: "У", hue: 20, qa: [
+      ["Есть что-то без глютена?", "Без глютена: боул терияки с рисом, том ям и салат с киноа. Все аллергены отмечены в меню на сайте.", "Меню, раздел «Аллергены»"],
+      ["Можно забронировать стол на 8 человек в пятницу?", "На пятницу на 8 человек свободен большой стол в 19:00 или в 20:30. Бронирую?", "Брони, пятница", ["19:00", "20:30"]],
+      ["Хотим банкет на 30 человек, сколько будет стоить?", "Банкет считает менеджер под ваше меню. Передала заявку — он напишет сегодня до 18:00.", null, null, true],
+    ] },
+  };
+  let biz = "salon", asked = new Set(), busy = false;
+  const head = () => { $("#ai-tg .tg-head")?.remove(); const b = B[biz]; $("#ai-tg").insertAdjacentHTML("afterbegin", tgHead(b.ini, b.hue, b.name, "ИИ-администратор · онлайн")); };
+  function reset() {
+    asked = new Set(); head();
+    $("#ai-chat").innerHTML = `<span class="tg-date">Сегодня</span>` + tgMsg({ html: `Здравствуйте! Я помощник ${B[biz].name.replace("Студия ", "студии ").replace("Кафе ", "кафе ")}. Отвечу про цены, запись и наличие, а сложное передам человеку.`, time: tgTime(3) });
+    qs();
+  }
+  function qs() { $("#ai-qs").innerHTML = B[biz].qa.map(([q], i) => `<button type="button" data-q="${i}" ${asked.has(i) || busy ? "disabled" : ""}>${q}</button>`).join(""); }
+  function ask(i) {
+    const [q, a, src, kb, hand] = B[biz].qa[i];
+    asked.add(i); busy = true; qs();
+    const chat = $("#ai-chat");
+    chat.insertAdjacentHTML("beforeend", tgMsg({ html: escH(q), out: true, time: tgTime(0) }));
+    chat.insertAdjacentHTML("beforeend", `<div class="tg-m" id="ai-typing"><div class="tg-b"><span class="ai-typing"><i></i><i></i><i></i></span></div></div>`);
+    chat.scrollTop = 1e6;
+    setTimeout(() => {
+      $("#ai-typing")?.remove();
+      chat.insertAdjacentHTML("beforeend", tgMsg({ html: `${a}${src ? `<span class="ai-src">Источник: ${src}</span>` : ""}${hand ? `<span class="ai-hand">→ Передано человеку</span>` : ""}`, time: tgTime(0), kb: kb || [], cols: kb && kb.length > 1 ? 2 : 1 }));
+      chat.scrollTop = 1e6; busy = false; qs();
+    }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900);
+  }
+  $("#ai").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.b) { biz = b.dataset.b; $("#ai-biz").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); busy = false; reset(); }
+    else if (b.dataset.q && !busy) ask(+b.dataset.q);
+  });
+  reset();
+})();
+
 /* ============ Витрина: сферы и примеры ============ */
 (() => {
-  const AREAS = [["beauty", "Салоны красоты"], ["tattoo", "Тату-студии"], ["food", "Кафе и шаурма"], ["auto", "Автосервисы"], ["shop", "Магазины"], ["service", "Клининг"], ["edu", "Фитнес и обучение"], ["sites", "Сайты"], ["other", "Учёт и управление"]];
+  const AREAS = [["other", "Учёт и управление"], ["beauty", "Салоны красоты"], ["tattoo", "Тату-студии"], ["food", "Кафе и рестораны"], ["auto", "Автосервисы"], ["shop", "Магазины"], ["service", "Клининг"], ["edu", "Фитнес и обучение"], ["sites", "Сайты"]];
   const demos = [...document.querySelectorAll(".demo")];
   const title = (d) => d.querySelector("h2").textContent;
-  let area = "beauty", cur = null;
+  let area = "other", cur = null;
   const ORDER = { beauty: ["payroll", "comeback", "reviews", "booking"], tattoo: ["tattoo", "aftercare"], food: ["order", "foodcost", "loyalty", "shifts"], auto: ["maint", "repair"], shop: ["mp", "stock"], service: ["clean"], edu: ["subs", "tutor"], sites: ["sites"], other: ["cash", "dash", "planfact", "crm", "hire", "learn"] };
   function show(id, scroll = false) {
     const d = demos.find((x) => x.id === id) || demos.find((x) => x.id === ORDER[area][0]);
@@ -3231,7 +3681,7 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   $("#work-pills").addEventListener("click", (e) => { const b = e.target.closest("[data-demo]"); if (b) show(b.dataset.demo); });
   const fromHash = () => { const h = location.hash.slice(1); if (demos.some((x) => x.id === h)) { show(h, true); return true; } return false; };
   addEventListener("hashchange", fromHash);
-  if (!fromHash()) show("payroll");
+  if (!fromHash()) show("cash");
 })();
 
 /* Опыт: подробности по наведению (компьютер) или по кнопке «Подробнее» (телефон) */
@@ -3298,7 +3748,7 @@ document.addEventListener("click", (e) => { if (!e.target.closest(".about-path")
     repair: ["от 18 000 ₽", "5–7 дней", "этапы ремонта, сообщения клиенту на каждом шаге, согласование доп. работ кнопкой, итог и ссылка на оплату"],
     mp: ["от 10 000 ₽", "3–5 дней", "юнит-экономика по каждому товару из отчётов площадки, подсветка убыточных позиций, цена для нужной маржи"],
     stock: ["от 12 000 ₽", "4–6 дней", "остатки из кассы или МойСклад, расчёт дозаказа с учётом сроков поставки, заказы поставщикам в одно нажатие"],
-    clean: ["от 15 000 ₽", "5–7 дней", "калькулятор на сайте, заявки в Telegram, расчёт бригады и маржи заказа для владельца"],
+    clean: ["от 18 000 ₽", "5–8 дней", "расчёт по плану квартиры на сайте, заявки в Telegram, чек-листы и фотоотчёт бригады, маржа заказа для владельца"],
     subs: ["от 12 000 ₽", "4–6 дней", "учёт абонементов, напоминания о продлении и сгорающих занятиях, заполняемость групп"],
     tutor: ["от 8 000 ₽", "2–4 дня", "расписание, пакеты уроков и баланс по каждому ученику, вежливые напоминания родителям об оплате"],
     sites: ["от 20 000 ₽", "1–2 недели", "сайт на ваш домен: прайс, работы, отзывы, карта, заявки в Telegram; хостинг бесплатный"],
@@ -3314,12 +3764,27 @@ document.addEventListener("click", (e) => { if (!e.target.closest(".about-path")
   }
 })();
 
-/* ============ Договор: сохранить в PDF через печать ============ */
+/* ============ Договор: поля, черновик и печатная форма ============
+   Введённое сохраняется только в этом браузере, чтобы не потерять при закрытии окна. */
+(() => {
+  const KEY = "dogovor-draft", fills = () => document.querySelectorAll("#contract-paper .fill");
+  try { const d = JSON.parse(localStorage.getItem(KEY) || "{}"); fills().forEach((f) => { if (d[f.dataset.f]) f.value = d[f.dataset.f]; }); } catch (_) {}
+  $("#contract-paper").addEventListener("input", () => { try { localStorage.setItem(KEY, JSON.stringify(Object.fromEntries([...fills()].map((f) => [f.dataset.f, f.value])))); } catch (_) {} });
+  $("#contract-clear").addEventListener("click", () => { fills().forEach((f) => (f.value = "")); try { localStorage.removeItem(KEY); } catch (_) {} });
+})();
 $("#contract-print").addEventListener("click", () => {
   const w = window.open("", "_blank");
   if (!w) return window.print();
   const css = [...document.querySelectorAll("style, link[rel=stylesheet]")].map((n) => n.outerHTML).join("");
-  w.document.write(`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Договор на разработку — образец</title>${css}<style>body{background:#fff;margin:0;padding:24px}.paper{max-width:46rem;margin:0 auto}@page{margin:18mm}</style></head><body>${$("#contract-paper").outerHTML}</body></html>`);
+  const copy = $("#contract-paper").cloneNode(true);
+  copy.querySelectorAll(".fill").forEach((f, i) => {
+    const v = document.querySelectorAll("#contract-paper .fill")[i].value.trim(), sp = document.createElement("span");
+    sp.className = v ? "filled" : "blank";
+    sp.textContent = v;
+    if (!v && f.tagName === "TEXTAREA") sp.style.cssText = "display:block;min-height:2.6em;border:0";
+    f.replaceWith(sp);
+  });
+  w.document.write(`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Договор на разработку — Никита Давымока</title>${css}<style>body{background:#fff;margin:0;padding:24px}.paper{max-width:46rem;margin:0 auto}.paper::before{content:none}.paper .filled{border-bottom:1px solid #1d1d1f;padding:0 2px}@page{margin:18mm}</style></head><body>${copy.outerHTML}</body></html>`);
   w.document.close();
   w.addEventListener("load", () => setTimeout(() => w.print(), 300));
 });
