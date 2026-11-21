@@ -446,8 +446,10 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 #lw-form { display: grid; gap: 6px; }
 #lw-form label { font-size: 0.8rem; color: var(--ink-2); margin-top: 4px; }
 #lw-form input[type=text], #lw-form textarea { border: 1px solid var(--line); border-radius: 12px; padding: 9px 11px; background: var(--solid); color: var(--ink); font: inherit; font-size: 0.92rem; resize: vertical; }
-#lw-form .lw-ok { display: flex; gap: 8px; align-items: start; font-size: 0.78rem; margin-top: 6px; }
-#lw-form .lw-ok input { margin-top: 2px; accent-color: var(--accent); }
+#lw-form .lw-ok { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; align-items: start; font-size: 0.8rem; margin-top: 8px; color: var(--ink-2); line-height: 1.4; }
+#lw-form .lw-ok label { font-size: inherit; color: inherit; margin: 0; cursor: pointer; }
+#lw-form .lw-ok .linky { font-size: inherit; color: var(--ink-2); }
+#lw-form .lw-ok input { margin: 1px 0 0; width: 16px; height: 16px; accent-color: var(--accent); }
 #lw-form .btn { margin-top: 8px; justify-self: stretch; padding-block: 10px; }
 .lw-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .lw-err { color: var(--bad); font-size: 0.82rem; }
@@ -1161,7 +1163,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
           <label for="lw-contact">Telegram или телефон</label><input id="lw-contact" type="text" autocomplete="tel" maxlength="80" placeholder="@username или +7…" required>
           <label for="lw-text">Задача</label><textarea id="lw-text" rows="3" maxlength="2000" placeholder="Например: заявки с сайта теряются в почте" required></textarea>
           <input type="text" id="lw-hp" name="company" tabindex="-1" autocomplete="off" class="lw-hp" aria-hidden="true">
-          <label class="lw-ok"><input type="checkbox" id="lw-agree" required> Согласен на обработку данных — <button type="button" class="linky" data-open="dlg-privacy">что это значит</button></label>
+          <div class="lw-ok"><input type="checkbox" id="lw-agree" required><span><label for="lw-agree">Согласен на обработку данных</label> · <button type="button" class="linky" data-open="dlg-privacy">что это значит</button></span></div>
           <p class="lw-err" id="lw-err" role="alert" hidden></p>
           <button class="btn primary" type="submit" id="lw-send">Отправить</button>
         </form>
