@@ -1212,6 +1212,76 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 .ms-food { --bg: #fff8ee; --ink: #2a1606; --muted: #8a6a50; --acc: #c2410c; --acc-ink: #fff; --card: #fff; --line: #f3e0c4; --disp: "Golos Text", sans-serif; --hero: #ffd27a; --h-w: 800; --map: #fbefd9; }
 .ms-auto { --bg: #0f1419; --ink: #e6ebf0; --muted: #8b98a6; --acc: #f5b301; --acc-ink: #111; --card: #18202a; --line: #263241; --disp: "Golos Text", sans-serif; --ls: 0.08em; --btn-r: 6px; --r: 8px; --hero: linear-gradient(120deg, #18212b, #0f1419); --h-w: 800; --map: #18202a; --map-road: #263241; --map-main: #5a4a12; }
 .ms-clean { --bg: #f3faf8; --ink: #16302b; --muted: #5c7a73; --acc: #1f8a70; --acc-ink: #fff; --card: #fff; --line: #d5ece6; --disp: "Golos Text", sans-serif; --hero: radial-gradient(circle at 85% 20%, #d4f1e8, transparent 55%), #e8f6f1; --h-w: 700; --map: #e6f3ee; }
+/* платёжный календарь: сценарии и решения */
+.cash-scen-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+#cash-scen button[aria-pressed="true"] { background: var(--warn); border-color: var(--warn); color: #fff; }
+.cash-fix { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.cash-fix > div { display: grid; gap: 6px; align-content: start; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--solid); font-size: 0.86rem; }
+.cash-fix span { color: var(--ink-2); } .cash-fix span b { color: var(--ink); }
+.cash-fix .btn { justify-self: start; }
+.cash-letters { margin-top: 14px; display: grid; gap: 8px; }
+.cash-letters .label { margin: 0; }
+.cash-letter { display: grid; gap: 2px; padding: 10px 14px; border-left: 3px solid var(--accent); background: var(--paper); border-radius: 0 12px 12px 0; font-size: 0.86rem; animation: rise 0.3s ease-out; }
+.cash-letter span { color: var(--ink-2); }
+@media (max-width: 760px) { .cash-fix { grid-template-columns: minmax(0, 1fr); } }
+/* сводка: пульс месяца */
+.pulse { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 22px; margin-top: 16px; align-items: start; }
+.pulse-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.pulse-h h3 { margin: 0; }
+#pulse { width: 100%; height: auto; margin-top: 6px; }
+.pl-plan { stroke: var(--ink-2); stroke-dasharray: 5 4; stroke-width: 1.5; fill: none; }
+.pl-area { fill: color-mix(in oklab, var(--accent) 12%, transparent); }
+.pl-act { stroke: var(--accent); stroke-width: 3; fill: none; stroke-linejoin: round; }
+.pl-fc { stroke: var(--ok); stroke-width: 2.5; stroke-dasharray: 2 5; stroke-linecap: round; fill: none; } .pl-fc.low { stroke: var(--bad); }
+.pl-dot { fill: var(--accent); stroke: var(--solid); stroke-width: 2; } .pl-end { fill: var(--ok); } .pl-end.low { fill: var(--bad); }
+.pulse-v { margin: 6px 0 0; font-size: 0.9rem; color: var(--ink-2); } .pulse-v b { color: var(--ink); }
+.pulse-r .label { margin: 0 0 8px; }
+@media (max-width: 960px) { .pulse { grid-template-columns: minmax(0, 1fr); } }
+/* CRM: прогноз и менеджеры */
+.crm-fc { margin-top: 14px; display: grid; gap: 6px; }
+.crm-fc-h { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 0.92rem; }
+.crm-bar { position: relative; display: flex; height: 22px; border-radius: 8px; background: var(--paper); }
+.crm-bar i { height: 100%; transition: width 0.35s; } .crm-bar i.paid { background: var(--ok); border-radius: 8px 0 0 8px; }
+.crm-bar i.w { background: repeating-linear-gradient(135deg, color-mix(in oklab, var(--ok) 55%, transparent) 0 6px, color-mix(in oklab, var(--ok) 25%, transparent) 6px 12px); }
+.crm-bar em { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.crm-bar em span { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 0.66rem; font-style: normal; color: var(--ink-2); }
+.crm-fc .hint { margin: 0; font-size: 0.82rem; }
+.crm-men { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.crm-men > div { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 10px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--paper); font-size: 0.88rem; }
+.crm-men .ms-ava { width: 40px; height: 40px; grid-row: span 2; margin: 0; font-size: 1rem; border-radius: 50%; display: grid; place-items: center; color: #fff; background: linear-gradient(150deg, hsl(var(--h) 55% 62%), hsl(var(--h) 50% 40%)); }
+.crm-men small { color: var(--ink-2); font-size: 0.76rem; }
+/* подбор: план найма */
+.hr-plan { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: var(--paper); }
+.hr-ppl { display: flex; flex-wrap: wrap; gap: 6px; max-width: 17rem; }
+.hr-ppl i { width: 22px; height: 30px; position: relative; opacity: 0.25; }
+.hr-ppl i::before { content: ""; position: absolute; top: 0; left: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--ink); }
+.hr-ppl i::after { content: ""; position: absolute; bottom: 0; left: 1px; width: 20px; height: 15px; border-radius: 10px 10px 3px 3px; background: var(--ink); }
+.hr-ppl i.on { opacity: 1; } .hr-ppl i.plus { opacity: 1; } .hr-ppl i.plus::before, .hr-ppl i.plus::after { background: var(--ok); }
+.hr-ppl i.over { outline: 1px dashed var(--ok); outline-offset: 2px; border-radius: 6px; }
+.hr-plan-t { display: grid; gap: 2px; font-size: 0.88rem; color: var(--ink-2); }
+.hr-plan-t > b { font: 600 1.8rem/1.1 var(--font-display); }
+.hr-plan-t span b { color: var(--ink); }
+@media (max-width: 640px) { .hr-plan { grid-template-columns: minmax(0, 1fr); } }
+/* обучение: матрица навыков */
+.ln-mx { overflow-x: auto; }
+.ln-mx table { font-size: 0.82rem; min-width: 30rem; }
+@media (max-width: 640px) { .crm-men { grid-template-columns: minmax(0, 1fr); } .crm-fc, .crm-men { min-width: 0; } }
+.ln-mx th { font-size: 0.72rem; text-align: center; }
+.ln-mx td.lv { text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; border: 2px solid var(--solid); border-radius: 6px; transition: background 0.3s; }
+.ln-mx td.hi { background: color-mix(in oklab, var(--ok) 28%, var(--solid)); } .ln-mx td.mid { background: color-mix(in oklab, var(--warn) 25%, var(--solid)); }
+.ln-mx td.lo { background: color-mix(in oklab, var(--bad) 25%, var(--solid)); } .ln-mx td.none { color: var(--ink-2); background: var(--paper); font-weight: 400; }
+.ln-mx tr.me td:first-child { font-weight: 600; } .ln-mx tr.avg td { border-top: 2px solid var(--line); } .ln-mx tr.avg td:first-child { color: var(--ink-2); }
+/* сайты: на весь экран */
+body.st-lock { overflow: hidden; }
+.st-stage.full { position: fixed; inset: 0; z-index: 1000; margin: 0; border-radius: 0; padding: 12px; align-content: start; background: #e9eaee; overflow: auto; }
+@media (prefers-color-scheme: dark) { .st-stage.full { background: #111215; } }
+:root[data-theme="dark"] .st-stage.full { background: #111215; } :root[data-theme="light"] .st-stage.full { background: #e9eaee; }
+.st-fbar .seg { background: var(--solid); }
+.st-stage.full .st-frame { max-width: 1280px; }
+.st-stage.full.phone .st-frame { max-width: 400px; }
+.st-stage.full .st-view { height: calc(100vh - 120px); height: calc(100dvh - 120px); }
+.st-fbar { width: 100%; max-width: 1280px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.st-fbar .seg { flex-wrap: wrap; border-radius: 18px; }
 </style>
 </head>
 <body>
@@ -1502,6 +1572,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
           <button class="btn" type="button" id="cash-reset">Сбросить</button>
         </div>
       </div>
+      <div class="cash-scen-wrap"><span class="hint">Что если</span><div class="chipset" id="cash-scen"></div></div>
       <div class="cash-scroll"><div class="cash-board" id="cash-board">
         <div class="cash-days" id="cash-days"></div>
         <div class="cash-lane" id="cash-in" aria-label="Поступления"></div>
@@ -1510,7 +1581,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       </div></div>
       <div class="cash-legend"><span><i class="cl-in"></i>поступление</span><span><i class="cl-fix"></i>платёж, дату не сдвинуть</span><span><i class="cl-move"></i>платёж, можно перенести</span><span><i class="cl-neg"></i>остаток ниже нуля</span></div>
       <p class="hint" style="margin-top: 6px;">Мышью или пальцем. С клавиатуры: Tab выбирает платёж, стрелки сдвигают на день.</p>
-      <div class="rig-status" id="cash-status"></div>
+      <div id="cash-status"></div>
       <p class="verdict" id="cash-verdict" aria-live="polite"></p>
     </div>
   </section>
@@ -1581,7 +1652,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <div class="tg" id="ln-tg"><div class="tg-body" id="ln-chat" aria-live="polite"></div><div class="tg-input"><span>Выберите ответ кнопкой</span></div></div>
       <div>
         <p class="label" style="margin-bottom: 8px;">Отчёт руководителю</p>
-        <div class="tablewrap"><table id="ln-report"></table></div>
+        <div class="ln-mx" id="ln-report"></div>
         <p class="pf-worse" id="ln-note" style="margin-top: 12px;"></p>
       </div>
     </div>
@@ -1605,7 +1676,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         </div>
         <div class="row"><label for="hr-src" class="hint">Источник</label><select id="hr-src"></select></div>
       </div>
-      <div class="dash-kpi" id="hr-kpi"></div>
+      <div class="hr-plan" id="hr-kpi"></div>
       <div class="hr-cols">
         <div>
           <h3 style="margin-bottom: 10px;">Этапы за месяц</h3>
@@ -1641,7 +1712,11 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <button type="button" data-m="6" aria-pressed="true">Полгода</button>
         <button type="button" data-m="12" aria-pressed="false">Год</button>
       </div>
-      <div class="dash-kpi" id="dash-kpi"></div>
+      <div class="pulse">
+        <div><div class="pulse-h"><h3>Пульс месяца: выручка против плана</h3><label class="hint" for="pulse-day">Сегодня: <b id="pulse-day-v"></b></label></div><svg id="pulse" viewBox="0 0 520 180" role="img" aria-label="Накопленная выручка и план"></svg><input type="range" id="pulse-day" min="5" max="29" value="18" aria-label="День месяца"><p class="pulse-v" id="pulse-v"></p></div>
+        <div class="pulse-r"><p class="label">Понедельник, 9:00 · бот в Telegram</p><div class="tg"><div class="tg-body" id="dash-rep" style="min-height: 0;"></div></div></div>
+      </div>
+      <p class="cb-sum" id="dash-kpi"></p>
       <div class="funnel" id="dash-funnel" role="img"></div>
       <div class="legend" id="dash-legend"></div>
       <div class="dash-cols">
@@ -1878,6 +1953,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
           <button type="button" data-s="auto" aria-pressed="false">Автосервис</button>
           <button type="button" data-s="clean" aria-pressed="false">Клининг</button>
         </div>
+        <button type="button" class="btn" id="st-full">⤢ На весь экран</button>
         <div class="seg" role="group" aria-label="Устройство" id="st-dev">
           <button type="button" data-d="desk" aria-pressed="true">Компьютер</button>
           <button type="button" data-d="phone" aria-pressed="false">Телефон</button>
@@ -2277,7 +2353,7 @@ const el = (tag, attrs = {}, parent) => {
    Двигаются только платежи поставщикам и реклама; подбор перебирает даты не раньше исходной. */
 (() => {
   const START = 250, DAYS = 30;
-  const BASE = [
+  const BASE0 = [
     { id: "c1", t: "Клиент «Север»", d: 3, v: 350, kind: "in" },
     { id: "c2", t: "Клиент «Атлас»", d: 12, v: 260, kind: "in" },
     { id: "c3", t: "Клиент «Север», второй платёж", d: 20, v: 420, kind: "in" },
@@ -2291,6 +2367,18 @@ const el = (tag, attrs = {}, parent) => {
     { id: "m3", t: "Ремонт станка", d: 11, v: -90, kind: "move" },
     { id: "m4", t: "Реклама", d: 14, v: -80, kind: "move" },
   ];
+  /* Сценарии «что если»: меняют исходные даты и суммы */
+  const scen = new Set();
+  const SCEN = [["late", "«Север» задержит оплату на 10 дней"], ["buy", "Срочный закуп металла 9-го, −150"], ["adv", "Новый клиент внесёт аванс 16-го, +200"]];
+  const baseOps = () => {
+    const b = BASE0.map((o) => ({ ...o }));
+    if (scen.has("late")) b.find((o) => o.id === "c1").d = 13;
+    if (scen.has("buy")) b.push({ id: "m5", t: "Срочный закуп металла", d: 9, v: -150, kind: "move" });
+    if (scen.has("adv")) b.push({ id: "c5", t: "Аванс нового клиента", d: 16, v: 200, kind: "in" });
+    return b;
+  };
+  $("#cash-scen").innerHTML = SCEN.map(([k, t]) => `<button type="button" data-sc="${k}" aria-pressed="false">${t}</button>`).join("");
+  $("#cash-scen").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; scen.has(b.dataset.sc) ? scen.delete(b.dataset.sc) : scen.add(b.dataset.sc); b.setAttribute("aria-pressed", scen.has(b.dataset.sc)); reset(); });
   let ops = [];
   const balances = (list = ops) => {
     const by = Array(DAYS + 1).fill(0);
@@ -2322,17 +2410,17 @@ const el = (tag, attrs = {}, parent) => {
     $("#cash-chart").innerHTML = `${neg}<line x1="0" x2="300" y1="${zero}" y2="${zero}" stroke="var(--ink-2)" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/><path d="${path}" fill="none" stroke="var(--ink)" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
     $(".cash-zero").style.top = zero + "%";
     const min = Math.min(...b), minDay = b.indexOf(min) + 1, negDays = b.filter((v) => v < 0).length;
-    const moved = ops.filter((o) => o.kind === "move").reduce((a, o) => a + (o.d - BASE.find((x) => x.id === o.id).d), 0);
-    $("#cash-status").innerHTML =
-      `<div class="${min < 0 ? "bad" : "ok"}"><span class="hint">Минимальный остаток</span><div class="v">${fmt(min)} тыс. ₽</div></div>` +
-      `<div class="${negDays ? "bad" : "ok"}"><span class="hint">Дней в минусе</span><div class="v">${negDays}</div></div>` +
-      `<div><span class="hint">На конец месяца</span><div class="v">${fmt(b[DAYS - 1])} тыс. ₽</div></div>` +
-      `<div><span class="hint">Отсрочка поставщикам</span><div class="v">${moved} дн. всего</div></div>`;
+    const moved = ops.filter((o) => o.kind === "move").reduce((a, o) => a + (o.d - baseOps().find((x) => x.id === o.id).d), 0);
+    const B0 = baseOps(), movedOps = ops.filter((o) => o.kind === "move" && o.d !== B0.find((x) => x.id === o.id).d);
+    const interest = min < 0 ? Math.round((-min * 1000 * 0.22 * negDays) / 365) : 0;
+    $("#cash-status").innerHTML = `<p class="cb-sum">Минимальный остаток <b class="${min < 0 ? "fc-bad" : ""}">${fmt(min)} тыс. ₽</b> (${minDay} число) · дней в минусе <b>${negDays}</b> · на конец месяца <b>${fmt(b[DAYS - 1])} тыс. ₽</b> · отсрочка поставщикам <b>${moved} дн.</b></p>` +
+      (min < 0 ? `<div class="cash-fix"><div><b>Перенести платежи</b><span>Подберу даты, при которых денег хватает каждый день, и платить как можно раньше.</span><button type="button" class="btn primary" data-fix="auto">Подобрать даты</button></div><div><b>Кредитная линия</b><span>Нужно ${fmt(-min)} тыс. ₽ на ${negDays} ${plural(negDays, "день", "дня", "дней")}. При 22% годовых это около <b>${rub(interest)}</b> процентов.</span></div><div><b>Ускорить поступления</b><span>Попросить «Атлас» оплатить на 5 дней раньше за скидку 1% — это ${rub(2600)} вместо процентов.</span></div></div>` : "") +
+      (movedOps.length ? `<div class="cash-letters"><p class="label">Письма поставщикам готовы</p>${movedOps.map((o) => { const b0 = B0.find((x) => x.id === o.id).d; return `<div class="cash-letter"><b>${o.t}</b><span>Добрый день! Просим перенести оплату по счёту на ${fmt(-o.v)} 000 ₽ с ${b0} на ${o.d} число. Оплату в новую дату гарантируем. Спасибо за понимание!</span></div>`; }).join("")}</div>` : "");
     const v = $("#cash-verdict");
     if (min < 0) { v.className = "verdict bad"; v.textContent = `Кассовый разрыв: ${minDay} числа не хватает ${fmt(-min)} тыс. ₽. Перенесите платежи поставщикам или договоритесь о предоплате.`; }
     else { v.className = "verdict ok"; v.textContent = `Разрывов нет. Самый тонкий день — ${minDay} число, на счёте ${fmt(min)} тыс. ₽.`; }
   }
-  function reset() { ops = BASE.map((o) => ({ ...o })); paint(); }
+  function reset() { ops = baseOps(); paint(); }
   /* Подбор: для каждого переносимого платежа день от исходного до конца месяца; цель — не уходить в минус и платить как можно раньше. */
   function auto() {
     const mv = ops.filter((o) => o.kind === "move"), rest = ops.filter((o) => o.kind !== "move");
@@ -2341,12 +2429,12 @@ const el = (tag, attrs = {}, parent) => {
       if (i === mv.length) {
         const list = [...rest, ...chosen];
         const min = Math.min(...balances(list));
-        const delay = chosen.reduce((a, o, k) => a + (o.d - BASE.find((x) => x.id === o.id).d) * Math.abs(o.v), 0);
+        const delay = chosen.reduce((a, o, k) => a + (o.d - baseOps().find((x) => x.id === o.id).d) * Math.abs(o.v), 0);
         const score = (min < 0 ? -min * 1e6 : 0) + delay;
         if (!best || score < best.score) best = { score, chosen: chosen.map((o) => ({ ...o })) };
         return;
       }
-      const base = BASE.find((x) => x.id === mv[i].id).d;
+      const base = baseOps().find((x) => x.id === mv[i].id).d;
       for (let d = base; d <= DAYS; d++) { chosen.push({ ...mv[i], d }); rec(i + 1, chosen); chosen.pop(); }
     };
     rec(0, []);
@@ -2382,6 +2470,7 @@ const el = (tag, attrs = {}, parent) => {
   });
   $("#cash-reset").addEventListener("click", reset);
   $("#cash-auto").addEventListener("click", auto);
+  $("#cash-status").addEventListener("click", (e) => { if (e.target.closest("[data-fix]")) auto(); });
   reset();
 })();
 
@@ -2417,10 +2506,13 @@ const el = (tag, attrs = {}, parent) => {
     }).join("");
     const open = deals.filter((d) => d.st < 4), paid = deals.filter((d) => d.st === 4);
     const stuck = open.filter((d) => d.days >= STUCK).length;
-    $("#crm-status").innerHTML =
-      `<div><span class="hint">В работе</span><div class="v">${rub(open.reduce((a, d) => a + d.sum, 0))}</div></div>` +
-      `<div class="ok"><span class="hint">Оплачено</span><div class="v">${rub(paid.reduce((a, d) => a + d.sum, 0))}</div></div>` +
-      `<div class="${stuck ? "warn" : "ok"}"><span class="hint">Зависли больше ${STUCK} дней</span><div class="v">${stuck}</div></div>`;
+    const PROB = [0.1, 0.25, 0.5, 0.8, 1], PLAN = 900000;
+    const paidSum = paid.reduce((a, d) => a + d.sum, 0), wSum = open.reduce((a, d) => a + d.sum * PROB[d.st], 0), fc = paidSum + wSum;
+    const W = (v) => Math.min(100, (v / (PLAN * 1.25)) * 100);
+    const big = open.filter((d) => d.st >= 2).sort((a, b) => b.sum * (1 - PROB[b.st]) - a.sum * (1 - PROB[a.st]))[0];
+    const men = ["Ольга", "Денис"].map((n) => { const my = deals.filter((d) => d.who === n); return { n, paid: my.filter((d) => d.st === 4).reduce((a, d) => a + d.sum, 0), open: my.filter((d) => d.st < 4).length, stuck: my.filter((d) => d.st < 4 && d.days >= STUCK).length }; });
+    $("#crm-status").innerHTML = `<div class="crm-fc"><div class="crm-fc-h"><b>Прогноз месяца</b><span>${rub(Math.round(fc / 1000) * 1000)} · <b class="${fc >= PLAN ? "fc-ok" : "fc-warn"}">${fmt((fc / PLAN) * 100)}% плана</b></span></div><div class="crm-bar"><i class="paid" style="width:${W(paidSum)}%"></i><i class="w" style="width:${W(wSum)}%"></i><em style="left:${W(PLAN)}%"><span>план</span></em></div><p class="hint">Оплачено ${rub(paidSum)} + сделки в работе с учётом вероятности этапа (новая 10%, связались 25%, КП 50%, счёт 80%). ${stuck ? `<b class="fc-warn">${stuck} ${plural(stuck, "сделка зависла", "сделки зависли", "сделок зависли")}</b> дольше ${STUCK} дней.` : ""}${big && fc < PLAN ? ` Сильнее всего прогноз поднимет «${big.t}» — переведите сделку на следующий этап.` : ""}</p></div>` +
+      `<div class="crm-men">${men.map((m) => `<div><span class="ms-ava" style="--h:${m.n === "Ольга" ? 330 : 200}">${m.n[0]}</span><b>${m.n}</b><small>оплачено ${rub(m.paid)} · в работе ${m.open}${m.stuck ? ` · <span class="fc-warn">зависло ${m.stuck}</span>` : ""}</small></div>`).join("")}</div>`;
     const first = Math.max(0, hist.length - 6), rows = hist.slice(first);
     $("#crm-sheet").innerHTML = `<thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody><tr><td class="rn">1</td><td><b>Время</b></td><td><b>Сделка</b></td><td><b>Этап</b></td><td><b>Кто</b></td></tr>${rows
       .map((r, i) => `<tr class="${r.fresh ? "fresh" : ""}"><td class="rn">${first + i + 2}</td><td>${r.time}</td><td>${r.deal}</td><td>${r.stage}</td><td>${r.who}</td></tr>`)
@@ -2570,13 +2662,15 @@ const el = (tag, attrs = {}, parent) => {
     { q: "Сколько хранится открытое молоко по стандарту нашей кофейни?", a: ["До конца смены", "24 часа после вскрытия", "Три дня"], ok: 1, why: "В нашем стандарте — 24 часа после вскрытия, дата пишется маркером на пачке." },
     { q: "Терминал не принимает карту. Ваши действия?", a: ["Прошу гостя прийти позже", "Предлагаю оплату по QR через СБП и сообщаю старшему", "Отпускаю гостя без оплаты"], ok: 1, why: "Альтернативная оплата есть всегда, а старший должен узнать о поломке сразу." },
   ];
+  const TOPICS = ["Стандарты", "Гости", "Хранение", "Касса", "Напитки"];
   const TEAM = [
-    { n: "Аня", done: 5, score: 92 },
-    { n: "Лёша", done: 3, score: 78 },
-    { n: "Маша", done: 5, score: 88 },
-    { n: "Дима", done: 0, score: null, note: "не начинал 4 дня, бот напомнил" },
+    { n: "Аня", sk: [95, 90, 88, 92, 96] },
+    { n: "Лёша", sk: [82, 75, 60, 70, null] },
+    { n: "Маша", sk: [90, 86, 55, 91, 84] },
+    { n: "Дима", sk: [null, null, null, null, null], note: "не начинал 4 дня — бот напомнил" },
   ];
-  let step = 0, right = 0, log = [];
+  const QT = [1, 2, 3]; /* тема каждого вопроса урока */
+  let step = 0, right = 0, log = [], okLog = [];
   $("#ln-tg").insertAdjacentHTML("afterbegin", tgHead("ЗК", 30, "Обучение · кофейни «Зерно»", "бот"));
   const chat = $("#ln-chat");
   function paint() {
@@ -2585,18 +2679,21 @@ const el = (tag, attrs = {}, parent) => {
     else html += tgMsg({ html: `🏁 <b>Урок пройден: ${right} из ${Q.length}</b>\n${right === Q.length ? "Отлично, следующий урок откроется завтра." : "Ошибки разберём в следующем уроке. Руководитель увидит, на каких вопросах."}`, time: tgTime(0), kb: [{ t: "Пройти заново", attrs: "data-restart" }] });
     chat.innerHTML = html;
     chat.scrollTop = chat.scrollHeight;
-    const me = { n: "Вы (новый бариста)", done: 1 + (step >= Q.length ? 1 : 0), score: step ? Math.round((right / Math.min(step, Q.length)) * 100) : null, me: true };
-    $("#ln-report").innerHTML = `<thead><tr><th>Сотрудник</th><th>Уроков</th><th class="n">Верных ответов</th></tr></thead><tbody>${[...TEAM, me]
-      .map((r) => `<tr class="${r.me ? "me" : ""}"><td>${r.n}${r.note ? `<small class="src">${r.note}</small>` : ""}</td><td>${r.done} из 5<span class="prog"><i style="width:${(r.done / 5) * 100}%"></i></span></td><td class="n">${r.score === null ? "—" : r.score + "%"}</td></tr>`)
-      .join("")}</tbody>`;
-    $("#ln-note").innerHTML = `Чаще всего ошибаются в вопросе про <b>хранение молока</b>: 40% неверных ответов. Стоит повторить его на планёрке.`;
+    const mine = TOPICS.map((_, t) => { if (t === 0) return 100; const k = QT.indexOf(t); if (k < 0 || k >= step) return null; return okLog[k] ? 100 : 40; });
+    const cell = (v) => `<td class="lv ${v === null ? "none" : v >= 85 ? "hi" : v >= 70 ? "mid" : "lo"}">${v === null ? "·" : v}</td>`;
+    const rows = [...TEAM, { n: "Вы, новый бариста", sk: mine, me: true }];
+    const avg = TOPICS.map((_, t) => { const v = rows.map((r) => r.sk[t]).filter((x) => x !== null); return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : null; });
+    const weak = avg.map((v, t) => [v, t]).filter(([v]) => v !== null).sort((a, b) => a[0] - b[0])[0];
+    $("#ln-report").innerHTML = `<table><thead><tr><th></th>${TOPICS.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr class="${r.me ? "me" : ""}"><td>${r.n}${r.note ? `<small class="src">${r.note}</small>` : ""}</td>${r.sk.map(cell).join("")}</tr>`).join("")}<tr class="avg"><td>Команда</td>${avg.map(cell).join("")}</tr></tbody></table>`;
+    $("#ln-note").innerHTML = `Слабое место команды — <b>${TOPICS[weak[1]].toLowerCase()}</b> (${weak[0]}%). Бот уже поставил повтор этой темы всем, у кого ниже 70%, а руководителю — пункт на планёрку.`;
   }
   chat.addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.dataset.restart !== undefined) { step = 0; right = 0; log = []; paint(); return; }
+    if (b.dataset.restart !== undefined) { step = 0; right = 0; log = []; okLog = []; paint(); return; }
     const i = +b.dataset.a, q = Q[step], ok = i === q.ok;
     if (ok) right++;
+    okLog.push(ok);
     log.push(tgMsg({ html: escH(q.a[i]), out: true, time: tgTime(0) }) + tgMsg({ html: `${ok ? "✅ <b>Верно.</b>" : "❌ <b>Не совсем.</b>"} ${q.why}`, time: tgTime(0) }));
     step++;
     paint();
@@ -2652,11 +2749,8 @@ const el = (tag, attrs = {}, parent) => {
     const forecast = Math.round(n[iv - 1] * newConv * tail);
     const totalCost = src === "all" ? Object.values(v.cost).reduce((a, b) => a + b, 0) : v.cost[src];
     $("#hr-lift-v").textContent = lift ? `+${lift} п.п.` : "как сейчас";
-    $("#hr-kpi").innerHTML =
-      `<div class="kpi"><div class="v ${src === "all" ? (hired >= v.plan ? "good-v" : "red-v") : ""}">${hired} из ${v.plan}</div><p>вышли на работу${src === "all" ? ", план месяца" : ` из источника «${src}»`}</p></div>` +
-      `<div class="kpi"><div class="v">${hired ? rub(totalCost / hired) : "—"}</div><p>цена одного найма</p></div>` +
-      `<div class="kpi"><div class="v">${fmt(baseConv * 100)}% → ${fmt(newConv * 100)}%</div><p>доходят до собеседования</p></div>` +
-      `<div class="kpi"><div class="v ${forecast > hired ? "good-v" : ""}">${forecast}</div><p>вышли бы на работу${forecast > hired ? `, +${forecast - hired}` : ""}</p></div>`;
+    const ppl = Array.from({ length: Math.max(v.plan, forecast) }, (_, k) => `<i class="${k < hired ? "on" : k < forecast ? "plus" : ""} ${k >= v.plan ? "over" : ""}" title="${k < hired ? "вышел на работу" : k < forecast ? "вышел бы с ботом-напоминалкой" : "не хватает до плана"}"></i>`).join("");
+    $("#hr-kpi").innerHTML = `<div class="hr-ppl" aria-label="Вышли ${hired} из ${v.plan}">${ppl}</div><div class="hr-plan-t"><b class="${hired >= v.plan ? "fc-ok" : "fc-bad"}">${hired} из ${v.plan}</b><span>${src === "all" ? "вышли на работу за месяц" : `из источника «${src}»`}</span><span>Цена одного найма — <b>${hired ? rub(totalCost / hired) : "—"}</b>. До собеседования доходят ${fmt(baseConv * 100)}%${lift ? ` → с ботом ${fmt(newConv * 100)}%, вышли бы <b class="fc-ok">${forecast}</b>${forecast > hired ? ` (+${forecast - hired})` : ""}` : ""}.</span></div>`;
   }
   root.addEventListener("click", (e) => { const b = e.target.closest("#hr-vac button"); if (b) { vac = b.dataset.v; src = "all"; paint(); } });
   root.addEventListener("change", (e) => { if (e.target.id === "hr-src") { src = e.target.value; paint(); } });
@@ -2694,7 +2788,7 @@ const el = (tag, attrs = {}, parent) => {
       [fmt(rev, 1) + " млн", "выручка по ним без НДС, ₽"],
       [fmt((res / rev) * 100, 1) + "%", "средняя маржа"],
     ];
-    $("#dash-kpi").innerHTML = kpi.map(([v, t]) => `<div class="kpi"><div class="v">${v}</div><p>${t}</p></div>`).join("");
+    $("#dash-kpi").innerHTML = `За период: <b>${kpi[0][0]}</b> заявок, <b>${fmt(won)}</b> пришли в сервис (${fmt((won / calcs) * 100)}%), выручка <b>${kpi[2][0]} ₽</b>, средняя маржа <b>${kpi[3][0]}</b>.`;
     const seg = [["s-won", "Пришли в сервис", won], ["s-wait", "Записаны", wait], ["s-work", "Думают", work], ["s-lost", "Не пришли", lost]];
     const f = $("#dash-funnel");
     f.setAttribute("aria-label", seg.map((s) => s[1] + ": " + s[2]).join(", "));
@@ -2707,6 +2801,35 @@ const el = (tag, attrs = {}, parent) => {
       .join("");
     $("#dash-reasons").innerHTML = REASONS.map(([t, p]) => `<div><span>${t}</span><b class="num">${Math.max(1, Math.round(lost * p))}</b></div>`).join("");
   }
+  /* Пульс месяца: дневная выручка с недельным ритмом, план 4,2 млн */
+  const PLAN = 4200, DAILY = Array.from({ length: 30 }, (_, i) => { const wd = (i + 3) % 7; return Math.round((wd === 6 ? 70 : wd === 5 ? 165 : 138) * (0.86 + ((i * 37) % 11) / 40) * (i > 10 && i < 16 ? 0.82 : 1)); });
+  function pulse() {
+    const D = +$("#pulse-day").value, cum = []; DAILY.reduce((a, v, i) => (cum[i] = a + v), 0);
+    const last7 = DAILY.slice(Math.max(0, D - 7), D), rate = last7.reduce((a, b) => a + b, 0) / last7.length;
+    const fc = cum[D - 1] + rate * (30 - D), pct = (fc / PLAN) * 100;
+    const W = 520, H = 180, L = 40, R = 10, T = 10, Bm = 24, max = Math.max(PLAN, fc) * 1.08;
+    const x = (d) => L + (d / 30) * (W - L - R), y = (v) => T + (1 - v / max) * (H - T - Bm);
+    const act = cum.slice(0, D).map((v, i) => `${i ? "L" : "M"}${x(i + 1).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const grid = [0, 1000, 2000, 3000, 4000].map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="rv-g"/><text x="${L - 6}" y="${y(v) + 3}" text-anchor="end" class="rv-t">${v / 1000} млн</text>`).join("");
+    $("#pulse").innerHTML = grid + [1, 10, 20, 30].map((d) => `<text x="${x(d)}" y="${H - 6}" text-anchor="middle" class="rv-t">${d}</text>`).join("") +
+      `<path d="M${x(0)} ${y(0)} L${x(30)} ${y(PLAN)}" class="pl-plan"/><path d="${act} L${x(D)} ${y(0)} L${x(1)} ${y(0)}Z" class="pl-area"/><path d="${act}" class="pl-act"/><path d="M${x(D)} ${y(cum[D - 1])} L${x(30)} ${y(fc)}" class="pl-fc ${pct < 100 ? "low" : ""}"/>` +
+      `<circle cx="${x(D)}" cy="${y(cum[D - 1])}" r="5" class="pl-dot"/><circle cx="${x(30)}" cy="${y(fc)}" r="4" class="pl-end ${pct < 100 ? "low" : ""}"/><text x="${x(30) - 6}" y="${y(PLAN) - 6}" text-anchor="end" class="rv-t">план ${fmt(PLAN / 1000, 1)} млн</text>`;
+    $("#pulse-day-v").textContent = `${D} число`;
+    const need = (PLAN - cum[D - 1]) / (30 - D);
+    $("#pulse-v").innerHTML = `Сейчас <b>${fmt(cum[D - 1] / 1000, 2)} млн ₽</b>. При текущем темпе месяц закроется на <b class="${pct < 100 ? "fc-bad" : "fc-ok"}">${fmt(pct)}% плана</b>${pct < 100 ? ` — не хватит ${fmt((PLAN - fc) / 1000, 2)} млн. Чтобы успеть, нужно ${fmt(need)} тыс. ₽ в день вместо ${fmt(rate)}.` : ". План будет выполнен с запасом."}`;
+    const wk = DAILY.slice(Math.max(0, D - 7), D).reduce((a, b) => a + b, 0), prev = DAILY.slice(Math.max(0, D - 14), Math.max(0, D - 7)).reduce((a, b) => a + b, 0) || wk;
+    const dlt = ((wk - prev) / prev) * 100;
+    if (!$(".pulse-r .tg-head")) $(".pulse-r .tg").insertAdjacentHTML("afterbegin", tgHead("С", 210, "Сводка · сеть автосервисов", "бот"));
+    $("#dash-rep").innerHTML = tgMsg({ html: `📊 <b>Неделя в цифрах</b>
+Выручка: ${fmt(wk / 1000, 2)} млн ₽ (${dlt >= 0 ? "+" : ""}${fmt(dlt)}% к прошлой)
+Темп месяца: ${fmt(pct)}% плана
+
+⚠️ Детейлинг снова в минусе по марже — пересмотрите цены.
+📞 Каждый четвёртый отказ — «долго ждать записи». Стоит открыть субботу.
+🏆 Лучшая маржа — диагностика, 41%.`, time: "09:00", kb: ["Открыть сводку"] });
+  }
+  $("#pulse-day").addEventListener("input", pulse);
+  pulse();
   $("#dash-period").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
@@ -2929,6 +3052,24 @@ const el = (tag, attrs = {}, parent) => {
   });
   $("#st-view").addEventListener("change", (e) => { if (e.target.id === "ms-svc") { bk.svc = e.target.value; render(true); } });
   addEventListener("resize", () => $("#st-stage").classList.toggle("phone", dev === "phone" || innerWidth < 640));
+  /* На весь экран: макет разворачивается поверх страницы, закрывается кнопкой или Esc */
+  /* Родитель с размытием фона ломает position: fixed, поэтому на время полного экрана макет переезжает в body */
+  const stage = $("#st-stage"), home = document.createComment("st-stage");
+  stage.before(home);
+  const full = (on) => {
+    if (on) document.body.appendChild(stage); else home.after(stage);
+    stage.classList.toggle("full", on); document.body.classList.toggle("st-lock", on);
+    if (on && !$("#st-close")) $("#st-stage").insertAdjacentHTML("afterbegin", `<div class="st-fbar" id="st-fbar"><div class="seg" role="group" aria-label="Сайт">${$("#st-site").innerHTML}</div><button type="button" class="btn" id="st-close">✕ Закрыть</button></div>`);
+    if (!on) $("#st-fbar")?.remove();
+    if (on) { $("#st-fbar").querySelectorAll("[data-s]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === site)); $("#st-close").focus(); }
+  };
+  $("#st-full").addEventListener("click", () => full(true));
+  $("#st-stage").addEventListener("click", (e) => {
+    if (e.target.closest("#st-close")) full(false);
+    const b = e.target.closest("#st-fbar [data-s]");
+    if (b) { site = b.dataset.s; cat = null; bk = { svc: null, day: 1, time: null, done: false }; render(); $("#st-fbar").querySelectorAll("[data-s]").forEach((x) => x.setAttribute("aria-pressed", x.dataset.s === site)); }
+  });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#st-stage").classList.contains("full")) full(false); });
   render();
 })();
 
