@@ -18,6 +18,11 @@
  */
 const MAX_PER_HOUR = 20; // защита от спама: не больше заявок в час со всего сайта
 
+/* Если открыть адрес в браузере: просто показывает, что скрипт работает. */
+function doGet() {
+  return ContentService.createTextOutput("Бот заявок работает. Сайт отправляет сюда заявки, открывать этот адрес не нужно.");
+}
+
 function doPost(e) {
   try {
     const d = JSON.parse((e && e.postData && e.postData.contents) || "{}");
