@@ -2212,7 +2212,7 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
    Заявка уходит на адрес LEAD_ENDPOINT (Google Apps Script, файл bot/lead-bot.gs в репозитории),
    а скрипт присылает её в Telegram. Пока адрес не задан, форма предлагает написать в Telegram напрямую. */
 (() => {
-  const LEAD_ENDPOINT = "";
+  const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbwNUbd8MRo3rNLzGexRhJB9aKe6bdR1chpsbBrXGBDKKwXJQGxcM2usKoBdDgPYYCJw/exec";
   const fab = $("#lw-fab"), panel = $("#lw-panel"), form = $("#lw-form"), err = $("#lw-err");
   const toggle = (open) => { panel.hidden = !open; fab.setAttribute("aria-expanded", open); fab.hidden = open; if (open) $("#lw-name").focus(); else fab.focus(); };
   fab.addEventListener("click", () => toggle(true));
