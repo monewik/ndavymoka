@@ -723,6 +723,19 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
   .about-path li:hover .exp-pop, .about-path li:focus-within .exp-pop { opacity: 1; visibility: visible; transform: none; }
   .about-path li:hover { z-index: 16; }
 }
+.about-path li.now { grid-column: 1 / -1; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 10px 28px; padding: 20px 22px; border-color: color-mix(in oklab, var(--accent) 35%, var(--glass-edge)); }
+.now-id { display: grid; gap: 4px; align-content: start; }
+.now-badge { justify-self: start; display: inline-flex; align-items: center; gap: 7px; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+.now-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2fb36b; box-shadow: 0 0 0 4px rgb(47 179 107 / 0.18); }
+.now-id b { font-size: 1.4rem; margin-top: 4px; }
+.now-roles { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.now-roles li { all: unset; display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 2px 14px; padding-left: 14px; border-left: 2px solid var(--line); }
+.now-roles li:first-child { border-left-color: var(--accent); }
+.now-roles .yr { grid-row: span 2; padding-top: 2px; }
+.now-roles strong { font-weight: 500; }
+.now-roles p { margin: 0; font-size: 0.88rem; color: var(--ink-2); line-height: 1.45; }
+.now-note { grid-column: 2; margin: 4px 0 0; font-size: 0.86rem; color: var(--ink-2); padding: 10px 14px; border-radius: 12px; background: var(--paper); }
+@media (max-width: 760px) { .about-path li.now { grid-template-columns: minmax(0, 1fr); } .now-note { grid-column: 1; } .now-roles li { grid-template-columns: minmax(0, 1fr); } .now-roles .yr { grid-row: auto; } }
 @media (max-width: 960px) { .about-path { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .about-path { grid-template-columns: minmax(0, 1fr); } }
 .contact { background: var(--cta-bg); color: var(--cta-ink); border-radius: 28px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 16px; margin-top: 72px; box-shadow: var(--glass-shadow); }
@@ -1265,6 +1278,14 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       </div>
     </div>
     <ol class="about-path" aria-label="Опыт">
+      <li class="now">
+        <div class="now-id"><span class="now-badge">Сейчас</span><b>Негабаритика</b><span class="role">перевозка негабаритных грузов</span><span class="yr" style="margin-top: 4px;">с июля 2026</span></div>
+        <ul class="now-roles">
+          <li><span class="yr">с ноября 2026</span><strong>Специалист по организации и аналитике</strong><p>Отдел развития и обучения: курсы, тренажёры и тесты для сотрудников, анализ результатов обучения, инструменты для проектов компании.</p></li>
+          <li><span class="yr">июль — октябрь 2026</span><strong>Специалист отдела качества</strong><p>Аудит и описание процессов, стандарты и регламенты, тестирование внедряемых систем и электронного документооборота, отчётность по показателям.</p></li>
+        </ul>
+        <p class="now-note">Сайты и боты для малого бизнеса делаю в свободное время как самозанятый. С задачами и клиентами работодателя эти проекты не пересекаются.</p>
+      </li>
       <li><span class="yr">2025–2026</span><b>Лемана ПРО</b><span class="role">руководитель отдела</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-0">Подробнее</button><span class="exp-pop" id="exp-0" role="tooltip">Команда из 10 человек: операционное планирование, контроль результатов, обучение и развитие сотрудников.</span></li>
       <li><span class="yr">2025</span><b>билайн</b><span class="role">B2B</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-1">Подробнее</button><span class="exp-pop" id="exp-1" role="tooltip">Малый и средний бизнес: клиентская база, анализ эффективности продаж, отчётность для руководства.</span></li>
       <li><span class="yr">2023–2025</span><b>X5 Group</b><span class="role">куратор территории</span><button type="button" class="more" aria-expanded="false" aria-controls="exp-2">Подробнее</button><span class="exp-pop" id="exp-2" role="tooltip">Московская область, более 350 курьеров: целевые показатели, бесперебойная доставка, качество сервиса, отчётность руководству.</span></li>
