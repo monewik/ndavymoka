@@ -5,7 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Никита Давымока</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Расчёты, сводки, сайты и боты для команд, которые пока работают в Excel и переписке.">
+<meta name="description" content="Расчёты, сводки, сайты и Telegram-боты для команд, которые пока работают в Excel и переписке. Примеры работ можно попробовать прямо на сайте.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ndavymoka.ru/">
+<meta property="og:title" content="Никита Давымока — расчёты, сводки, сайты и боты">
+<meta property="og:description" content="Рабочие инструменты для команд, которые пока работают в Excel и переписке. Примеры можно двигать и нажимать.">
+<meta property="og:image" content="https://ndavymoka.ru/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14202b">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2314202b%22/%3E%3Crect x=%226%22 y=%2219%22 width=%2220%22 height=%224%22 fill=%22%23f2c200%22/%3E%3Crect x=%229%22 y=%2210%22 width=%229%22 height=%228%22 fill=%22%23a9b6c1%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +29,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   --ink: #14202b;          /* основной текст */
   --ink-2: #4b5966;        /* второстепенный текст */
   --line: #d3dae0;         /* линии и рамки */
-  --signal: #f2c200;       /* жёлтый «негабаритный груз»: маркер и выделение */
+  --signal: #f2c200;       /* сигнальный жёлтый: маркер и выделение */
   --on-signal: #17140a;
   --steel: #6d7f8f;        /* техника на схемах */
   --steel-2: #a9b6c1;
@@ -30,6 +40,7 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   --bad: #c2382f;
   --grey-seg: #8d8789;
   --focus: #1f6fd1;
+  --ue-1: #5d7387; --ue-2: #8e6bb4; --ue-3: #3d8fb2; --ue-4: #c68433; --ue-5: #a7b3bd;
   --font-display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
   --font-body: "Onest", "Segoe UI", system-ui, sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -39,14 +50,14 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   :root:not([data-theme="light"]) {
     --paper: #0f151b; --sheet: #172029; --ink: #e6ebef; --ink-2: #9aabb9; --line: #2b3844;
     --signal: #f2c200; --on-signal: #17140a; --steel: #8b9cab; --steel-2: #4e5f6e;
-    --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2;
+    --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2; --ue-1: #7f95a8; --ue-2: #a98ccb; --ue-3: #5aaed0; --ue-4: #d99a4e; --ue-5: #56636e;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #0f151b; --sheet: #172029; --ink: #e6ebef; --ink-2: #9aabb9; --line: #2b3844;
   --signal: #f2c200; --on-signal: #17140a; --steel: #8b9cab; --steel-2: #4e5f6e;
-  --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2;
+  --crate: #b88f52; --crate-2: #8a6a37; --ok: #47c08a; --warn: #e3a63b; --bad: #ef6a5e; --grey-seg: #77777f; --focus: #79adf2; --ue-1: #7f95a8; --ue-2: #a98ccb; --ue-3: #5aaed0; --ue-4: #d99a4e; --ue-5: #56636e;
   color-scheme: dark;
 }
 
@@ -71,7 +82,19 @@ a:hover { text-decoration-color: var(--ink); }
 mark { background: var(--signal); color: var(--on-signal); padding: 0 0.2em; }
 
 /* шапка */
-.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 22px; }
+.top-band { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.top-band.scrolled { border-bottom-color: var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--paper); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 14px; }
+.top .tg { background: var(--ink); color: var(--sheet); text-decoration: none; padding: 7px 14px; border-radius: var(--r); font-size: 0.92rem; font-weight: 500; white-space: nowrap; }
+.top .tg:hover { opacity: 0.9; }
+.top .right { display: flex; align-items: center; gap: 22px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.cta a { text-decoration: none; padding: 11px 18px; border-radius: var(--r); font-weight: 500; }
+.cta .main { background: var(--signal); color: var(--on-signal); }
+.cta .main:hover { filter: brightness(0.95); }
+.cta .alt { border: 1px solid var(--line); background: var(--sheet); }
+.cta .alt:hover { border-color: var(--ink-2); }
 .top .name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-decoration: none; }
 .top nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.95rem; }
 .top nav a { text-decoration: none; color: var(--ink-2); }
@@ -110,28 +133,8 @@ button, select, input { font: inherit; color: inherit; }
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
 select { border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; background: var(--sheet); }
 
-/* трал */
-.rig svg { display: block; width: 100%; height: auto; touch-action: none; user-select: none; }
-.rig .deck { fill: var(--steel); }
-.rig .steel { fill: var(--steel); }
-.rig .steel-2 { fill: var(--steel-2); }
-.rig .wheel { fill: var(--ink); }
-.rig .hub { fill: var(--sheet); }
-.rig .ground { stroke: var(--line); stroke-width: 2; }
-.rig .dim { stroke: var(--ink-2); stroke-width: 1; fill: none; }
-.rig text { font-family: var(--font-body); font-variant-numeric: tabular-nums; fill: var(--ink); }
-.rig .cargo rect.body { fill: var(--crate); stroke: var(--crate-2); stroke-width: 1.5; cursor: grab; }
-.rig .cargo.iron rect.body { fill: var(--steel-2); stroke: var(--steel); }
-.rig .cargo:focus { outline: none; }
-.rig .cargo:focus-visible rect.body, .rig .cargo.drag rect.body { stroke: var(--focus); stroke-width: 3; }
-.rig .cargo.drag rect.body { cursor: grabbing; }
-.rig .cargo text { font-size: 15px; font-weight: 500; pointer-events: none; }
-.rig .load-pill rect { fill: var(--ink); }
-.rig .load-pill text { fill: var(--sheet); font-size: 14px; font-weight: 500; }
-.rig .load-pill.warn rect { fill: var(--warn); }
-.rig .load-pill.bad rect { fill: var(--bad); }
-.rig .height-bad { stroke: var(--bad); stroke-dasharray: 6 4; stroke-width: 1.5; }
-.rig-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 14px; }
+/* строка итогов под инструментом */
+.rig-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
 .rig-status div { border-top: 2px solid var(--line); padding-top: 8px; }
 .rig-status .v { font-weight: 600; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
 .rig-status .ok { border-color: var(--ok); }
@@ -140,17 +143,59 @@ select { border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10
 .verdict { margin-top: 14px; font-weight: 500; }
 .verdict.ok { color: var(--ok); } .verdict.warn { color: var(--warn); } .verdict.bad { color: var(--bad); }
 
-/* кейс */
-.case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
-.case dl { margin: 0; display: grid; gap: 14px; }
-.case dt { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
-.case dd { margin: 2px 0 0; color: var(--ink-2); }
-.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-.fact { border-top: 2px solid var(--ink); padding-top: 8px; }
-.fact .v { font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1; }
-.fact p { font-size: 0.88rem; color: var(--ink-2); margin-top: 6px; }
+/* график смен */
+.sh-scroll { overflow-x: auto; overscroll-behavior-x: contain; }
+.sh-grid { display: grid; gap: 6px; min-width: 0; }
+.sh-row { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 10px; align-items: center; }
+.sh-name { font-size: 0.9rem; line-height: 1.25; position: sticky; left: 0; z-index: 2; background: var(--sheet); align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+.sh-name b { display: block; font-weight: 600; }
+.sh-name small { color: var(--ink-2); font-size: 0.78rem; }
+.sh-ticks, .sh-cells, .sh-demand { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); }
+.sh-ticks span { font-size: 0.75rem; color: var(--ink-2); border-left: 1px solid var(--line); padding-left: 3px; font-variant-numeric: tabular-nums; }
+.sh-track { position: relative; height: 44px; border-radius: var(--r); background: repeating-linear-gradient(90deg, var(--paper) 0 calc(100% / 16 - 1px), var(--line) calc(100% / 16 - 1px) calc(100% / 16)); }
+.sh-bar { position: absolute; top: 4px; bottom: 4px; background: var(--ink); color: var(--sheet); border-radius: 5px; display: flex; align-items: center; justify-content: center; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; min-width: 40px; }
+.sh-bar.drag { cursor: grabbing; background: var(--focus); }
+.sh-bar:focus-visible { outline: 3px solid var(--signal); outline-offset: 1px; }
+.sh-t { font-size: 0.8rem; font-weight: 500; white-space: nowrap; overflow: hidden; padding-inline: 14px; font-variant-numeric: tabular-nums; pointer-events: none; }
+.sh-h { position: absolute; top: 0; bottom: 0; width: 14px; cursor: ew-resize; }
+.sh-h.l { left: 0; } .sh-h.r { right: 0; }
+.sh-h::after { content: ""; position: absolute; top: 30%; bottom: 30%; left: 6px; width: 2px; border-radius: 1px; background: var(--signal); }
+.sh-cells { gap: 2px; }
+.sh-cells span { text-align: center; font-size: 0.8rem; font-weight: 600; padding-block: 6px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.sh-cells i { font-style: normal; font-weight: 400; opacity: 0.75; }
+.sh-cells .ok { background: var(--paper); }
+.sh-cells .bad { background: var(--bad); color: #fff; }
+.sh-cells .warn { background: var(--signal); color: var(--on-signal); }
+.sh-demand { height: 44px; align-items: end; gap: 2px; }
+.sh-demand span { height: 100%; display: flex; align-items: flex-end; }
+.sh-demand i { display: block; width: 100%; background: var(--steel-2); border-radius: 3px 3px 0 0; }
 
-/* пакинг */
+/* юнит-экономика */
+.ue { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 26px; }
+.ue-out { display: grid; gap: 14px; align-content: start; }
+.ue-bar { display: flex; gap: 2px; height: 34px; }
+.ue-bar span { border-radius: 4px; min-width: 3px; transition: flex-grow 0.25s ease; }
+.ue-profit { background: var(--ok); }
+.ue-loss { background: var(--bad); }
+.ue-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.9rem; }
+.ue-legend li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.ue-legend i { width: 12px; height: 12px; border-radius: 3px; display: block; }
+.ue-legend li.good, .ue-legend li.loss { font-weight: 600; border-top: 1px solid var(--line); padding-top: 6px; }
+.ue-legend li.loss b { color: var(--bad); }
+.ue-kpi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ue-kpi .kpi .v { font-size: 1.35rem; }
+.red-v { color: var(--bad); }
+
+/* частые вопросы */
+.faq { display: grid; gap: 0; margin-top: 14px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; padding-block: 14px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-data); color: var(--ink-2); }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { padding-bottom: 14px; color: var(--ink-2); max-width: 46em; }
+
+/* разбор таблиц */
 .pk-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-top: 14px; }
 .tablewrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
@@ -160,9 +205,11 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .raw td.n { font-family: var(--font-data); }
 .raw { background: var(--paper); border-radius: var(--r); padding: 10px; }
 .raw table { font-family: var(--font-data); font-size: 0.8rem; }
+.raw th, .raw td { white-space: nowrap; }
+.parsed th { white-space: nowrap; }
 .raw th { cursor: pointer; color: var(--ink); }
 .raw th:hover, .raw th.on, .parsed .on { background: var(--signal); color: var(--on-signal); }
-.raw tr.total td { color: var(--ink-2); font-style: italic; }
+.raw tr.grp td { font-weight: 600; color: var(--ink-2); background: var(--sheet); }
 .notes { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 0.9rem; }
 .notes li { padding-left: 18px; position: relative; }
 .notes li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--signal); }
@@ -267,9 +314,16 @@ input[type=text], input[type=tel] { border: 1px solid var(--line); border-radius
 footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 860px) {
-  .intro, .tool-head, .case, .pk-grid, .dash-cols, .pf, .bot, .lead-tool, .about { grid-template-columns: minmax(0, 1fr); }
+  .intro, .tool-head, .pk-grid, .dash-cols, .pf, .ue, .bot, .lead-tool, .about { grid-template-columns: minmax(0, 1fr); }
   .dash-kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bar { grid-template-columns: minmax(0, 8rem) minmax(0, 1fr) 3.6rem; }
+}
+@media (max-width: 700px) {
+  .top nav { display: none; }
+  .sh-grid { min-width: 720px; }
+  .sh-row { grid-template-columns: 6.5rem minmax(0, 1fr); }
+  .ue-kpi { grid-template-columns: minmax(0, 1fr); }
+  .tool { padding-block: 44px 4px; }
 }
 @media (max-width: 480px) {
   .choice { grid-template-columns: minmax(0, 1fr); }
@@ -283,83 +337,105 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 <body>
 
 <div class="wrap">
-  <header class="top">
+  <div class="top-band" id="top-band"><header class="top">
     <a class="name" href="#">Никита Давымока</a>
-    <nav aria-label="Разделы">
-      <a href="#rig">Работы</a>
-      <a href="#process">Как работаю</a>
-      <a href="#price">Стоимость</a>
-      <a href="#contact">Связаться</a>
-    </nav>
-  </header>
+    <div class="right">
+      <nav aria-label="Разделы">
+        <a href="#shifts">Работы</a>
+        <a href="#process">Как работаю</a>
+        <a href="#price">Стоимость</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <a class="tg" data-tg href="#contact">Написать в Telegram</a>
+    </div>
+  </header></div>
 
   <section class="intro">
     <div>
       <h1>Расчёты, сводки и боты для команд, которые пока работают в&nbsp;Excel и&nbsp;переписке</h1>
-      <p class="lead">Собираю инструмент под конкретную работу: чтобы логист считал перевозку в одном окне, руководитель видел маржу без выгрузок, а заявка с сайта приходила в Telegram готовой. Ниже <b>работающие куски из моих проектов</b>. Их можно двигать и нажимать.</p>
+      <p class="lead">Собираю инструмент под конкретную работу: чтобы менеджер считал заказ в одном окне, руководитель видел маржу без выгрузок, а заявка с сайта приходила в Telegram готовой. Ниже <b>работающие примеры для разных сфер</b>: их можно двигать и нажимать.</p>
       <div class="chips" aria-label="Чем занимаюсь">
         <span>Рабочие инструменты</span><span>Дашборды и отчёты</span><span>Сайты для бизнеса</span><span>Google Таблицы и Apps Script</span><span>Telegram-боты</span>
+      </div>
+      <div class="cta">
+        <a class="main" data-tg href="#contact">Обсудить задачу в Telegram</a>
+        <a class="alt" href="#shifts">Попробовать примеры ↓</a>
       </div>
     </div>
     <div class="portrait">
       <img src="assets/nikita.jpg" alt="Никита Давымока" width="108" height="108">
-      <p><b>Никита Давымока</b>Логистика и бизнес-процессы. Самозанятость (НПД): договор и чек.</p>
+      <p><b>Никита Давымока</b>Бизнес-процессы и автоматизация. Самозанятость (НПД): договор и чек.</p>
     </div>
   </section>
 
-  <!-- 1. Раскладка на трале -->
-  <section class="tool" id="rig" aria-labelledby="rig-h">
+  <!-- 1. График смен -->
+  <section class="tool" id="shifts" aria-labelledby="sh-h">
     <div class="tool-head">
       <div>
-        <p class="label">Расчёт перевозки</p>
-        <h2 id="rig-h">Груз на трале и нагрузка на оси</h2>
-        <p class="what">Перетащите груз по площадке. Нагрузка на каждую ось пересчитывается сразу: сдвинули станину к тягачу, и ведущие оси уходят за 10 т. Кнопка «Подобрать» ищет положение, при котором ни одна ось не перегружена.</p>
+        <p class="label">Рабочий инструмент · кофейня</p>
+        <h2 id="sh-h">График смен под поток гостей</h2>
+        <p class="what">Тащите смену целиком или за край, чтобы удлинить. Внизу видно, в какие часы людей не хватает, а в какие они стоят без дела, и сколько стоит такой день. «Подобрать смены» расставит их сам.</p>
       </div>
-      <p class="origin"><b>Зачем это</b>Обычная задача при перевозке тяжёлого груза: поставить его так, чтобы не перегрузить оси и не платить за спецразрешение. Здесь модель упрощённая, в настоящем расчёте подставляются конкретный тягач и прицеп.</p>
-    </div>
-    <div class="sheet rig">
-      <div class="row" style="justify-content: space-between; margin-bottom: 10px;">
-        <div class="row">
-          <label for="rig-main" class="hint">Основной груз</label>
-          <select id="rig-main">
-            <option value="frame">Станина пресса, 22 т</option>
-            <option value="trafo">Трансформатор, 31 т</option>
-            <option value="tank">Ёмкость, 14 т</option>
-          </select>
-        </div>
-        <div class="row">
-          <button class="btn" type="button" id="rig-auto">Подобрать положение</button>
-          <button class="btn" type="button" id="rig-reset">Сбросить</button>
-        </div>
-      </div>
-      <svg id="rig-svg" viewBox="0 0 1000 300" role="img" aria-labelledby="rig-title">
-        <title id="rig-title">Тягач с полуприцепом-тралом, груз на площадке и нагрузки на оси</title>
-      </svg>
-      <p class="hint">Мышью, пальцем или с клавиатуры: Tab выбирает груз, стрелки двигают на 10 см, с Shift на 50 см.</p>
-      <div class="rig-status" id="rig-status"></div>
-      <p class="verdict" id="rig-verdict" aria-live="polite"></p>
-    </div>
-  </section>
-
-  <!-- 3. Пакинг -->
-  <section class="tool" id="packing" aria-labelledby="pk-h">
-    <div class="tool-head">
-      <div>
-        <p class="label">Разбор файлов</p>
-        <h2 id="pk-h">Пакинг клиента превращается в таблицу груза</h2>
-        <p class="what">Слева файл, как его прислали. Справа то, что получается после разбора. Нажмите на заголовок столбца в исходнике, чтобы увидеть, куда он попал.</p>
-      </div>
-      <p class="origin"><b>Зачем это</b>Пакинги приходят в любом виде: шапка в две строки, вес на всю строку вместо одного места, миллиметры без подписи. Без разбора их приходится перепечатывать руками.</p>
+      <p class="origin"><b>Зачем это</b>График обычно составляют по привычке, а поток гостей меняется по часам. Когда нехватка и лишние часы видны сразу, их легко убрать, а фонд оплаты сокращается без потери выручки.</p>
     </div>
     <div class="sheet">
-      <div class="seg" role="group" aria-label="Пример пакинга" id="pk-tabs">
-        <button type="button" data-k="cn" aria-pressed="true">Китайский</button>
-        <button type="button" data-k="en">Английский</button>
-        <button type="button" data-k="ru">Русский</button>
+      <div class="row" style="justify-content: space-between; margin-bottom: 14px;">
+        <div class="seg" role="group" aria-label="День недели" id="sh-day">
+          <button type="button" data-d="week" aria-pressed="true">Будний день</button>
+          <button type="button" data-d="wknd" aria-pressed="false">Суббота</button>
+        </div>
+        <div class="row">
+          <button class="btn" type="button" id="sh-auto">Подобрать смены</button>
+          <button class="btn" type="button" id="sh-reset">Сбросить</button>
+        </div>
+      </div>
+      <div class="sh-scroll"><div class="sh-grid" id="sh-grid"></div></div>
+      <p class="hint" style="margin-top: 10px;">Мышью или пальцем. С клавиатуры: Tab выбирает смену, стрелки сдвигают на полчаса, с Shift меняют длину.</p>
+      <div class="rig-status" id="sh-status"></div>
+      <p class="verdict" id="sh-verdict" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- 2. Юнит-экономика -->
+  <section class="tool" id="unit" aria-labelledby="ue-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Калькулятор · продавец на маркетплейсе</p>
+        <h2 id="ue-h">Сколько остаётся с одной продажи</h2>
+        <p class="what">Двигайте цену, комиссию, логистику, выкуп и рекламу. Полоса показывает, на что расходится цена товара, а внизу — при какой цене вы выходите в ноль.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>Продавцы часто считают прибыль как «цена минус закупка». Возвраты, логистика и реклама съедают разницу незаметно, пока не посчитаешь каждую продажу.</p>
+    </div>
+    <div class="sheet ue">
+      <div class="ue-inputs" id="ue-inputs"></div>
+      <div class="ue-out">
+        <div class="ue-bar" id="ue-bar" role="img"></div>
+        <ul class="ue-legend" id="ue-legend"></ul>
+        <div class="ue-kpi" id="ue-kpi"></div>
+        <p class="pf-worse" id="ue-note" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Прайсы -->
+  <section class="tool" id="prices" aria-labelledby="pk-h">
+    <div class="tool-head">
+      <div>
+        <p class="label">Разбор файлов · закупки</p>
+        <h2 id="pk-h">Прайсы поставщиков в одном каталоге</h2>
+        <p class="what">Слева прайс, как его прислал поставщик. Справа он же в вашем каталоге: цена за штуку, без НДС, в рублях. Нажмите на заголовок столбца в прайсе, чтобы увидеть, куда он попал.</p>
+      </div>
+      <p class="origin"><b>Зачем это</b>У каждого поставщика свой формат: цены с НДС и без, за упаковку и за штуку, в рублях и в долларах. Без разбора их сравнивают вручную, и ошибка в одной строке дорого стоит.</p>
+    </div>
+    <div class="sheet">
+      <div class="seg" role="group" aria-label="Поставщик" id="pk-tabs">
+        <button type="button" data-k="a" aria-pressed="true">Обжарщик</button>
+        <button type="button" data-k="b" aria-pressed="false">Импортёр</button>
+        <button type="button" data-k="c" aria-pressed="false">Кондитерская</button>
       </div>
       <div class="pk-grid">
-        <div><p class="label" style="margin-bottom: 6px;">Как в файле</p><div class="raw tablewrap" id="pk-raw"></div></div>
-        <div class="parsed"><p class="label" style="margin-bottom: 6px;">Таблица груза</p><div class="tablewrap" id="pk-out"></div></div>
+        <div><p class="label" style="margin-bottom: 6px;">Как прислали</p><div class="raw tablewrap" id="pk-raw"></div></div>
+        <div class="parsed"><p class="label" style="margin-bottom: 6px;">В каталоге</p><div class="tablewrap" id="pk-out"></div></div>
       </div>
       <ul class="notes" id="pk-notes"></ul>
     </div>
@@ -369,9 +445,9 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool" id="dash" aria-labelledby="dash-h">
     <div class="tool-head">
       <div>
-        <p class="label">Дашборд</p>
+        <p class="label">Дашборд · сеть автосервисов</p>
         <h2 id="dash-h">Сводка для руководителя</h2>
-        <p class="what">Сколько расчётов стали перевозками, где маржа выше и почему клиенты отказываются. Переключите период и наведите на направление.</p>
+        <p class="what">Сколько заявок дошли до сервиса, на каких работах маржа выше и почему клиенты уходят. Переключите период и наведите на вид работ.</p>
       </div>
       <p class="origin"><b>Зачем это</b>Сводка считается прямо из рабочих таблиц, без ручных выгрузок и сведения в конце месяца. Цифры здесь вымышленные.</p>
     </div>
@@ -385,8 +461,8 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <div class="funnel" id="dash-funnel" role="img"></div>
       <div class="legend" id="dash-legend"></div>
       <div class="dash-cols">
-        <div><h3 style="margin-bottom: 10px;">Маржа по направлениям</h3><div class="bars" id="dash-bars"></div></div>
-        <div><h3 style="margin-bottom: 10px;">Почему отказались</h3><div class="reasons" id="dash-reasons"></div></div>
+        <div><h3 style="margin-bottom: 10px;">Маржа по видам работ</h3><div class="bars" id="dash-bars"></div></div>
+        <div><h3 style="margin-bottom: 10px;">Почему не пришли</h3><div class="reasons" id="dash-reasons"></div></div>
       </div>
       <div class="tip" id="dash-tip" hidden></div>
     </div>
@@ -396,16 +472,16 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool" id="planfact" aria-labelledby="pf-h">
     <div class="tool-head">
       <div>
-        <p class="label">Контроль после перевозки</p>
+        <p class="label">Контроль проекта · ремонт офиса</p>
         <h2 id="pf-h">План-факт по проекту</h2>
-        <p class="what">Перевозка закончилась, счета пришли. Двигайте фактические суммы и смотрите, сколько осталось от плановой маржи и что съело её больше всего.</p>
+        <p class="what">Объект сдан, счета от поставщиков и бригады пришли. Двигайте фактические суммы и смотрите, сколько осталось от плановой маржи и что съело её больше всего.</p>
       </div>
-      <p class="origin"><b>Зачем это</b>Без план-факта ошибка в ставке повторяется в следующем расчёте. Если факт сохранять, его можно подсказывать при новых расчётах.</p>
+      <p class="origin"><b>Зачем это</b>Без план-факта ошибка в смете повторяется на следующем объекте. Если факт сохранять, по нему удобно проверять новые сметы.</p>
     </div>
     <div class="sheet pf">
       <div id="pf-rows"></div>
       <div class="pf-sum">
-        <p class="hint">Клиент заплатил <span class="num">2 400 000 ₽</span> без НДС. В плане заложен резерв 5% от расходов.</p>
+        <p class="hint">Офис 120 м², заказчик заплатил <span class="num">2 400 000 ₽</span>. В смете заложен резерв 5% от расходов.</p>
         <div class="pf-bars" id="pf-bars"></div>
         <div class="pf-worse" id="pf-worse" aria-live="polite"></div>
       </div>
@@ -436,31 +512,31 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <div>
         <p class="label">Сайт для бизнеса</p>
         <h2 id="lead-h">Заявка с расчётом цены</h2>
-        <p class="what">Кусок сайта для аренды спецтехники. Клиент сразу видит примерную цену, а менеджер получает в Telegram заявку, в которой уже есть всё для звонка.</p>
+        <p class="what">Кусок сайта клининговой компании. Клиент сразу видит цену, а менеджер получает в Telegram заявку, в которой уже есть всё для звонка.</p>
       </div>
       <p class="origin"><b>Зачем это</b>Пример собран для портфолио. Так же делаю сайты услуг: короткая страница, понятная цена, заявка без потерь.</p>
     </div>
     <div class="sheet lead-tool">
       <div class="mini-site">
-        <div class="bar-top">Кран на час <span>аренда спецтехники · пример</span></div>
+        <div class="bar-top">Чистый лист <span>уборка квартир и офисов · пример</span></div>
         <form id="lead-form" novalidate>
           <fieldset class="field" style="border: 0; padding: 0; margin: 0;">
-            <legend style="font-size: 0.85rem; color: var(--ink-2); margin-bottom: 6px;">Техника</legend>
+            <legend style="font-size: 0.85rem; color: var(--ink-2); margin-bottom: 6px;">Уборка</legend>
             <div class="choice" id="lead-kind"></div>
           </fieldset>
           <div class="field">
-            <label for="lead-hours">Часов работы: <b id="lead-hours-v" class="num">6</b></label>
-            <input type="range" id="lead-hours" min="2" max="12" step="1" value="6">
+            <label for="lead-hours">Площадь, м²: <b id="lead-hours-v" class="num">60</b></label>
+            <input type="range" id="lead-hours" min="20" max="200" step="5" value="60">
           </div>
           <div class="field">
-            <label for="lead-km">Подача за город, км: <b id="lead-km-v" class="num">25</b></label>
-            <input type="range" id="lead-km" min="0" max="120" step="5" value="25">
+            <label for="lead-km">Окна, створок: <b id="lead-km-v" class="num">4</b></label>
+            <input type="range" id="lead-km" min="0" max="12" step="1" value="4">
           </div>
           <div class="field">
             <label for="lead-phone">Телефон</label>
             <input type="tel" id="lead-phone" value="+7 900 123-45-67" autocomplete="off">
           </div>
-          <div class="price"><span class="hint">Примерно, с подачей</span><span class="v" id="lead-price"></span></div>
+          <div class="price"><span class="hint">Стоимость уборки</span><span class="v" id="lead-price"></span></div>
           <button class="btn primary" type="submit">Отправить заявку</button>
         </form>
       </div>
@@ -525,6 +601,17 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
     </div>
   </section>
 
+  <section class="tool" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Сколько времени занимает работа?</summary><p>Скрипт для таблицы или простой бот обычно занимает несколько дней. Сайт или дашборд — одну-две недели. Рабочий инструмент под процесс — от нескольких недель, его удобно делать по этапам. Точный срок называю после разговора, до начала работы.</p></details>
+      <details><summary>Нужно будет покупать программы или платить за сервер?</summary><p>Чаще всего нет. Google Таблицы, Apps Script и Telegram-боты на них бесплатны. Сайт можно разместить бесплатно, платить придётся только за домен, около нескольких сотен рублей в год. Если для задачи нужен платный сервис, скажу об этом заранее и объясню, зачем.</p></details>
+      <details><summary>Что нужно от нас, чтобы начать?</summary><p>Показать, как задача решается сейчас: таблицу, выгрузку, пример переписки. Рабочие данные не нужны, хватит примера с изменёнными цифрами. И человек, который ответит на вопросы по процессу.</p></details>
+      <details><summary>Можно ли работать с компанией без ЭДО?</summary><p>Да. Договор подписываем на бумаге или сканами, на каждую оплату приходит чек из приложения «Мой налог». Акт делаю, если его просит ваша бухгалтерия. Если вы работаете через ЭДО, подключусь по вашему приглашению.</p></details>
+      <details><summary>Кому принадлежит результат и что будет после сдачи?</summary><p>Результат и исходники передаю вам, это записывается в договоре. После сдачи показываю команде, как пользоваться, и оставляю короткую инструкцию. Доработки после сдачи — по часам.</p></details>
+    </div>
+  </section>
+
   <section class="contact" id="contact" aria-labelledby="contact-h">
     <h2 id="contact-h">Расскажите, что сейчас делается вручную</h2>
     <p>Опишите задачу в двух словах или пришлите пример таблицы без рабочих данных. Отвечу, как это можно сделать, сколько времени займёт и сколько будет стоить.</p>
@@ -552,279 +639,264 @@ const el = (tag, attrs = {}, parent) => {
   return e;
 };
 
-/* ============ 1. Трал и оси ============
-   Упрощённая модель: тягач 6×4 и полуприцеп с площадкой над тремя осями.
-   Груз — точечные массы по центру; реакции считаются по правилу рычага. Размеры в метрах от бампера тягача. */
+/* ============ 1. График смен ============
+   Поток гостей по часам → сколько бариста нужно (один на 14 гостей в час, минимум один).
+   Покрытие часа считается по доле часа, которую человек на месте. */
 (() => {
-  const T = { steer: 1.4, drive: [4.6, 5.95], king: 5.0, tare: { steer: 5.6, drive: 3.2 } };
-  const R = { deckFrom: 7.9, deckTo: 19.0, deckH: 0.95, axles: [16.2, 17.55, 18.9], tare: 11.5, tareX: 12.2 };
-  const NORM = 10, LIMIT = { steer: 8, drive: 13, trailer: 12 }, HMAX = 4.0;
-  const MAIN = {
-    frame: { name: "Станина", m: 22, L: 6.0, H: 2.8, iron: true },
-    trafo: { name: "Трансформатор", m: 31, L: 5.2, H: 3.45, iron: true },
-    tank: { name: "Ёмкость", m: 14, L: 8.2, H: 3.1, iron: true },
+  const H0 = 7, H1 = 23, N = H1 - H0, PER = 14, MINLEN = 4, MAXLEN = 12;
+  const STAFF = [
+    { name: "Аня", role: "бариста", rate: 330 },
+    { name: "Лёша", role: "бариста", rate: 330 },
+    { name: "Маша", role: "старший бариста", rate: 380 },
+    { name: "Дима", role: "стажёр", rate: 280 },
+  ];
+  const DEMAND = {
+    week: [10, 22, 26, 24, 32, 36, 34, 30, 30, 20, 22, 26, 24, 12, 10, 6],
+    wknd: [6, 10, 12, 20, 32, 34, 36, 34, 30, 32, 34, 30, 24, 12, 10, 6],
   };
-  const BOX = { name: "Ящик", m: 3.5, L: 2.2, H: 1.8 };
-  let items = [];
-  const S = 47, X0 = 14, GY = 240; // масштаб: пикселей на метр, отступ слева, линия земли
-  const px = (x) => X0 + x * S, py = (h) => GY - h * S;
-  const svg = $("#rig-svg");
-  let dragging = null;
-
-  function reset() {
-    const main = MAIN[$("#rig-main").value];
-    items = [
-      { ...main, id: "main", x: 9.6 + main.L / 2 },
-      { ...BOX, id: "b1", x: R.deckFrom + 0.2 + BOX.L / 2 },
-      { ...BOX, id: "b2", x: R.deckTo - 0.2 - BOX.L / 2 },
-    ];
-    items.sort((a, b) => a.x - b.x);
-    // разнести, если наложились
-    settle();
-    draw();
+  const START = { week: [[7, 15], [9, 17], [12, 21], [15, 23]], wknd: [[7, 15], [9, 18], [11, 20], [15, 23]] };
+  let day = "week", sh = [];
+  const grid = $("#sh-grid");
+  const need = () => DEMAND[day].map((g) => Math.max(1, Math.ceil(g / PER)));
+  const hhmm = (h) => `${Math.floor(h)}:${h % 1 ? "30" : "00"}`;
+  function cover(list = sh) {
+    return Array.from({ length: N }, (_, i) => list.reduce((a, [s, e]) => a + Math.max(0, Math.min(e, H0 + i + 1) - Math.max(s, H0 + i)), 0));
   }
-  function settle() {
-    items.sort((a, b) => a.x - b.x);
-    for (let i = 1; i < items.length; i++) {
-      const prev = items[i - 1], cur = items[i];
-      const min = prev.x + prev.L / 2 + cur.L / 2 + 0.1;
-      if (cur.x < min) cur.x = min;
-    }
-    for (let i = items.length - 2; i >= 0; i--) {
-      const next = items[i + 1], cur = items[i];
-      const max = next.x - next.L / 2 - cur.L / 2 - 0.1;
-      if (cur.x > max) cur.x = max;
-    }
+  function stats(list = sh) {
+    const have = cover(list), nd = need();
+    let under = 0, over = 0;
+    have.forEach((h, i) => { under += Math.max(0, nd[i] - h); over += Math.max(0, h - nd[i]); });
+    const hours = list.reduce((a, [s, e]) => a + (e - s), 0);
+    const pay = list.reduce((a, [s, e], i) => a + (e - s) * STAFF[i].rate, 0);
+    return { have, nd, under, over, hours, pay };
   }
-  function loads(list = items) {
-    const a = (R.axles[0] + R.axles[1] + R.axles[2]) / 3 - T.king;
-    let K = 0, G = 0;
-    const add = (m, x) => { const r = x - T.king; G += (m * r) / a; K += (m * (a - r)) / a; };
-    add(R.tare, R.tareX);
-    list.forEach((it) => add(it.m, it.x));
-    const d = (T.drive[0] + T.drive[1]) / 2 - T.steer, share = (T.king - T.steer) / d;
-    const steer = T.tare.steer + K * (1 - share);
-    const drive = (T.tare.drive + K * share) / 2;
-    const trailer = G / 3;
-    return { steer, drive, trailer, K, G };
+  function build() {
+    const ticks = Array.from({ length: N }, (_, i) => `<span>${H0 + i}</span>`).join("");
+    grid.innerHTML =
+      `<div class="sh-row sh-head"><span class="sh-name"></span><div class="sh-ticks">${ticks}</div></div>` +
+      STAFF.map((p, i) => `<div class="sh-row"><span class="sh-name"><b>${p.name}</b><small>${p.role} · ${p.rate} ₽/ч</small></span><div class="sh-track" data-i="${i}"><div class="sh-bar" tabindex="0" role="slider" data-i="${i}"><span class="sh-h l" data-edge="s"></span><span class="sh-t"></span><span class="sh-h r" data-edge="e"></span></div></div></div>`).join("") +
+      `<div class="sh-row sh-cov"><span class="sh-name"><b>На смене / нужно</b><small>по часам</small></span><div class="sh-cells" id="sh-cells"></div></div>` +
+      `<div class="sh-row sh-dem"><span class="sh-name"><b>Гостей в час</b><small>${day === "week" ? "будний день" : "суббота"}</small></span><div class="sh-demand" id="sh-demand"></div></div>`;
+    paint();
   }
-  const lvl = (v, lim) => (v > lim ? "bad" : v > NORM ? "warn" : "ok");
-
-  function draw() {
-    svg.querySelectorAll(":scope > g, :scope > line, :scope > path, :scope > rect").forEach((n) => n.remove());
-    el("line", { x1: 0, x2: 1000, y1: GY + 0.5, y2: GY + 0.5, class: "ground" }, svg);
-    const g = el("g", {}, svg);
-    // тягач: рама, кабина, седло
-    el("rect", { x: px(0.1), y: py(1.25), width: (6.7 - 0.1) * S, height: 0.35 * S, class: "steel" }, g);
-    el("path", { d: `M${px(0.1)} ${py(1.25)} L${px(0.1)} ${py(3.35)} Q${px(0.15)} ${py(3.55)} ${px(0.5)} ${py(3.6)} L${px(2.3)} ${py(3.6)} L${px(2.3)} ${py(1.25)} Z`, class: "steel" }, g);
-    el("rect", { x: px(0.35), y: py(3.1), width: 1.2 * S, height: 0.75 * S, class: "steel-2", rx: 3 }, g);
-    el("rect", { x: px(T.king - 0.6), y: py(1.45), width: 1.2 * S, height: 0.2 * S, class: "steel-2" }, g);
-    // трал: гусак и площадка
-    const deckTop = py(R.deckH), neckTop = py(1.55);
-    el("path", { d: `M${px(4.4)} ${neckTop} L${px(7.3)} ${neckTop} L${px(R.deckFrom)} ${deckTop} L${px(R.deckTo)} ${deckTop} L${px(R.deckTo)} ${deckTop + 0.3 * S} L${px(R.deckFrom - 0.2)} ${deckTop + 0.3 * S} L${px(7.1)} ${neckTop + 0.35 * S} L${px(4.4)} ${neckTop + 0.35 * S} Z`, class: "deck" }, g);
-    // колёса и нагрузки
-    const L = loads();
-    const wheels = [
-      { x: T.steer, v: L.steer, lim: LIMIT.steer },
-      { x: T.drive[0], v: L.drive, lim: LIMIT.drive },
-      { x: T.drive[1], v: L.drive, lim: LIMIT.drive },
-      ...R.axles.map((x) => ({ x, v: L.trailer, lim: LIMIT.trailer })),
-    ];
-    wheels.forEach((w, i) => {
-      el("circle", { cx: px(w.x), cy: GY - 0.5 * S, r: 0.5 * S, class: "wheel" }, g);
-      el("circle", { cx: px(w.x), cy: GY - 0.5 * S, r: 0.17 * S, class: "hub" }, g);
-      const p = el("g", { class: "load-pill " + lvl(w.v, w.lim) }, g);
-      const label = fmt(w.v, 1) + " т";
-      el("rect", { x: px(w.x) - 30, y: GY + 10 + (i >= 4 && i % 2 === 0 ? 0 : 0), width: 60, height: 24, rx: 4 }, p);
-      const t = el("text", { x: px(w.x), y: GY + 27, "text-anchor": "middle" }, p);
-      t.textContent = label;
+  function paint() {
+    const st = stats();
+    sh.forEach(([s, e], i) => {
+      const bar = grid.querySelector(`.sh-bar[data-i="${i}"]`);
+      bar.style.left = ((s - H0) / N) * 100 + "%";
+      bar.style.width = ((e - s) / N) * 100 + "%";
+      bar.querySelector(".sh-t").textContent = `${hhmm(s)}–${hhmm(e)} · ${fmt(e - s, (e - s) % 1 ? 1 : 0)} ч`;
+      bar.setAttribute("aria-label", `Смена: ${STAFF[i].name}`);
+      bar.setAttribute("aria-valuetext", `с ${hhmm(s)} до ${hhmm(e)}`);
     });
-    // груз
-    let topH = R.deckH;
-    items.forEach((it) => {
-      const c = el("g", { class: "cargo" + (it.iron ? " iron" : "") + (dragging?.it === it ? " drag" : ""), tabindex: 0, role: "slider", "aria-label": `${it.name}, ${fmt(it.m, 1)} т`, "aria-valuetext": `центр на ${fmt(it.x - R.deckFrom, 1)} м от начала площадки`, "data-id": it.id }, svg);
-      const x = px(it.x - it.L / 2), y = deckTop - it.H * S;
-      el("rect", { x, y, width: it.L * S, height: it.H * S, rx: it.iron ? 6 : 2, class: "body" }, c);
-      if (!it.iron) {
-        el("line", { x1: x, y1: y, x2: x + it.L * S, y2: y + it.H * S, stroke: "var(--crate-2)", "stroke-width": 1 }, c);
-        el("line", { x1: x + it.L * S, y1: y, x2: x, y2: y + it.H * S, stroke: "var(--crate-2)", "stroke-width": 1 }, c);
-      }
-      const t = el("text", { x: px(it.x), y: y + it.H * S / 2 + 5, "text-anchor": "middle" }, c);
-      t.textContent = it.L * S > 110 ? `${it.name} ${fmt(it.m, 1)} т` : `${fmt(it.m, 1)} т`;
-      topH = Math.max(topH, R.deckH + it.H);
-    });
-    // высота
-    const hy = py(topH), over = topH > HMAX;
-    el("line", { x1: px(R.deckTo) + 22, x2: px(R.deckTo) + 22, y1: hy, y2: GY, class: "dim" }, svg);
-    el("line", { x1: px(R.deckTo) + 16, x2: px(R.deckTo) + 28, y1: hy, y2: hy, class: "dim" }, svg);
-    const ht = el("text", { x: px(R.deckTo) + 30, y: (hy + GY) / 2, "font-size": 14, "dominant-baseline": "middle" }, svg);
-    ht.textContent = fmt(topH, 2) + " м";
-    if (over) el("line", { x1: px(0), x2: px(R.deckTo) + 20, y1: py(HMAX), y2: py(HMAX), class: "height-bad" }, svg);
-    status(L, topH);
+    $("#sh-cells").innerHTML = st.have.map((h, i) => {
+      const cls = h + 1e-9 < st.nd[i] ? "bad" : h - st.nd[i] >= 1 ? "warn" : "ok";
+      return `<span class="${cls}" title="${H0 + i}:00–${H0 + i + 1}:00: на смене ${fmt(h, h % 1 ? 1 : 0)}, нужно ${st.nd[i]}">${fmt(h, h % 1 ? 1 : 0)}<i>/${st.nd[i]}</i></span>`;
+    }).join("");
+    const max = Math.max(...DEMAND[day]);
+    $("#sh-demand").innerHTML = DEMAND[day].map((g, i) => `<span title="${H0 + i}:00 — ${g} гостей"><i style="height:${(g / max) * 100}%"></i></span>`).join("");
+    $("#sh-status").innerHTML =
+      `<div><span class="hint">Часов в сменах</span><div class="v">${fmt(st.hours, st.hours % 1 ? 1 : 0)} ч</div></div>` +
+      `<div><span class="hint">Фонд оплаты за день</span><div class="v">${rub(st.pay)}</div></div>` +
+      `<div class="${st.under > 0 ? "bad" : "ok"}"><span class="hint">Не хватает людей</span><div class="v">${fmt(st.under, st.under % 1 ? 1 : 0)} чел.-ч</div></div>` +
+      `<div class="${st.over >= 3 ? "warn" : "ok"}"><span class="hint">Лишние часы</span><div class="v">${fmt(st.over, st.over % 1 ? 1 : 0)} чел.-ч</div></div>`;
+    const v = $("#sh-verdict");
+    const avg = st.pay / Math.max(st.hours, 1);
+    if (st.under > 0) { v.className = "verdict bad"; v.textContent = `В пиковые часы не хватает ${fmt(st.under, st.under % 1 ? 1 : 0)} чел.-ч: очередь растёт, часть гостей уходит.`; }
+    else if (st.over >= 3) { v.className = "verdict warn"; v.textContent = `Людей хватает, но ${fmt(st.over, st.over % 1 ? 1 : 0)} чел.-ч лишние: это около ${rub(st.over * avg)} в день.`; }
+    else { v.className = "verdict ok"; v.textContent = "Смены закрывают поток гостей, лишних часов почти нет."; }
   }
-
-  function status(L, topH) {
-    const mass = items.reduce((a, it) => a + it.m, 0);
-    const parts = [
-      ["Передняя ось", L.steer, LIMIT.steer],
-      ["Ведущие, каждая", L.drive, LIMIT.drive],
-      ["Оси трала, каждая", L.trailer, LIMIT.trailer],
-    ];
-    $("#rig-status").innerHTML =
-      parts.map(([n, v, lim]) => `<div class="${lvl(v, lim)}"><span class="hint">${n}</span><div class="v">${fmt(v, 2)} т</div></div>`).join("") +
-      `<div class="${topH > HMAX ? "bad" : "ok"}"><span class="hint">Высота с грузом</span><div class="v">${fmt(topH, 2)} м</div></div>` +
-      `<div><span class="hint">Груз всего</span><div class="v">${fmt(mass, 1)} т</div></div>`;
-    const worst = parts.map(([, v, lim]) => lvl(v, lim));
-    const v = $("#rig-verdict");
-    if (worst.includes("bad")) { v.className = "verdict bad"; v.textContent = "Перегруз сверх возможностей техники: сдвиньте груз или берите другой трал."; }
-    else if (worst.includes("warn")) { v.className = "verdict warn"; v.textContent = "Техника справится, но по осям больше 10 т: нужно спецразрешение."; }
-    else { v.className = "verdict ok"; v.textContent = "Все оси в пределах 10 т, спецразрешение по весу не нужно."; }
-    if (topH > HMAX) v.textContent += " По высоте больше 4 м: нужен проезд с обследованием маршрута.";
+  function reset() { sh = START[day].map((x) => [...x]); build(); }
+  function clamp(i, s, e) {
+    s = Math.round(s * 2) / 2; e = Math.round(e * 2) / 2;
+    if (e - s < MINLEN) return null;
+    if (e - s > MAXLEN || s < H0 || e > H1) return null;
+    sh[i] = [s, e];
+    return true;
   }
-
-  function bounds(it) {
-    const i = items.indexOf(it);
-    const lo = i > 0 ? items[i - 1].x + items[i - 1].L / 2 + 0.1 + it.L / 2 : R.deckFrom + it.L / 2;
-    const hi = i < items.length - 1 ? items[i + 1].x - items[i + 1].L / 2 - 0.1 - it.L / 2 : R.deckTo - it.L / 2;
-    return [lo, hi];
-  }
-  function moveTo(it, x) {
-    const [lo, hi] = bounds(it);
-    it.x = Math.round(Math.min(hi, Math.max(lo, x)) * 10) / 10;
-    draw();
-    const node = svg.querySelector(`[data-id="${it.id}"]`);
-    if (node && dragging === null) node.focus({ preventScroll: true });
-  }
-  const toWorld = (evt) => {
-    const pt = svg.createSVGPoint();
-    pt.x = evt.clientX; pt.y = evt.clientY;
-    return (pt.matrixTransform(svg.getScreenCTM().inverse()).x - X0) / S;
-  };
-  svg.addEventListener("pointerdown", (e) => {
-    const g = e.target.closest(".cargo");
-    if (!g) return;
-    const it = items.find((x) => x.id === g.dataset.id);
-    dragging = { it, dx: toWorld(e) - it.x, id: e.pointerId };
-    svg.setPointerCapture(e.pointerId);
+  let drag = null;
+  grid.addEventListener("pointerdown", (e) => {
+    const bar = e.target.closest(".sh-bar");
+    if (!bar) return;
+    const i = +bar.dataset.i, track = bar.parentElement;
+    drag = { i, edge: e.target.dataset.edge || "move", x0: e.clientX, s0: sh[i][0], e0: sh[i][1], w: track.getBoundingClientRect().width, id: e.pointerId };
+    bar.setPointerCapture(e.pointerId);
+    bar.classList.add("drag");
     e.preventDefault();
-    draw();
   });
-  svg.addEventListener("pointermove", (e) => {
-    if (!dragging || e.pointerId !== dragging.id) return;
-    const [lo, hi] = bounds(dragging.it);
-    dragging.it.x = Math.min(hi, Math.max(lo, toWorld(e) - dragging.dx));
-    draw();
+  grid.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dh = ((e.clientX - drag.x0) / drag.w) * N;
+    const { i, s0, e0 } = drag;
+    if (drag.edge === "move") {
+      const len = e0 - s0, s = Math.min(H1 - len, Math.max(H0, s0 + dh));
+      clamp(i, s, s + len);
+    } else if (drag.edge === "s") clamp(i, Math.min(e0 - MINLEN, Math.max(Math.max(H0, e0 - MAXLEN), s0 + dh)), e0);
+    else clamp(i, s0, Math.max(s0 + MINLEN, Math.min(Math.min(H1, s0 + MAXLEN), e0 + dh)));
+    paint();
   });
-  const stop = () => {
-    if (!dragging) return;
-    dragging.it.x = Math.round(dragging.it.x * 10) / 10;
-    dragging = null;
-    draw();
-  };
-  svg.addEventListener("pointerup", stop);
-  svg.addEventListener("pointercancel", stop);
-  svg.addEventListener("keydown", (e) => {
-    const g = e.target.closest(".cargo");
-    if (!g || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+  const stop = () => { if (!drag) return; grid.querySelector(`.sh-bar[data-i="${drag.i}"]`)?.classList.remove("drag"); drag = null; };
+  grid.addEventListener("pointerup", stop);
+  grid.addEventListener("pointercancel", stop);
+  grid.addEventListener("keydown", (e) => {
+    const bar = e.target.closest(".sh-bar");
+    if (!bar || !["ArrowLeft", "ArrowRight"].includes(e.key)) return;
     e.preventDefault();
-    const it = items.find((x) => x.id === g.dataset.id);
-    moveTo(it, it.x + (e.key === "ArrowRight" ? 1 : -1) * (e.shiftKey ? 0.5 : 0.1));
+    const i = +bar.dataset.i, d = e.key === "ArrowRight" ? 0.5 : -0.5, [s, en] = sh[i];
+    if (e.shiftKey) clamp(i, s, en + d);
+    else if (s + d >= H0 && en + d <= H1) clamp(i, s + d, en + d);
+    paint();
   });
-
-  /* Подбор: перебираем порядок грузов и сдвиг; берём вариант с наименьшей самой загруженной осью относительно нормы. */
+  /* Подбор: длины смен сохраняются, начало перебирается по часу; нехватка людей втрое хуже лишнего часа. */
   function auto() {
-    const perms = (a) => (a.length < 2 ? [a] : a.flatMap((x, i) => perms([...a.slice(0, i), ...a.slice(i + 1)]).map((r) => [x, ...r])));
+    const lens = sh.map(([s, e]) => e - s);
     let best = null;
-    const total = items.reduce((s, it) => s + it.L, 0) + 0.1 * (items.length - 1);
-    for (const order of perms(items)) {
-      for (let off = R.deckFrom; off + total <= R.deckTo + 1e-9; off += 0.1) {
-        let x = off;
-        const placed = order.map((it) => { const c = { ...it, x: x + it.L / 2 }; x += it.L + 0.1; return c; });
-        const L = loads(placed);
-        const score = Math.max(L.steer / LIMIT.steer * 0.9, L.drive / NORM, L.trailer / NORM);
-        if (!best || score < best.score - 1e-6) best = { score, placed };
+    const rec = (i, cur) => {
+      if (i === sh.length) {
+        const st = stats(cur), score = st.under * 3 + st.over;
+        if (!best || score < best.score - 1e-9) best = { score, cur: cur.map((x) => [...x]) };
+        return;
       }
-    }
-    if (!best) return;
-    items = best.placed.map((p) => ({ ...p, x: Math.round(p.x * 10) / 10 }));
-    draw();
+      for (let s = H0; s + lens[i] <= H1; s += 1) { cur.push([s, s + lens[i]]); rec(i + 1, cur); cur.pop(); }
+    };
+    rec(0, []);
+    sh = best.cur;
+    paint();
   }
-
-  $("#rig-main").addEventListener("change", reset);
-  $("#rig-reset").addEventListener("click", reset);
-  $("#rig-auto").addEventListener("click", auto);
+  $("#sh-day").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    day = b.dataset.d;
+    $("#sh-day").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    reset();
+  });
+  $("#sh-reset").addEventListener("click", reset);
+  $("#sh-auto").addEventListener("click", auto);
   reset();
 })();
 
-/* ============ 2. Пакинг ============ */
+/* ============ 2. Юнит-экономика ============ */
+(() => {
+  const TAX = 0.06, RETURN_FEE = 50;
+  const F = [
+    { k: "price", t: "Цена на витрине", min: 500, max: 4000, step: 10, v: 1490, u: "₽" },
+    { k: "cost", t: "Закупка и упаковка", min: 100, max: 2500, step: 10, v: 520, u: "₽" },
+    { k: "comm", t: "Комиссия площадки", min: 5, max: 35, step: 0.5, v: 21, u: "%" },
+    { k: "log", t: "Логистика до покупателя", min: 30, max: 350, step: 5, v: 85, u: "₽" },
+    { k: "buy", t: "Процент выкупа", min: 30, max: 100, step: 1, v: 78, u: "%" },
+    { k: "ads", t: "Реклама от цены", min: 0, max: 25, step: 0.5, v: 9, u: "%" },
+  ];
+  const v = Object.fromEntries(F.map((f) => [f.k, f.v]));
+  $("#ue-inputs").innerHTML = F.map((f) => `<div class="pf-row"><label for="ue-${f.k}">${f.t}</label><div class="pf-fact" id="ue-v-${f.k}"></div><input type="range" id="ue-${f.k}" min="${f.min}" max="${f.max}" step="${f.step}" value="${f.v}"></div>`).join("") +
+    `<p class="hint" style="margin-top: 10px;">Налог УСН 6% от цены. Возврат стоит обратной логистики плюс ${RETURN_FEE} ₽ за приёмку.</p>`;
+  const COLORS = { cost: "var(--ue-1)", comm: "var(--ue-2)", log: "var(--ue-3)", ads: "var(--ue-4)", tax: "var(--ue-5)" };
+  function render() {
+    F.forEach((f) => ($("#ue-v-" + f.k).textContent = f.u === "₽" ? rub(v[f.k]) : fmt(v[f.k], v[f.k] % 1 ? 1 : 0) + "%"));
+    const p = v.price, b = v.buy / 100;
+    const logEff = v.log + ((1 - b) / b) * (v.log + RETURN_FEE);
+    const parts = [
+      ["cost", "Закупка", v.cost],
+      ["comm", "Комиссия", (p * v.comm) / 100],
+      ["log", "Логистика с возвратами", logEff],
+      ["ads", "Реклама", (p * v.ads) / 100],
+      ["tax", "Налог", p * TAX],
+    ];
+    const spent = parts.reduce((a, x) => a + x[2], 0), profit = p - spent;
+    const bar = $("#ue-bar"), scale = Math.max(p, spent);
+    bar.innerHTML = parts.map(([k, t, x]) => `<span style="flex-grow:${x / scale};background:${COLORS[k]}" title="${t}: ${rub(x)}"></span>`).join("") +
+      (profit > 0 ? `<span class="ue-profit" style="flex-grow:${profit / scale}" title="Прибыль: ${rub(profit)}"></span>` : "");
+    bar.setAttribute("aria-label", parts.map((x) => `${x[1]} ${rub(x[2])}`).join(", ") + `, прибыль ${rub(profit)}`);
+    $("#ue-legend").innerHTML = parts.map(([k, t, x]) => `<li><i style="background:${COLORS[k]}"></i>${t}<b class="num">${rub(x)}</b></li>`).join("") +
+      `<li class="${profit > 0 ? "good" : "loss"}"><i class="${profit > 0 ? "ue-profit" : "ue-loss"}"></i>${profit > 0 ? "Остаётся вам" : "Убыток"}<b class="num">${rub(Math.abs(profit))}</b></li>`;
+    const share = 1 - (v.comm + v.ads) / 100 - TAX;
+    const breakeven = share > 0 ? (v.cost + logEff) / share : null;
+    const margin = (profit / p) * 100, roi = (profit / v.cost) * 100;
+    $("#ue-kpi").innerHTML =
+      `<div class="kpi"><div class="v ${profit < 0 ? "red-v" : ""}">${rub(profit)}</div><p>с одной продажи</p></div>` +
+      `<div class="kpi"><div class="v">${fmt(margin, 1)}%</div><p>от цены, ROI ${fmt(roi)}%</p></div>` +
+      `<div class="kpi"><div class="v">${breakeven ? rub(Math.ceil(breakeven / 10) * 10) : "—"}</div><p>цена безубыточности</p></div>`;
+    const need = profit > 0 ? Math.ceil(100000 / profit) : null;
+    $("#ue-note").innerHTML = profit > 0
+      ? `Чтобы зарабатывать <b>100 000 ₽ в месяц</b>, нужно продавать около <b>${fmt(need)} шт.</b> — ${fmt(Math.ceil(need / 30))} в день.${v.buy < 70 ? " Низкий выкуп: возвраты съедают заметную часть прибыли." : ""}`
+      : `Каждая продажа в минус. Поднимите цену минимум до ${breakeven ? rub(Math.ceil(breakeven / 10) * 10) : "—"} или снизьте закупку и рекламу.`;
+  }
+  $("#ue-inputs").addEventListener("input", (e) => {
+    const m = e.target.id.match(/^ue-(\w+)$/);
+    if (!m) return;
+    v[m[1]] = +e.target.value;
+    render();
+  });
+  render();
+})();
+
+/* ============ 3. Прайсы поставщиков ============ */
 (() => {
   const P = {
-    cn: {
-      head: ["序号", "货物名称", "数量", "长(mm)", "宽(mm)", "高(mm)", "单重(kg)"],
+    a: {
+      head: ["Артикул", "Наименование", "Ед.", "Цена с НДС, руб."],
       rows: [
-        [1, "变压器本体", 1, 7850, 3420, 3960, 86400],
-        [2, "散热器", 8, 3100, 520, 2650, 1180],
-        [3, "储油柜", 1, 4200, 1100, 1300, 1450],
-        [4, "套管箱", 2, 3600, 900, 1000, 980],
-        [5, "附件箱", 3, 2000, 1100, 1200, 760],
+        ["КР-110", "Кофе в зёрнах «Бразилия» 1 кг", "шт", "1 830,00"],
+        ["КР-114", "Кофе в зёрнах «Колумбия» 1 кг", "шт", "2 135,00"],
+        ["СТ-300", "Стакан бумажный 300 мл", "уп. (50 шт)", "610,00"],
+        ["КР-300", "Крышка для стакана 300 мл", "уп. (100 шт)", "549,00"],
       ],
-      map: [null, "name", "qty", "L", "W", "H", "m"],
+      map: ["note", "name", "unit", "price"],
       out: [
-        ["Трансформатор (активная часть)", "变压器本体", 1, 7.85, 3.42, 3.96, 86.4],
-        ["Радиатор", "散热器", 8, 3.1, 0.52, 2.65, 1.18],
-        ["Расширительный бак", "储油柜", 1, 4.2, 1.1, 1.3, 1.45],
-        ["Ящик с вводами", "套管箱", 2, 3.6, 0.9, 1, 0.98],
-        ["Ящик с принадлежностями", "附件箱", 3, 2, 1.1, 1.2, 0.76],
+        ["Кофе в зёрнах «Бразилия», 1 кг", "", "шт", 1500, "арт. КР-110"],
+        ["Кофе в зёрнах «Колумбия», 1 кг", "", "шт", 1750, "арт. КР-114"],
+        ["Стакан бумажный 300 мл", "", "шт", 10, "арт. СТ-300, упаковка 50 шт"],
+        ["Крышка для стакана 300 мл", "", "шт", 4.5, "арт. КР-300, упаковка 100 шт"],
       ],
-      notes: ["Шапка на китайском: 货物名称 — наименование, 数量 — количество, 单重 — масса одного места.", "Размеры в миллиметрах, масса в килограммах: переведены в метры и тонны.", "Названия переведены по отраслевому словарю, исходные остались в строке."],
+      notes: ["Цены указаны с НДС 22%: в каталоге они без НДС, как и у остальных поставщиков.", "Упаковки разложены на штуки: стакан стоит 10,00 ₽, а не 610 ₽."],
     },
-    en: {
-      head: ["Item", "Description", "Pcs", "Dimensions L×W×H, cm", "Gross weight, kg"],
+    b: {
+      head: ["SKU", "Description", "Pack", "Price, USD"],
       rows: [
-        ["A-01", "Boiler drum", 1, "1250×320×310", 18400],
-        ["A-02", "Burner unit", 2, "240×180×190", 3100],
-        ["A-03", "Platform section", 4, "600×120×40", 2880],
-        ["A-04", "Control cabinet", 1, "210×80×220", 640],
+        ["SYR-VAN", "Vanilla syrup 1 L", "6 bottles", "38.40"],
+        ["SYR-CAR", "Caramel syrup 1 L", "6 bottles", "38.40"],
+        ["MLK-OAT", "Oat milk barista 1 L", "12 cartons", "27.60"],
       ],
-      map: [null, "name", "qty", "LWH", "m"],
+      map: ["note", "name", "unit", "price"],
       out: [
-        ["Boiler drum", "", 1, 12.5, 3.2, 3.1, 18.4],
-        ["Burner unit", "", 2, 2.4, 1.8, 1.9, 1.55],
-        ["Platform section", "", 4, 6, 1.2, 0.4, 0.72],
-        ["Control cabinet", "", 1, 2.1, 0.8, 2.2, 0.64],
+        ["Сироп ванильный, 1 л", "Vanilla syrup 1 L", "шт", 576, "SYR-VAN, коробка 6 шт"],
+        ["Сироп карамельный, 1 л", "Caramel syrup 1 L", "шт", 576, "SYR-CAR, коробка 6 шт"],
+        ["Овсяное молоко бариста, 1 л", "Oat milk barista 1 L", "шт", 207, "MLK-OAT, коробка 12 шт"],
       ],
-      notes: ["Габариты записаны одной строкой «Д×Ш×В»: разобраны на три столбца.", "Сантиметры переведены в метры.", "Вес указан на всю строку, а не на одно место: поделён на количество. Проверено по физике: иначе горелка весила бы 3,1 т при объёме 0,8 м³."],
+      notes: ["Цены в долларах за коробку: пересчитаны по курсу из настроек (90 ₽) и разложены на штуки.", "Названия сопоставлены с вашим каталогом по артикулу поставщика.", "Поставщик работает без НДС: цена переносится как есть."],
     },
-    ru: {
-      head: ["№", "Наименование", "Кол-во мест", "Длина, м", "Ширина, м", "Высота, м", "Масса брутто, т"],
+    c: {
+      head: ["№", "Товар", "Цена, ₽ (от 1 / от 20 шт)", "Остаток"],
       rows: [
-        [1, "Корпус теплообменника", 1, "9,4", "3,2", "3,05", "24,6"],
-        [2, "Опора", 2, "3,1", "1,4", "1,2", "2,9"],
-        [3, "Ящик с ЗИП", 6, "1,2", "0,8", "0,9", "0,35"],
-        ["", "Итого", 9, "", "", "", "32,5"],
+        ["", "ДЕСЕРТЫ (цены без НДС)", "", ""],
+        [1, "Чизкейк классический, порц.", "180 / 165", "есть"],
+        [2, "Брауни, порц.", "120 / 110", "мало"],
+        ["", "ВЫПЕЧКА", "", ""],
+        [3, "Круассан сливочный", "95 / 87", "есть"],
+        [4, "Синнабон", "140 / 128", "нет"],
       ],
-      total: true,
-      map: [null, "name", "qty", "L", "W", "H", "m"],
+      group: true,
+      map: [null, "name", "price", "note"],
       out: [
-        ["Корпус теплообменника", "", 1, 9.4, 3.2, 3.05, 24.6],
-        ["Опора", "", 2, 3.1, 1.4, 1.2, 2.9],
-        ["Ящик с ЗИП", "", 6, 1.2, 0.8, 0.9, 0.35],
+        ["Чизкейк классический", "Десерты", "шт", 180, "от 20 шт — 165 ₽"],
+        ["Брауни", "Десерты", "шт", 120, "от 20 шт — 110 ₽, остаток мало"],
+        ["Круассан сливочный", "Выпечка", "шт", 95, "от 20 шт — 87 ₽"],
+        ["Синнабон", "Выпечка", "шт", 140, "нет в наличии, не заказывать"],
       ],
-      notes: ["Строка «Итого» не попала в груз, но по ней сверена масса: 24,6 + 2 × 2,9 + 6 × 0,35 = 32,5 т.", "Запятая в числах прочитана как дробная часть, а не как разделитель тысяч."],
+      notes: ["Строки «ДЕСЕРТЫ» и «ВЫПЕЧКА» стали категориями, а не товарами.", "Две цены в одной ячейке: базовая пошла в каталог, оптовая — в примечание.", "Позиция без остатка помечена, чтобы не попала в заказ."],
     },
   };
-  const COLS = [["name", "Наименование"], ["qty", "Мест"], ["L", "Д, м"], ["W", "Ш, м"], ["H", "В, м"], ["m", "Масса 1 места, т"]];
-  let cur = "cn", on = null;
+  const COLS = [["name", "Наименование"], ["unit", "Ед."], ["price", "Цена без НДС, ₽"], ["note", "Примечание"]];
+  let cur = "a", on = null;
   function render() {
     const d = P[cur];
-    const isNum = (v) => typeof v === "number" || /^[\d,.]+$/.test(String(v));
+    const isNum = (v) => typeof v === "number" || /^[\d\s.,/]+$/.test(String(v));
     $("#pk-raw").innerHTML = `<table><thead><tr>${d.head.map((h, i) => `<th tabindex="0" data-i="${i}" class="${on === i ? "on" : ""}" title="Показать, куда попал столбец">${h}</th>`).join("")}</tr></thead><tbody>${d.rows
-      .map((r, ri) => `<tr class="${d.total && ri === d.rows.length - 1 ? "total" : ""}">${r.map((v) => `<td class="${isNum(v) && v !== "" ? "n" : ""}">${v}</td>`).join("")}</tr>`)
+      .map((r) => `<tr class="${d.group && r[0] === "" ? "grp" : ""}">${r.map((v) => `<td class="${isNum(v) && v !== "" ? "n" : ""}">${v}</td>`).join("")}</tr>`)
       .join("")}</tbody></table>`;
     const target = on === null ? null : d.map[on];
-    const hit = (k) => target && (target === k || (target === "LWH" && ["L", "W", "H"].includes(k)));
-    $("#pk-out").innerHTML = `<table><thead><tr>${COLS.map(([k, t]) => `<th class="${k === "name" ? "" : "n"} ${hit(k) ? "on" : ""}">${t}</th>`).join("")}</tr></thead><tbody>${d.out
-      .map((r) => `<tr><td class="${hit("name") ? "on" : ""}">${r[0]}${r[1] ? `<span class="src">${r[1]}</span>` : ""}</td>${r.slice(2).map((v, i) => `<td class="n ${hit(COLS[i + 1][0]) ? "on" : ""}">${fmt(v, i === 0 ? 0 : 2)}</td>`).join("")}</tr>`)
+    const hit = (k) => target === k;
+    $("#pk-out").innerHTML = `<table><thead><tr>${COLS.map(([k, t]) => `<th class="${k === "price" ? "n" : ""} ${hit(k) ? "on" : ""}">${t}</th>`).join("")}</tr></thead><tbody>${d.out
+      .map((r) => `<tr><td class="${hit("name") ? "on" : ""}">${r[0]}${r[1] ? `<span class="src">${r[1]}</span>` : ""}</td><td class="${hit("unit") ? "on" : ""}">${r[2]}</td><td class="n ${hit("price") ? "on" : ""}">${fmt(r[3], 2)}</td><td class="${hit("note") ? "on" : ""}"><small>${r[4]}</small></td></tr>`)
       .join("")}</tbody></table>`;
     $("#pk-notes").innerHTML = d.notes.map((n) => `<li>${n}</li>`).join("");
   }
@@ -851,14 +923,14 @@ const el = (tag, attrs = {}, parent) => {
 (() => {
   /* Вымышленные данные: по месяцам (последний — текущий) для каждого направления. */
   const DIRS = [
-    { k: "Новороссийск → Москва", calcs: [4, 3, 5, 4, 6, 5, 4, 5, 6, 5, 7, 6], won: [2, 1, 2, 2, 3, 2, 2, 2, 3, 2, 3, 3], rev: 1.9, margin: 18.4 },
-    { k: "Казань → Пермь", calcs: [3, 2, 3, 3, 2, 4, 3, 3, 4, 3, 3, 4], won: [1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 1, 2], rev: 1.1, margin: 21.7 },
-    { k: "Россия → Казахстан", calcs: [2, 2, 1, 3, 2, 2, 3, 2, 2, 3, 2, 3], won: [1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1], rev: 3.4, margin: 12.2 },
-    { k: "Екатеринбург → Сургут", calcs: [2, 3, 2, 2, 3, 2, 3, 3, 2, 3, 4, 3], won: [1, 1, 1, 1, 1, 0, 1, 2, 1, 1, 2, 1], rev: 2.6, margin: 9.6 },
-    { k: "Россия → Китай", calcs: [1, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 2], won: [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1], rev: 5.8, margin: 14.9 },
-    { k: "Москва → Тюмень", calcs: [3, 2, 2, 3, 2, 3, 2, 2, 3, 2, 3, 2], won: [1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0], rev: 1.4, margin: -3.1 },
+    { k: "Диагностика", calcs: [58, 61, 55, 63, 66, 60, 64, 70, 67, 72, 69, 74], won: [41, 44, 38, 45, 47, 43, 46, 51, 48, 52, 50, 54], rev: 0.0032, margin: 41.0 },
+    { k: "Кузовной ремонт", calcs: [22, 19, 24, 21, 25, 23, 20, 26, 24, 27, 25, 28], won: [9, 8, 10, 9, 11, 10, 8, 12, 10, 12, 11, 13], rev: 0.094, margin: 31.5 },
+    { k: "Электрика", calcs: [18, 16, 19, 17, 20, 18, 21, 19, 22, 20, 23, 21], won: [10, 9, 11, 9, 12, 10, 12, 11, 13, 11, 14, 12], rev: 0.016, margin: 27.3 },
+    { k: "ТО и замена масла", calcs: [74, 70, 78, 81, 77, 83, 80, 86, 84, 89, 87, 92], won: [52, 49, 55, 58, 54, 60, 57, 62, 60, 64, 63, 67], rev: 0.012, margin: 24.2 },
+    { k: "Шиномонтаж", calcs: [30, 26, 95, 112, 34, 28, 25, 30, 102, 118, 36, 31], won: [24, 20, 74, 88, 27, 22, 20, 24, 80, 93, 28, 25], rev: 0.0041, margin: 18.7 },
+    { k: "Детейлинг", calcs: [6, 7, 5, 8, 9, 8, 10, 11, 9, 12, 13, 12], won: [2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5], rev: 0.027, margin: -4.2 },
   ];
-  const REASONS = [["Цена выше, чем у конкурентов", 0.38], ["Проиграли тендер", 0.22], ["Клиент перенёс перевозку", 0.17], ["Нет свободной техники", 0.13], ["Высокие риски маршрута", 0.1]];
+  const REASONS = [["Дорого", 0.34], ["Долго ждать записи", 0.24], ["Не дозвонились до сервиса", 0.18], ["Поехали к дилеру", 0.14], ["Передумали", 0.1]];
   let months = 6;
   const sum = (a) => a.reduce((x, y) => x + y, 0);
   function render() {
@@ -868,16 +940,16 @@ const el = (tag, attrs = {}, parent) => {
       return { k: d.k, calcs, won, rev: won * d.rev, margin: d.margin + (d.margin > 0 ? drift : -drift) };
     });
     const calcs = sum(rows.map((r) => r.calcs)), won = sum(rows.map((r) => r.won));
-    const wait = Math.round(calcs * 0.12), work = Math.round(calcs * 0.16), lost = calcs - won - wait - work;
+    const wait = Math.round(calcs * 0.07), work = Math.round(calcs * 0.09), lost = calcs - won - wait - work;
     const rev = sum(rows.map((r) => r.rev)), res = sum(rows.map((r) => (r.rev * r.margin) / 100));
     const kpi = [
-      [fmt(calcs), "расчётов за период"],
-      [fmt(won), `стали перевозками, ${fmt((won / calcs) * 100)}%`],
+      [fmt(calcs), "заявок за период"],
+      [fmt(won), `пришли в сервис, ${fmt((won / calcs) * 100)}%`],
       [fmt(rev, 1) + " млн", "выручка по ним без НДС, ₽"],
       [fmt((res / rev) * 100, 1) + "%", "средняя маржа"],
     ];
     $("#dash-kpi").innerHTML = kpi.map(([v, t]) => `<div class="kpi"><div class="v">${v}</div><p>${t}</p></div>`).join("");
-    const seg = [["s-won", "Стали перевозками", won], ["s-wait", "Ждём ответа клиента", wait], ["s-work", "В работе", work], ["s-lost", "Отказы", lost]];
+    const seg = [["s-won", "Пришли в сервис", won], ["s-wait", "Записаны", wait], ["s-work", "Думают", work], ["s-lost", "Не пришли", lost]];
     const f = $("#dash-funnel");
     f.setAttribute("aria-label", seg.map((s) => s[1] + ": " + s[2]).join(", "));
     f.innerHTML = seg.map(([c, t, n]) => `<span class="${c}" style="flex-grow:${n}" title="${t}: ${n}"></span>`).join("");
@@ -885,7 +957,7 @@ const el = (tag, attrs = {}, parent) => {
     const max = Math.max(...rows.map((r) => Math.abs(r.margin)));
     $("#dash-bars").innerHTML = rows
       .sort((a, b) => b.margin - a.margin)
-      .map((r) => `<div class="bar" tabindex="0" data-k="${r.k}" data-t="${r.k}: расчётов ${r.calcs}, перевозок ${r.won} (${fmt((r.won / r.calcs) * 100)}%), выручка ${fmt(r.rev, 1)} млн ₽"><span>${r.k}</span><span class="track"><span class="fill ${r.margin < 0 ? "neg" : ""}" style="width:${(Math.abs(r.margin) / max) * 100}%"></span></span><span class="num">${fmt(r.margin, 1)}%</span></div>`)
+      .map((r) => `<div class="bar" tabindex="0" data-k="${r.k}" data-t="${r.k}: заявок ${r.calcs}, пришли ${r.won} (${fmt((r.won / r.calcs) * 100)}%), выручка ${fmt(r.rev, 1)} млн ₽"><span>${r.k}</span><span class="track"><span class="fill ${r.margin < 0 ? "neg" : ""}" style="width:${(Math.abs(r.margin) / max) * 100}%"></span></span><span class="num">${fmt(r.margin, 1)}%</span></div>`)
       .join("");
     $("#dash-reasons").innerHTML = REASONS.map(([t, p]) => `<div><span>${t}</span><b class="num">${Math.max(1, Math.round(lost * p))}</b></div>`).join("");
   }
@@ -915,14 +987,14 @@ const el = (tag, attrs = {}, parent) => {
 (() => {
   const REV = 2400000, RESERVE = 0.05;
   const ROWS = [
-    { k: "Наёмный тягач, 2 рейса", plan: 1240000 },
-    { k: "Разрешения и согласования", plan: 160000 },
-    { k: "Сопровождение и прикрытие", plan: 220000 },
-    { k: "Кран на выгрузке", plan: 130000 },
-    { k: "Простой и непредвиденное", plan: 0, max: 200000 },
+    { k: "Черновые материалы", plan: 520000 },
+    { k: "Чистовые материалы", plan: 610000 },
+    { k: "Работа бригады", plan: 470000 },
+    { k: "Электрика и свет", plan: 190000 },
+    { k: "Непредвиденное", plan: 0, max: 200000 },
   ];
   const fact = ROWS.map((r) => r.plan);
-  fact[0] = 1310000; fact[4] = 45000;
+  fact[1] = 668000; fact[4] = 45000;
   $("#pf-rows").innerHTML = ROWS.map((r, i) => {
     const min = r.max ? 0 : Math.round(r.plan * 0.6 / 5000) * 5000, max = r.max || Math.round(r.plan * 1.6 / 5000) * 5000;
     return `<div class="pf-row"><label for="pf-${i}">${r.k}<span class="plan" style="display:block">план ${r.plan ? rub(r.plan) : "не было"}</span></label><div><div class="pf-fact" id="pf-f-${i}"></div><div class="delta" id="pf-d-${i}"></div></div><input type="range" id="pf-${i}" min="${min}" max="${max}" step="5000" value="${fact[i]}" aria-label="Факт: ${r.k}"></div>`;
@@ -943,7 +1015,7 @@ const el = (tag, attrs = {}, parent) => {
       `<div class="pf-bar fact ${fm < pm ? "bad" : ""}"><span>Факт</span><span class="track"><span class="fill" style="width:${Math.max(0, fm / top) * 100}%"></span></span><span class="num">${fmt(fm, 1)}%<small>${fmt(factRes / 1000)} тыс. ₽</small></span></div>`;
     const worst = ROWS.map((r, i) => ({ k: r.k, d: fact[i] - r.plan })).filter((x) => x.d > 0).sort((a, b) => b.d - a.d);
     const diff = factRes - planRes;
-    $("#pf-worse").innerHTML = (diff >= 0 ? `Заработали на <b>${rub(diff)}</b> больше плана.` : `Недобрали <b>${rub(-diff)}</b> к плану.`) + (worst.length ? ` Больше всего ушло: ${worst.slice(0, 2).map((x) => `${x.k.toLowerCase()} (+${rub(x.d)})`).join(", ")}.` : " Ни одна статья не превысила план.") + ` <span class="hint">Суммы без НДС.</span>`;
+    $("#pf-worse").innerHTML = (diff >= 0 ? `Заработали на <b>${rub(diff)}</b> больше плана.` : `Недобрали <b>${rub(-diff)}</b> к плану.`) + (worst.length ? ` Больше всего ушло: ${worst.slice(0, 2).map((x) => `${x.k.toLowerCase()} (+${rub(x.d)})`).join(", ")}.` : " Ни одна статья не превысила план.") + ``;
   }
   $("#pf-rows").addEventListener("input", (e) => {
     const m = e.target.id.match(/^pf-(\d)$/);
@@ -984,21 +1056,22 @@ const el = (tag, attrs = {}, parent) => {
 /* ============ 6. Заявка ============ */
 (() => {
   const KINDS = [
-    { k: "crane", t: "Автокран 25 т", rate: 3200, min: 4, km: 110 },
-    { k: "manip", t: "Манипулятор 7 т", rate: 2400, min: 3, km: 90 },
-    { k: "lift", t: "Автовышка 28 м", rate: 2100, min: 3, km: 80 },
+    { k: "keep", t: "Поддерживающая", rate: 90 },
+    { k: "deep", t: "Генеральная", rate: 170 },
+    { k: "after", t: "После ремонта", rate: 240 },
   ];
-  $("#lead-kind").innerHTML = KINDS.map((x, i) => `<label><input type="radio" name="lead-kind" value="${x.k}" ${i === 0 ? "checked" : ""}><b>${x.t}</b><span class="hint num">${fmt(x.rate)} ₽/ч, от ${x.min} ч</span></label>`).join("");
+  const WINDOW = 450, MIN = 3500;
+  $("#lead-kind").innerHTML = KINDS.map((x, i) => `<label><input type="radio" name="lead-kind" value="${x.k}" ${i === 1 ? "checked" : ""}><b>${x.t}</b><span class="hint num">${fmt(x.rate)} ₽/м²</span></label>`).join("");
   const form = $("#lead-form");
   function calc() {
     const kind = KINDS.find((x) => x.k === form.querySelector("input[name=lead-kind]:checked").value);
-    const h = +$("#lead-hours").value, km = +$("#lead-km").value;
-    $("#lead-hours-v").textContent = h;
-    $("#lead-km-v").textContent = km;
-    const hours = Math.max(h, kind.min), price = hours * kind.rate + km * kind.km * 2;
+    const area = +$("#lead-hours").value, win = +$("#lead-km").value;
+    $("#lead-hours-v").textContent = area;
+    $("#lead-km-v").textContent = win;
+    const raw = area * kind.rate + win * WINDOW, price = Math.max(MIN, raw);
     $("#lead-price").textContent = rub(price);
     const phone = $("#lead-phone").value.trim() || "не указан";
-    $("#lead-msg").textContent = `🟡 Новая заявка с сайта\n${kind.t}, ${h} ч${h < kind.min ? ` (минимум ${kind.min} ч)` : ""}\nПодача за город: ${km} км\nРасчёт на сайте: ${rub(price)}\nТелефон: ${phone}\n\nКлиент видел цену, звонить можно сразу.`;
+    $("#lead-msg").textContent = `🟡 Новая заявка с сайта\n${kind.t} уборка, ${area} м²\nОкна: ${win ? win + " створок" : "не нужно"}\nРасчёт на сайте: ${rub(price)}${raw < MIN ? " (минимальный заказ)" : ""}\nТелефон: ${phone}\n\nКлиент видел цену, звонить можно сразу.`;
     $("#lead-sent").textContent = "Сообщение меняется вместе с формой.";
   }
   form.addEventListener("input", calc);
@@ -1017,6 +1090,11 @@ const el = (tag, attrs = {}, parent) => {
   if (CONTACTS.email && CONTACTS.email.length) items.push(`<span class="addr">${CONTACTS.email}</span><button class="btn copy" type="button" data-copy="${CONTACTS.email}">Скопировать почту</button>`);
   if (CONTACTS.phone && CONTACTS.phone.length) items.push(`<span class="addr">${CONTACTS.phone}</span>`);
   box.innerHTML = items.length ? items.join("") : `<span class="addr">Контакты появятся здесь</span>`;
+  if (CONTACTS.telegram) document.querySelectorAll("[data-tg]").forEach((a) => { a.href = "https://t.me/" + CONTACTS.telegram.replace(/^@/, ""); a.target = "_blank"; a.rel = "noopener"; });
+  const band = $("#top-band");
+  const onScroll = () => band.classList.toggle("scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
   box.addEventListener("click", async (e) => {
     const b = e.target.closest("[data-copy]");
     if (!b) return;
