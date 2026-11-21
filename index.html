@@ -378,62 +378,12 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .st-frame { width: 100%; max-width: 980px; background: #fff; transition: max-width 0.35s ease; box-shadow: 0 18px 40px -20px rgb(15 23 42 / 0.3); border-radius: 14px; }
 .st-stage.phone .st-frame { max-width: 380px; border-radius: 30px; border: 8px solid #16181d; }
 .st-stage.phone .browser-bar i { display: none; }
-.st-view { height: 520px; overflow-y: auto; overscroll-behavior: contain; }
+.st-view { height: 600px; overflow-y: auto; overscroll-behavior: contain; }
 .st-incl { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.86rem; color: var(--ink-2); }
 .st-incl li::before { content: "✓"; color: var(--ok); margin-right: 6px; font-weight: 600; }
-.ms { font-family: var(--font-body); color: #1b1b1b; }
-.ms a { text-decoration: none; }
-.ms-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 22px; }
-.ms-nav b { font-size: 1.05rem; }
-.ms-nav span { display: flex; gap: 16px; font-size: 0.82rem; opacity: 0.75; }
-.ms-hero { padding: 40px 22px 34px; display: grid; gap: 14px; }
-.ms-hero h4 { margin: 0; font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.08; font-weight: 600; letter-spacing: -0.02em; max-width: 14em; }
-.ms-hero p { margin: 0; max-width: 32em; opacity: 0.8; }
-.ms-btn { display: inline-block; padding: 11px 20px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; justify-self: start; }
-.ms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; padding: 0 22px 26px; }
-.ms-card { border-radius: 14px; padding: 16px; display: grid; gap: 4px; font-size: 0.88rem; }
-.ms-card b { font-size: 0.98rem; }
-.ms-card i { font-style: normal; font-weight: 600; margin-top: 6px; }
-.ms-rev { padding: 6px 22px 26px; display: grid; gap: 8px; font-size: 0.88rem; }
-.ms-rev q { display: block; padding: 14px 16px; border-radius: 14px; quotes: none; }
-.ms-foot { padding: 20px 22px; font-size: 0.82rem; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.st-stage.phone .ms-nav span { display: none; }
-.st-stage.phone .ms-hero h4 { font-size: 1.6rem; }
 /* ногтевая студия */
-.ms-nails { background: #fbf6f4; }
-.ms-nails .ms-nav b { color: #b5546b; font-weight: 600; }
-.ms-nails .ms-hero { background: linear-gradient(135deg, #f8e1e5, #fbefe6); border-radius: 0 0 28px 28px; }
-.ms-nails .ms-hero h4 { color: #3a1f27; }
-.ms-nails .ms-btn { background: #b5546b; color: #fff; }
-.ms-nails .ms-card { background: #fff; }
-.ms-nails .ms-card i { color: #b5546b; }
-.ms-nails .ms-rev q { background: #fff; }
-.ms-nails .ms-foot { background: #3a1f27; color: #f8e1e5; }
 /* барбершоп */
-.ms-barber { background: #16130f; color: #efe7dc; }
-.ms-barber .ms-nav b { color: #c8925a; letter-spacing: 0.08em; text-transform: uppercase; }
-.ms-barber .ms-btn { background: #c8925a; color: #16130f; }
-.ms-barber .ms-card { background: #221d17; border: 1px solid #3a3027; }
-.ms-barber .ms-card i { color: #c8925a; }
-.ms-barber .ms-rev q { background: #221d17; }
-.ms-barber .ms-foot { border-top: 1px solid #3a3027; color: #a89a88; }
 /* тату */
-.ms-tattoo { background: #0b0b0b; color: #f2f2f2; }
-.ms-tattoo .ms-nav b { letter-spacing: 0.3em; }
-.ms-tattoo .ms-hero h4 { font-family: Georgia, serif; font-weight: 400; }
-.ms-tattoo .ms-btn { background: #f2f2f2; color: #0b0b0b; border-radius: 0; }
-.ms-tattoo .ms-card { background: transparent; border: 1px solid #2a2a2a; border-radius: 0; }
-.ms-tattoo .ms-rev q { background: #151515; border-radius: 0; }
-.ms-tattoo .ms-foot { border-top: 1px solid #2a2a2a; color: #8a8a8a; }
-/* кафе */
-.ms-food { background: #fff8ee; }
-.ms-food .ms-nav b { color: #c2410c; font-weight: 700; }
-.ms-food .ms-hero { background: #ffb020; color: #2a1606; border-radius: 0 0 28px 28px; }
-.ms-food .ms-btn { background: #2a1606; color: #ffb020; }
-.ms-food .ms-card { background: #fff; border: 2px solid #ffe2b0; }
-.ms-food .ms-card i { color: #c2410c; }
-.ms-food .ms-rev q { background: #fff; }
-.ms-food .ms-foot { background: #2a1606; color: #ffd98a; }
 /* клининг: план квартиры */
 .cl-top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
 .cl { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 26px; margin-top: 16px; align-items: start; }
@@ -582,23 +532,6 @@ table.gs tr.fresh td:not(.rn) { animation: fresh 1.6s ease-out; }
 .debt { color: var(--bad); font-weight: 600; } .zero { color: var(--warn); font-weight: 600; }
 @media (max-width: 960px) { .mp, .sb-cols { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 760px) { .tu-week { grid-template-columns: repeat(3, minmax(0, 1fr)); } .rp-kpi { grid-template-columns: minmax(0, 1fr); } .mp-row { grid-template-columns: 7rem minmax(0, 1fr) 4.6rem; } .sb-row { grid-template-columns: auto minmax(0, 1fr); } .sb-row > :nth-child(3) { grid-column: 1 / -1; } .rp-steps li { font-size: 0.66rem; } }
-/* сайты: автосервис и клининг */
-.ms-auto { background: #0f1419; color: #e6ebf0; }
-.ms-auto .ms-nav b { color: #f5b301; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
-.ms-auto .ms-hero { background: linear-gradient(120deg, #18212b, #0f1419); border-bottom: 3px solid #f5b301; }
-.ms-auto .ms-btn { background: #f5b301; color: #111; border-radius: 6px; }
-.ms-auto .ms-card { background: #18202a; border: 1px solid #263241; border-radius: 8px; }
-.ms-auto .ms-card i { color: #f5b301; }
-.ms-auto .ms-rev q { background: #18202a; border-radius: 8px; }
-.ms-auto .ms-foot { border-top: 1px solid #263241; color: #8b98a6; }
-.ms-clean { background: #f3faf8; color: #16302b; }
-.ms-clean .ms-nav b { color: #1f8a70; font-weight: 700; }
-.ms-clean .ms-hero { background: radial-gradient(circle at 85% 20%, #d4f1e8, transparent 55%), #e8f6f1; border-radius: 0 0 28px 28px; }
-.ms-clean .ms-btn { background: #1f8a70; color: #fff; }
-.ms-clean .ms-card { background: #fff; border: 1px solid #d5ece6; }
-.ms-clean .ms-card i { color: #1f8a70; }
-.ms-clean .ms-rev q { background: #fff; }
-.ms-clean .ms-foot { background: #16302b; color: #cde9e1; }
 
 
 /* окна: договор и данные */
@@ -1094,6 +1027,191 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
 .ai-typing i:nth-child(2) { animation-delay: 0.15s; } .ai-typing i:nth-child(3) { animation-delay: 0.3s; }
 @keyframes aiDot { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
 @media (max-width: 960px) { .ai { grid-template-columns: minmax(0, 1fr); } }
+/* отзывы: телефон и график рейтинга */
+.rv2 { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 30px; align-items: start; }
+.phonebox { position: relative; border: 9px solid #16181d; border-radius: 34px; overflow: hidden; background: #16181d; box-shadow: 0 24px 50px -24px rgb(0 0 0 / 0.55); }
+.phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 34%; height: 18px; background: #16181d; border-radius: 0 0 12px 12px; z-index: 2; }
+.phonebox .tg { border: 0; border-radius: 24px; }
+.phonebox .tg-head { padding-top: 22px; }
+.phonebox .tg-body { min-height: 420px; max-height: 420px; }
+.rv-right { display: grid; gap: 14px; }
+.rv-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rv-card { display: grid; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--paper); }
+.rv-card.on { background: color-mix(in oklab, var(--ok) 10%, var(--solid)); border: 1px solid color-mix(in oklab, var(--ok) 40%, transparent); }
+.rv-card .label { margin: 0; }
+.rv-card b { font: 600 2.2rem/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.rv-card small { color: var(--ink-2); font-size: 0.8rem; }
+.rv-stars { color: #f5a623; letter-spacing: 1px; }
+.rv-card.off .rv-stars { color: #b9a37a; }
+#rv-chart { width: 100%; height: auto; }
+.rv-g { stroke: var(--line); stroke-width: 1; }
+.rv-t { font: 9px var(--font-body); fill: var(--ink-2); }
+.rv-la { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-dasharray: 5 4; }
+.rv-lb { fill: none; stroke: var(--ok); stroke-width: 3; stroke-linejoin: round; }
+.rv-da { fill: var(--ink-2); } .rv-db { fill: var(--ok); }
+@media (max-width: 860px) { .rv2 { grid-template-columns: minmax(0, 1fr); } .phonebox { max-width: 22rem; justify-self: center; width: 100%; } }
+/* тату: заживление */
+.ac2 { display: grid; grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 26px; margin-top: 16px; align-items: start; }
+.ac-skin { display: grid; gap: 8px; }
+#ac-svg { width: 100%; height: auto; border-radius: 18px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05); }
+#ac-svg * { transition: opacity 0.25s; }
+.ac-stage { margin: 0; font-size: 0.88rem; color: var(--ink-2); } .ac-stage b { color: var(--ink); }
+.ac-right { display: grid; gap: 12px; }
+.ac-faq .label { margin: 0 0 6px; }
+.ac-faq details { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--solid); }
+.ac-faq summary { font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+.ac-faq details p { margin: 6px 0 0; color: var(--ink-2); font-size: 0.88rem; }
+.ac-faq > .hint { margin-top: 6px; font-size: 0.8rem; }
+.ac-slide { margin-top: 18px; display: grid; gap: 6px; }
+.ac-ticks { position: relative; height: 26px; margin: 0 18px; }
+.ac-ticks button { position: absolute; transform: translateX(-50%); border: 1px solid var(--line); background: var(--solid); border-radius: 999px; font-size: 0.72rem; padding: 2px 8px; cursor: pointer; color: var(--ink-2); }
+.ac-ticks button[aria-pressed="true"] { background: var(--accent-strong); color: var(--on-accent); border-color: var(--accent-strong); }
+@media (max-width: 760px) { .ac2 { grid-template-columns: minmax(0, 1fr); } .ac-skin { max-width: 18rem; } .ac-ticks button { font-size: 0.64rem; padding: 2px 5px; } }
+/* кафе: карта гостя */
+.ly2 { display: grid; grid-template-columns: minmax(0, 19rem) minmax(0, 1fr); gap: 30px; align-items: start; }
+.ly-left { display: grid; gap: 12px; justify-items: center; }
+.ly-left .phonebox { width: 100%; }
+.ly-wallet { background: #f2efe9; padding: 30px 14px 16px; display: grid; gap: 10px; min-height: 380px; align-content: start; }
+.ly-card2 { background: linear-gradient(140deg, #3b2a20, #6b4a34); color: #fbf3e8; border-radius: 18px; padding: 16px; display: grid; gap: 14px; box-shadow: 0 18px 30px -18px rgb(59 42 32 / 0.7); }
+.ly-top { display: flex; justify-content: space-between; align-items: baseline; } .ly-top span { font-size: 0.72rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; }
+.ly-cups span.stamp { animation: stampIn 0.45s cubic-bezier(0.2, 1.6, 0.4, 1); }
+@keyframes stampIn { from { transform: scale(1.8) rotate(-20deg); opacity: 0; } }
+.ly-qr { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; background: #fbf3e8; color: #3b2a20; border-radius: 12px; padding: 8px; font-size: 0.78rem; }
+.ly-qr svg { width: 76px; height: 76px; shape-rendering: crispEdges; }
+.ly-qr b { display: block; font-size: 0.9rem; }
+.ly-push { margin: 0; min-height: 2.6em; font-size: 0.82rem; color: #3b2a20; background: #fff; border-radius: 12px; padding: 8px 10px; box-shadow: 0 6px 16px -10px rgb(0 0 0 / 0.3); }
+.ly-push:empty { visibility: hidden; }
+.ly-right { display: grid; gap: 12px; }
+.ly-right .label { margin: 0; }
+.ly-seg { display: flex; gap: 4px; height: 74px; }
+.ly-seg button { flex-basis: 0; min-width: 64px; border: 0; border-radius: 12px; background: hsl(var(--h) 45% 88%); color: hsl(var(--h) 40% 25%); display: grid; align-content: center; justify-items: start; padding: 8px 10px; cursor: pointer; text-align: left; }
+.ly-seg button b { font: 600 1.3rem var(--font-display); }
+.ly-seg button span { font-size: 0.74rem; }
+.ly-seg button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px hsl(var(--h) 40% 30%); }
+.ly-detail h3 { margin: 0; }
+.ly-act { display: grid; gap: 8px; margin-top: 10px; padding: 12px 14px; border-radius: 14px; background: var(--paper); font-size: 0.9rem; }
+.ly-act .btn { justify-self: start; }
+.ly-res { margin: 0; color: var(--ink-2); } .ly-res b { color: var(--ok); }
+@media (max-width: 860px) { .ly2 { grid-template-columns: minmax(0, 1fr); } .ly-left .phonebox { max-width: 20rem; } .ly-seg { height: auto; flex-wrap: wrap; } .ly-seg button { flex: 1 1 40%; } }
+/* зарплата: кольца плана */
+.pay-status { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.pay-m { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 12px; border-radius: 14px; background: var(--paper); }
+.pay-m small { display: block; font-size: 0.78rem; color: var(--ink-2); }
+.pay-m small.ok-t { color: var(--ok); font-weight: 600; }
+.pay-ring .bg { fill: none; stroke: var(--line); stroke-width: 7; }
+.pay-ring .fg { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; transition: stroke-dasharray 0.4s; }
+.pay-ring .fg.done { stroke: var(--ok); }
+.pay-ring text { font: 600 13px var(--font-body); fill: var(--ink); }
+.pay-share { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; font-size: 0.9rem; color: var(--ink-2); padding: 0 4px; }
+.pay-share b { color: var(--ink); } .pay-share.warn b:first-of-type { color: var(--warn); }
+@media (max-width: 760px) { .pay-status { grid-template-columns: minmax(0, 1fr); } }
+/* фудкост: шкала и полосы */
+.fc-gauge { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 16px; align-items: center; }
+.fc-gauge svg { width: 100%; height: auto; }
+.fc-needle { stroke: var(--ink); stroke-width: 3; stroke-linecap: round; }
+.fc-hub { fill: var(--ink); } .fc-ax { font: 9px var(--font-body); fill: var(--ink-2); }
+.fc-gv { display: grid; gap: 4px; font-size: 0.86rem; color: var(--ink-2); }
+.fc-gv > b { font: 600 2.2rem/1 var(--font-display); }
+.fc-gv span b { color: var(--ink); }
+.fc-bars { display: grid; gap: 8px; }
+.fc-row { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 3.6rem; gap: 10px; align-items: center; font-size: 0.86rem; }
+.fc-row small { display: block; color: var(--ink-2); font-size: 0.74rem; }
+.fc-row > b { text-align: right; font-variant-numeric: tabular-nums; }
+.fc-track { position: relative; height: 14px; border-radius: 7px; background: var(--paper); }
+.fc-track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; transition: width 0.3s; }
+.fc-track i.ok { background: var(--ok); } .fc-track i.warn { background: var(--warn); } .fc-track i.bad { background: var(--bad); }
+.fc-track em { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink-2); opacity: 0.5; }
+.fc-track em.r { background: var(--bad); }
+.fc-track0 { position: relative; height: 12px; font-size: 0.68rem; color: var(--ink-2); }
+.fc-track0 i { position: absolute; transform: translateX(-50%); font-style: normal; }
+.fc-scale { margin-top: -4px; }
+@media (max-width: 640px) { .fc-gauge { grid-template-columns: minmax(0, 1fr); } .fc-gauge svg { max-width: 13rem; } .fc-row { grid-template-columns: 6.5rem minmax(0, 1fr) 3.2rem; } }
+/* запись: цепочка */
+.chain { list-style: none; margin: 0; padding: 0; display: grid; }
+.chain li { position: relative; display: grid; gap: 1px; padding: 0 0 14px 22px; font-size: 0.86rem; animation: rise 0.4s ease-out both; animation-delay: var(--d); }
+.chain li::before { content: ""; position: absolute; left: 4px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.chain li::after { content: ""; position: absolute; left: 8px; top: 18px; bottom: 0; width: 2px; background: var(--line); }
+.chain li:last-child::after { display: none; }
+.chain-t { font-size: 0.72rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.05em; }
+.chain small { color: var(--ink-2); }
+/* сайты: макеты */
+.ms { --r: 16px; font-family: var(--font-body); background: var(--bg); color: var(--ink); position: relative; }
+.ms button { font: inherit; cursor: pointer; }
+.ms-nav { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 18px; padding: 12px 22px; background: color-mix(in oklab, var(--bg) 85%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.ms-logo { font: 700 1.05rem var(--disp); color: var(--acc); letter-spacing: var(--ls, 0); }
+.ms-nav nav { display: flex; gap: 16px; font-size: 0.8rem; margin-left: auto; opacity: 0.75; }
+.ms-cta { border: 0; background: var(--acc); color: var(--acc-ink); border-radius: var(--btn-r, 999px); padding: 7px 14px; font-size: 0.8rem; font-weight: 600; }
+.ms-hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; align-items: center; padding: 34px 22px 30px; background: var(--hero, transparent); }
+.ms-hero-t { display: grid; gap: 12px; }
+.ms-kick { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acc); font-weight: 600; }
+.ms-hero h4 { margin: 0; font: var(--h-w, 600) clamp(1.6rem, 3.2vw, 2.4rem)/1.08 var(--disp); letter-spacing: -0.02em; }
+.ms-hero p { margin: 0; color: var(--muted); font-size: 0.92rem; max-width: 30em; }
+.ms-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.ms-btn { border: 1px solid var(--acc); background: var(--acc); color: var(--acc-ink); border-radius: var(--btn-r, 999px); padding: 10px 18px; font-weight: 600; font-size: 0.86rem; }
+.ms-btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.ms-btn:disabled { opacity: 0.45; cursor: default; }
+.ms-rate { font-size: 0.78rem; color: var(--muted); } .ms-rate::first-letter { color: #f5a623; }
+.ms-art { width: 100%; height: auto; }
+.ms-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+.ms-facts div { background: var(--bg); padding: 14px 22px; display: grid; gap: 2px; }
+.ms-facts b { font: 600 1rem var(--disp); } .ms-facts span { font-size: 0.76rem; color: var(--muted); }
+.ms-sec { padding: 26px 22px 6px; }
+.ms-sec h5 { margin: 0 0 12px; font: var(--h-w, 600) 1.3rem var(--disp); }
+.ms-tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.ms-tabs button { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.8rem; }
+.ms-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ms-list { display: grid; }
+.ms-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.ms-item b { display: block; font-size: 0.9rem; } .ms-item span { font-size: 0.76rem; color: var(--muted); }
+.ms-item i { font-style: normal; font-weight: 700; color: var(--acc); font-size: 0.9rem; white-space: nowrap; }
+.ms-item button { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 5px 10px; font-size: 0.74rem; min-width: 4.6rem; }
+.ms-team { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 10px; }
+.ms-person { display: grid; justify-items: center; text-align: center; gap: 2px; padding: 14px 8px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); }
+.ms-ava { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font: 700 1.3rem var(--disp); color: #fff; background: linear-gradient(150deg, hsl(var(--h) 55% 62%), hsl(var(--h) 50% 40%)); margin-bottom: 4px; }
+.ms-person span { font-size: 0.74rem; color: var(--muted); } .ms-person small { font-size: 0.72rem; color: #d99a1e; }
+.ms-gal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.ms-gal div { aspect-ratio: 1; border-radius: calc(var(--r) - 6px); overflow: hidden; background: var(--card); display: grid; place-items: center; }
+.ms-gal svg { width: 130%; transform: rotate(calc(var(--i) * 23deg)) scale(calc(0.8 + var(--i) * 0.08)); opacity: 0.9; }
+.ms-revs { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 10px; }
+.ms-revs figure { margin: 0; padding: 14px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); display: grid; gap: 6px; font-size: 0.84rem; }
+.ms-stars { color: #f5a623; letter-spacing: 1px; font-size: 0.8rem; }
+.ms-revs blockquote { margin: 0; } .ms-revs figcaption { font-size: 0.74rem; color: var(--muted); }
+.ms-book .ms-bk { display: grid; gap: 8px; padding: 16px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); }
+.ms-bk label { display: grid; gap: 4px; font-size: 0.76rem; color: var(--muted); }
+.ms-bk select { font: inherit; font-size: 0.88rem; padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.ms-lbl { font-size: 0.76rem; color: var(--muted); }
+.ms-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ms-chips button { border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 6px 10px; font-size: 0.8rem; }
+.ms-chips button[aria-pressed="true"] { background: var(--acc); color: var(--acc-ink); border-color: var(--acc); }
+.ms-chips button:disabled { opacity: 0.3; text-decoration: line-through; cursor: default; }
+.ms-total { display: flex; justify-content: space-between; padding-top: 8px; border-top: 1px solid var(--line); font-size: 0.88rem; } .ms-total b { color: var(--acc); }
+.ms-book .ms-btn { justify-self: start; }
+.ms-ok { display: grid; gap: 4px; padding: 18px; border-radius: var(--r); background: color-mix(in oklab, #2e9e6a 14%, var(--card)); border: 1px solid #2e9e6a; font-size: 0.86rem; animation: rise 0.3s ease-out; }
+.ms-ok b { font-size: 1.05rem; } .ms-ok span { color: var(--muted); }
+.ms-ok button { justify-self: start; margin-top: 6px; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 0.78rem; }
+.ms-map { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; align-items: center; padding-bottom: 26px; }
+.ms-map svg { width: 100%; height: auto; border-radius: var(--r); }
+.m-bg { fill: var(--map, #eef0ea); } .m-road { stroke: var(--map-road, #fff); stroke-width: 8; fill: none; } .m-main { stroke: var(--map-main, #f7d77a); stroke-width: 12; fill: none; } .m-park { fill: #b9ddb0; rx: 6; } .m-pin { fill: var(--acc); }
+.ms-map > div { display: grid; gap: 4px; font-size: 0.84rem; } .ms-map > div span { color: var(--muted); }
+.ms-foot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 18px 22px 22px; font-size: 0.74rem; color: var(--muted); border-top: 1px solid var(--line); }
+.ms-sticky { display: none; }
+@media (max-width: 640px) { #st-dev { display: none; } .st-stage.phone .st-frame { border-width: 6px; } }
+.st-stage.phone .ms-nav nav { display: none; }
+.st-stage.phone .ms-cta { margin-left: auto; }
+.st-stage.phone .ms-hero { grid-template-columns: minmax(0, 1fr); padding-top: 22px; }
+.st-stage.phone .ms-art { max-width: 200px; justify-self: center; order: -1; }
+.st-stage.phone .ms-facts, .st-stage.phone .ms-map { grid-template-columns: minmax(0, 1fr); }
+.st-stage.phone .ms-facts div { padding: 10px 16px; }
+.st-stage.phone .ms-sec, .st-stage.phone .ms-hero { padding-inline: 16px; }
+.st-stage.phone .ms-foot { padding-bottom: 70px; }
+.st-stage.phone .ms-sticky { display: block; position: sticky; bottom: 10px; margin: -56px 12px 10px; width: calc(100% - 24px); z-index: 4; border: 0; background: var(--acc); color: var(--acc-ink); border-radius: 14px; padding: 13px; font-weight: 700; box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.45); }
+/* темы */
+.ms-nails { --bg: #fbf6f4; --ink: #3a1f27; --muted: #8a6a72; --acc: #b5546b; --acc-ink: #fff; --card: #fff; --line: #f0dfe2; --disp: "Literata", Georgia, serif; --hero: linear-gradient(135deg, #f8e1e5, #fbefe6); --h-w: 500; --map: #f6ece9; }
+.ms-barber { --bg: #16130f; --ink: #efe7dc; --muted: #a89a88; --acc: #c8925a; --acc-ink: #16130f; --card: #201b15; --line: #3a3027; --disp: "Golos Text", sans-serif; --ls: 0.12em; --btn-r: 4px; --r: 6px; --map: #26211b; --map-road: #3a3027; --map-main: #6b5232; }
+.ms-tattoo { --bg: #0b0b0b; --ink: #f2f2f2; --muted: #8a8a8a; --acc: #f2f2f2; --acc-ink: #0b0b0b; --card: #141414; --line: #262626; --disp: Georgia, serif; --ls: 0.3em; --btn-r: 0; --r: 0; --h-w: 400; --map: #161616; --map-road: #2a2a2a; --map-main: #3d3d3d; }
+.ms-food { --bg: #fff8ee; --ink: #2a1606; --muted: #8a6a50; --acc: #c2410c; --acc-ink: #fff; --card: #fff; --line: #f3e0c4; --disp: "Golos Text", sans-serif; --hero: #ffd27a; --h-w: 800; --map: #fbefd9; }
+.ms-auto { --bg: #0f1419; --ink: #e6ebf0; --muted: #8b98a6; --acc: #f5b301; --acc-ink: #111; --card: #18202a; --line: #263241; --disp: "Golos Text", sans-serif; --ls: 0.08em; --btn-r: 6px; --r: 8px; --hero: linear-gradient(120deg, #18212b, #0f1419); --h-w: 800; --map: #18202a; --map-road: #263241; --map-main: #5a4a12; }
+.ms-clean { --bg: #f3faf8; --ink: #16302b; --muted: #5c7a73; --acc: #1f8a70; --acc-ink: #fff; --card: #fff; --line: #d5ece6; --disp: "Golos Text", sans-serif; --hero: radial-gradient(circle at 85% 20%, #d4f1e8, transparent 55%), #e8f6f1; --h-w: 700; --map: #e6f3ee; }
 </style>
 </head>
 <body>
@@ -1149,7 +1267,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="beauty" id="payroll" aria-labelledby="pay-h">
     <div class="tool-head">
       <h2 id="pay-h">Зарплата мастеров за минуту</h2>
-      <p class="what">Ногтевая студия, ноябрь. Данные — выгрузка из YCLIENTS. Поменяйте процент мастеру или условия, и расчёт пересчитается. По кнопке «Лист» мастер получает свой расчёт в Telegram.</p>
+      <p class="what">Ногтевая студия, ноябрь. Данные — выгрузка из YCLIENTS. Поменяйте процент мастеру или условия, и расчёт пересчитается. По кнопке «Лист» мастер получает свой расчёт в Telegram, а кольца показывают, сколько каждому осталось до бонуса.</p>
       <p class="origin">Обычно это вечер в Excel и спор с мастером из-за суммы. Здесь у каждого понятный расчётный лист, а у владельца — доля зарплат в выручке.</p>
     </div>
     <div class="sheet">
@@ -1161,7 +1279,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <span class="hint">Продажи косметики — 10% мастеру</span>
       </div>
       <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Зарплата · ноябрь · из выгрузки YCLIENTS</div><div class="tablewrap"><table class="gs pay-t" id="pay-table"></table></div></div>
-      <div class="rig-status" id="pay-status"></div>
+      <div class="pay-status" id="pay-status"></div>
       <div class="tg" id="pay-tg" hidden style="margin-top: 14px; max-width: 26rem;"><div class="tg-body" id="pay-chat" style="min-height: 0;"></div></div>
     </div>
   </section>
@@ -1187,18 +1305,20 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <!-- Бот отзывов -->
   <section class="tool demo" data-area="beauty" id="reviews" aria-labelledby="rv-h">
     <div class="tool-head">
-      <h2 id="rv-h">Бот отзывов с защитой рейтинга</h2>
-      <p class="what">Через два часа после визита бот спрашивает оценку. Поставьте её за клиентку: довольных бот зовёт на Яндекс Карты, а о недовольных сразу пишет владельцу, чтобы успеть исправить до публичного отзыва.</p>
-      <p class="origin">Рейтинг на картах — главная реклама студии в небольшом городе. Одна злая «единица» стоит десятка хороших отзывов.</p>
+      <h2 id="rv-h">Бот отзывов: рейтинг под защитой</h2>
+      <p class="what">Через два часа после визита бот спрашивает оценку. Довольных зовёт на Яндекс Карты, а о недовольных сразу пишет владельцу — чтобы решить проблему до публичного отзыва. Поставьте оценку за клиентку, а потом прокрутите год и сравните рейтинг с ботом и без него.</p>
+      <p class="origin">Сами по себе отзывы чаще пишут недовольные. Бот выравнивает картину: просит отзыв у тех, кому понравилось.</p>
     </div>
-    <div class="sheet rv">
-      <div class="tg" id="rv-tg"><div class="tg-body" id="rv-chat" aria-live="polite"></div></div>
-      <div class="rv-side">
-        <div class="rv-map"><span class="label">Яндекс Карты</span><b>Студия «Ноготок»</b><div class="rv-score"><span id="rv-rate">4,8</span><span class="rv-stars" id="rv-stars">★★★★★</span><small id="rv-count">214 отзывов</small></div></div>
-        <div class="rig-status" id="rv-stats"></div>
-        <p class="label" style="margin-top: 6px;">Владельцу в Telegram</p>
-        <div class="tg"><div class="tg-body" id="rv-owner" style="min-height: 120px;"></div></div>
-        <button class="btn" type="button" id="rv-reset">Начать заново</button>
+    <div class="sheet rv2">
+      <div class="phonebox"><div class="phone-notch" aria-hidden="true"></div><div class="tg" id="rv-tg"><div class="tg-body" id="rv-chat" aria-live="polite"></div></div></div>
+      <div class="rv-right">
+        <div class="rv-cards">
+          <div class="rv-card off"><span class="label">Без бота</span><b id="rv-a">4,6</b><span class="rv-stars" id="rv-as"></span><small id="rv-ac"></small></div>
+          <div class="rv-card on"><span class="label">С ботом</span><b id="rv-b">4,6</b><span class="rv-stars" id="rv-bs"></span><small id="rv-bc"></small></div>
+        </div>
+        <svg id="rv-chart" viewBox="0 0 420 190" role="img" aria-label="Рейтинг по месяцам с ботом и без"></svg>
+        <div class="row"><button type="button" class="btn primary" id="rv-month">Прожить месяц: 40 визитов</button><button type="button" class="btn" id="rv-year">Сразу год</button><button type="button" class="btn" id="rv-reset">Сначала</button></div>
+        <p class="hint" id="rv-note"></p>
       </div>
     </div>
   </section>
@@ -1235,16 +1355,19 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="tattoo" id="aftercare" aria-labelledby="ac-h">
     <div class="tool-head">
       <h2 id="ac-h">Бот ухода после сеанса</h2>
-      <p class="what">После сеанса бот сам пишет клиенту в нужные дни: памятку, ответы на частые страхи, приглашение на коррекцию и просьбу об отзыве. Двигайтесь по дням и смотрите, что приходит.</p>
-      <p class="origin">Мастер перестаёт отвечать на одни и те же вопросы, клиент спокоен и возвращается за следующей татуировкой. Тексты памятки пишет мастер, бот только отправляет их вовремя.</p>
+      <p class="what">Протяните ползунок по дням заживления. Татуировка меняется так же, как у клиента: краснота, шелушение, «мутная» стадия. Бот присылает ровно то, что нужно знать в этот день, и заранее отвечает на страхи, с которыми обычно пишут мастеру.</p>
+      <p class="origin">Мастер перестаёт отвечать на одни и те же вопросы, клиент спокоен и возвращается за следующей татуировкой. Тексты пишет мастер, бот только отправляет их вовремя.</p>
     </div>
     <div class="sheet">
-      <div class="row" style="justify-content: space-between;">
-        <div class="seg" role="group" aria-label="Способ ухода" id="ac-method"><button type="button" data-m="film" aria-pressed="true">Заживляющая плёнка</button><button type="button" data-m="classic" aria-pressed="false">Классический уход</button></div>
-        <span class="hint">Сеанс — сегодня</span>
+      <div class="seg" role="group" aria-label="Способ ухода" id="ac-method"><button type="button" data-m="film" aria-pressed="true">Заживляющая плёнка</button><button type="button" data-m="classic" aria-pressed="false">Классический уход</button></div>
+      <div class="ac2">
+        <div class="ac-skin"><svg id="ac-svg" viewBox="0 0 220 200" role="img" aria-label="Как выглядит татуировка в этот день"></svg><p class="ac-stage" id="ac-stage"></p></div>
+        <div class="ac-right">
+          <div class="tg" id="ac-tg"><div class="tg-body" id="ac-chat" aria-live="polite" style="min-height: 0;"></div></div>
+          <div class="ac-faq" id="ac-faq"></div>
+        </div>
       </div>
-      <div class="ac-line" id="ac-line" role="group" aria-label="День после сеанса"></div>
-      <div class="tg" id="ac-tg" style="max-width: 30rem; margin-top: 14px;"><div class="tg-body" id="ac-chat" aria-live="polite"></div></div>
+      <div class="ac-slide"><label for="ac-day" class="hint">День после сеанса: <b id="ac-day-v"></b></label><input type="range" id="ac-day" min="0" max="60" step="1" value="0"><div class="ac-ticks" id="ac-ticks"></div></div>
     </div>
   </section>
 
@@ -1300,9 +1423,9 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
         <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Техкарта · Бургер классический</div><div class="tablewrap"><table class="gs" id="fc-card"></table></div></div>
       </div>
       <div class="fc-side">
-        <div class="dash-kpi fc-kpi" id="fc-kpi"></div>
+        <div class="fc-gauge" id="fc-kpi"></div>
         <h3 style="margin-top: 6px;">Всё меню при этой цене говядины</h3>
-        <div class="tablewrap"><table id="fc-menu"></table></div>
+        <div class="fc-bars" id="fc-menu"></div>
         <p class="pf-worse" id="fc-note"></p>
       </div>
     </div>
@@ -1311,16 +1434,22 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <!-- Еда: карта лояльности -->
   <section class="tool demo" data-area="food" id="loyalty" aria-labelledby="ly-h">
     <div class="tool-head">
-      <h2 id="ly-h">Карта гостя в Telegram</h2>
-      <p class="what">«Каждый шестой кофе в подарок» без бумажных карточек, которые теряются. Гость показывает карту в Telegram, бариста отмечает покупку. Нажимайте «Отметить покупку».</p>
-      <p class="origin">Владелец видит, сколько гостей возвращается и как часто, а бот может позвать тех, кто давно не заходил.</p>
+      <h2 id="ly-h">Карта гостя и возврат пропавших</h2>
+      <p class="what">«Каждый шестой кофе в подарок» без бумажных карточек: карта живёт в телефоне гостя, бариста сканирует QR. А владелец видит всю базу гостей: кто ходит каждую неделю, а кто пропал, — и зовёт пропавших одной кнопкой.</p>
+      <p class="origin">Бумажную карточку теряют на второй неделе. Электронная остаётся в телефоне и превращает разовых гостей в постоянных.</p>
     </div>
-    <div class="sheet lead-tool">
-      <div class="tg" id="ly-tg"><div class="tg-body" id="ly-chat" aria-live="polite"></div></div>
-      <div style="display: grid; gap: 12px; align-content: start;">
-        <div class="ly-card"><span class="label">Карта гостя · Кофейня «Зерно»</span><div class="ly-cups" id="ly-cups"></div><span class="hint" id="ly-left"></span></div>
-        <button class="btn primary" type="button" id="ly-buy">Отметить покупку</button>
-        <div class="rig-status" id="ly-stats"></div>
+    <div class="sheet ly2">
+      <div class="ly-left">
+        <div class="phonebox"><div class="phone-notch" aria-hidden="true"></div><div class="ly-wallet">
+          <div class="ly-card2" id="ly-card"><div class="ly-top"><b>Кофейня «Зерно»</b><span>карта гостя</span></div><div class="ly-cups" id="ly-cups"></div><div class="ly-qr"><svg id="ly-qr" viewBox="0 0 25 25" aria-label="QR-код карты"></svg><span><b id="ly-left"></b>Покажите код бариста</span></div></div>
+          <p class="ly-push" id="ly-push" aria-live="polite"></p>
+        </div></div>
+        <button class="btn primary" type="button" id="ly-buy">Бариста сканирует QR</button>
+      </div>
+      <div class="ly-right">
+        <p class="label">База гостей · 412 карт</p>
+        <div class="ly-seg" id="ly-seg" role="group" aria-label="Сегменты гостей"></div>
+        <div class="ly-detail" id="ly-detail"></div>
       </div>
     </div>
   </section>
@@ -1433,7 +1562,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <div class="bk-side">
         <p class="label" id="bk-mtitle">Расписание мастера</p>
         <div class="bk-day" id="bk-day"></div>
-        <div id="bk-msg-wrap" hidden style="display: grid; gap: 8px;"><p class="label">Бот клиенту за день до визита</p><div class="tg" id="bk-tg"><div class="tg-body" id="bk-msg"></div></div></div>
+        <div id="bk-msg-wrap" hidden style="display: grid; gap: 8px;"><p class="label">Одна запись запускает цепочку</p><div id="bk-msg"></div></div>
       </div>
     </div>
   </section>
@@ -1726,7 +1855,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
       <div class="tu-week" id="tu-week"></div>
       <p class="hint" style="margin-top: 8px;">Сегодня четверг. Отмена в день урока оплачивается, перенос — нет.</p>
       <div class="sheet-file" style="margin-top: 14px;"><div class="sf-bar"><span class="xl">⊞</span>Ученики и оплаты · ноябрь</div><div class="tablewrap"><table class="gs" id="tu-table"></table></div></div>
-      <div class="dash-kpi" id="tu-kpi"></div>
+      <p class="cb-sum" id="tu-kpi"></p>
       <div class="row" style="margin-top: 14px;"><button type="button" class="btn primary" id="tu-send">Напомнить родителям об оплате</button></div>
       <div class="tg" id="tu-tg" hidden style="margin-top: 14px; max-width: 30rem;"><div class="tg-body" id="tu-chat" style="min-height: 0;"></div></div>
     </div>
@@ -1736,7 +1865,7 @@ footer { padding-block: 28px 40px; font-size: 0.85rem; color: var(--ink-2); disp
   <section class="tool demo" data-area="sites" id="sites" aria-labelledby="st-h">
     <div class="tool-head">
       <h2 id="st-h">Сайты для бизнеса</h2>
-      <p class="what">Шесть сайтов для разных заведений. Переключайте их и смотрите, как каждый выглядит на компьютере и на телефоне. Кнопки записи и заявок на настоящих сайтах отправляют заявку в Telegram.</p>
+      <p class="what">Шесть сайтов для разных заведений — полистайте их как настоящие. Прайс переключается по вкладкам, «Выбрать» переносит услугу в запись, а запись подтверждается. Переключите на телефон: внизу появится кнопка записи, которая всегда под пальцем.</p>
       <p class="origin">Сайт услуг — это одна-две страницы: кто вы, что и почём, отзывы, как записаться. Без конструктора и ежемесячной подписки.</p>
     </div>
     <div class="sheet">
@@ -2418,10 +2547,14 @@ const el = (tag, attrs = {}, parent) => {
       const S = SERVICES.find((x) => x.k === svc);
       booked = { m: b.dataset.who, di: day, s: slot, e: slot + S.min / 60, t: S.t };
       const d = days[day];
-      if (!$("#bk-tg .tg-head")) $("#bk-tg").insertAdjacentHTML("afterbegin", tgHead("П", 300, "Студия «Прядь»", "бот"));
-      $("#bk-msg").innerHTML = tgMsg({ html: `✅ Вы записаны: <b>${S.t}</b>, ${d.getDate()}.${String(d.getMonth() + 1).padStart(2, "0")} в ${hh(slot)}\nМастер: ${MASTERS.find((m) => m.k === booked.m).t} · ${rub(S.price)}`, time: tgTime(1) }) +
-        `<span class="tg-date">накануне</span>` +
-        tgMsg({ html: `⏰ Напоминаем о записи <b>завтра в ${hh(slot)}</b>\n${S.t} · мастер ${MASTERS.find((m) => m.k === booked.m).t}\nСтудия «Прядь», ул. Примерная, 12`, time: "18:00", kb: ["Подтверждаю", "Перенести"], cols: 2 });
+      const mt = MASTERS.find((m) => m.k === booked.m).t, dd = `${d.getDate()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+      $("#bk-msg").innerHTML = `<ol class="chain">` + [
+        ["сейчас", "Подтверждение клиенту", `${S.t}, ${dd} в ${hh(slot)}, мастер ${mt} · ${rub(S.price)}`],
+        ["накануне, 18:00", "Напоминание с кнопками", "«Подтверждаю» или «Перенести» — при переносе окно сразу освобождается для других"],
+        [`${dd}, ${hh(slot)}`, "Визит", `мастер ${mt} видит запись и историю клиента`],
+        ["через 2 часа после визита", "Просьба оценить", "довольных бот зовёт на Яндекс Карты, о недовольных пишет владельцу"],
+        ["через 3–5 недель", "Пора повторить", "если клиент не записался сам, бот предложит окна у того же мастера"],
+      ].map(([t, h, p], i) => `<li style="--d:${i * 0.12}s"><span class="chain-t">${t}</span><b>${h}</b><small>${p}</small></li>`).join("") + `</ol>`;
       $("#bk-msg-wrap").hidden = false;
       slot = null;
     } else return;
@@ -2691,72 +2824,113 @@ const el = (tag, attrs = {}, parent) => {
   build();
 })();
 
-/* ============ Сайты для бизнеса ============ */
+/* ============ Сайты для бизнеса ============
+   Шесть живых макетов: у каждого прайс с вкладками, команда, работы, отзывы, запись и карта.
+   Кнопки внутри макета работают: выбор услуги переносит в запись, запись подтверждается. */
 (() => {
-  const SITES = {
-    nails: {
-      url: "ваш-сайт.рф", cls: "ms-nails", name: "Ноготок", nav: ["Услуги", "Мастера", "Работы", "Контакты"],
-      h: "Маникюр, который держится три недели", p: "Аппаратный маникюр, покрытие и дизайн. Стерильные инструменты, запись онлайн за минуту, напомним о визите в Telegram.", btn: "Записаться онлайн",
-      cards: [["Маникюр с покрытием", "Аппаратный, гель-лак, 1,5 часа", "1 900 ₽"], ["Наращивание", "Любая длина и форма", "от 3 200 ₽"], ["Педикюр", "Аппаратный, с покрытием", "2 400 ₽"]],
-      rev: ["«Покрытие держится больше трёх недель, мастер Вика — золото» — Анна", "«Удобно, что напоминание приходит в Telegram» — Ольга"],
-      foot: ["ул. Садовая, 12 · 9:00–21:00", "+7 900 000-00-00"],
-    },
-    barber: {
-      url: "ваш-сайт.рф", cls: "ms-barber", name: "Бритва", nav: ["Услуги", "Барберы", "Цены"],
-      h: "Стрижка за час. Кофе за наш счёт", p: "Мужские стрижки, бритьё и уход за бородой. Выберите барбера и время — запись подтвердим в Telegram.", btn: "Выбрать время",
-      cards: [["Мужская стрижка", "Мытьё, укладка, 60 минут", "1 200 ₽"], ["Стрижка + борода", "Моделирование и горячее полотенце", "1 800 ₽"], ["Отец + сын", "Две стрижки подряд", "2 000 ₽"]],
-      rev: ["«Хожу третий год, ни разу не ждал» — Сергей", "«Записался в обед на вечер, всё чётко» — Артём"],
-      foot: ["пр. Победы, 5 · 10:00–21:00", "+7 900 000-00-00"],
-    },
-    tattoo: {
-      url: "ваш-сайт.рф", cls: "ms-tattoo", name: "ЧЕРНИЛА", nav: ["Работы", "Мастера", "Уход", "Запись"],
-      h: "Татуировки, которые не стыдно показать через десять лет", p: "Графика, минимализм, реализм. Эскиз под вас, расчёт цены онлайн и бот, который подскажет, как ухаживать за тату.", btn: "Рассчитать стоимость",
-      cards: [["Мини-тату", "До 5 см, ч/б", "от 3 500 ₽"], ["Графика", "Эскиз под вас, сеанс до 4 часов", "от 8 000 ₽"], ["Коррекция", "В течение 2 месяцев", "бесплатно"]],
-      rev: ["«Прислали памятку и напоминали, как ухаживать. Зажило идеально» — Ксения", "«Эскиз переделали два раза бесплатно, пока я не влюбился» — Илья"],
-      foot: ["ул. Лермонтова, 18 · по записи", "@chernila_tattoo"],
-    },
-    food: {
-      url: "ваш-сайт.рф", cls: "ms-food", name: "Кафе «Угол»", nav: ["Меню", "Заказать", "Как добраться"],
-      h: "Обед без очереди: закажите заранее", p: "Боулы, супы, бургеры и завтраки весь день. Закажите с сайта — заберёте горячим к своему времени или получите за столом по QR-коду.", btn: "Открыть меню",
-      cards: [["Боул терияки", "Рис, курица, овощи, кунжут", "420 ₽"], ["Том ям", "С креветками и кокосовым молоком", "450 ₽"], ["Бизнес-ланч", "Суп, горячее и морс, 12:00–16:00", "390 ₽"]],
-      rev: ["«Заказываю из офиса, забираю горячим» — Дмитрий", "«Сканировал QR за столом — без ожидания официанта» — Мария"],
-      foot: ["ул. Победы, 3 · 9:00–23:00", "+7 900 000-00-00"],
-    },
-    auto: {
-      url: "ваш-сайт.рф", cls: "ms-auto", name: "Гараж 31", nav: ["Услуги", "Цены", "Запись"],
-      h: "ТО по регламенту с ценой до приезда", p: "Обслуживание, ходовая, диагностика и шиномонтаж. Рассчитайте ТО онлайн и выберите время, а статус ремонта пришлём в Telegram.", btn: "Рассчитать ТО",
-      cards: [["ТО по регламенту", "Масло, фильтры, проверка по 30 пунктам", "от 4 500 ₽"], ["Диагностика ходовой", "На подъёмнике, с фото", "1 000 ₽"], ["Шиномонтаж", "R13–R18, с балансировкой", "от 1 600 ₽"]],
-      rev: ["«Прислали фото колодок и цену — согласовал из офиса за минуту» — Андрей", "«Цена совпала с расчётом на сайте до рубля» — Павел"],
-      foot: ["ул. Промышленная, 7 · 8:00–20:00", "+7 900 000-00-00"],
-    },
-    clean: {
-      url: "ваш-сайт.рф", cls: "ms-clean", name: "Чистый дом", nav: ["Услуги", "Цены", "Отзывы", "Заявка"],
-      h: "Уборка квартир по цене, известной заранее", p: "Цена считается на сайте по площади, без «посмотрим на месте». Свои клинеры, своя химия и фотоотчёт после уборки.", btn: "Рассчитать уборку",
-      cards: [["Поддерживающая", "Кухня, санузел, полы, пыль", "от 65 ₽/м²"], ["Генеральная", "Плюс шкафы, двери, батареи", "от 130 ₽/м²"], ["Мойка окон", "С двух сторон, рамы и подоконники", "450 ₽ за створку"]],
-      rev: ["«Цена на сайте и в чеке одинаковая — редкость» — Марина", "«Прислали фото после уборки, я была на работе» — Ольга"],
-      foot: ["Белгород и пригород · 8:00–21:00", "+7 900 000-00-00"],
-    },
+  const ART = {
+    nails: '<g>' + [["#e8a0b0", 30], ["#b5546b", 78], ["#f3c6a5", 126], ["#7d2f45", 174], ["#f6dfe4", 222]].map(([c, x], i) => `<rect x="${x}" y="${92 - (i % 2) * 14}" width="36" height="${70 + (i % 2) * 14}" rx="10" fill="${c}"/><rect x="${x + 10}" y="${62 - (i % 2) * 14}" width="16" height="32" rx="4" fill="#3a1f27"/>`).join("") + "</g>",
+    barber: '<rect x="118" y="20" width="44" height="150" rx="22" fill="#efe7dc"/><clipPath id="bp"><rect x="118" y="20" width="44" height="150" rx="22"/></clipPath><g clip-path="url(#bp)">' + Array.from({ length: 9 }, (_, i) => `<path d="M100 ${10 + i * 22} l80 -40 v16 l-80 40z" fill="${i % 2 ? "#2f5a8a" : "#b23a3a"}"/>`).join("") + '</g><circle cx="140" cy="14" r="12" fill="#c8925a"/><circle cx="140" cy="178" r="12" fill="#c8925a"/><text x="60" y="120" font-size="70" fill="#c8925a">✂</text>',
+    tattoo: '<g fill="none" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round"><circle cx="140" cy="80" r="44"/><path d="M90 160 C 120 120, 160 110, 200 60"/><path d="M128 130 q -24 -8 -28 -30 q 24 6 28 30z"/><path d="M156 110 q 2 -26 24 -36 q 0 26 -24 36z"/><path d="M178 92 q -22 -12 -22 -34 q 22 10 22 34z"/><path d="M120 58 a 32 32 0 0 0 36 52" stroke-dasharray="2 5"/></g>',
+    food: '<path d="M60 100 h160 a80 80 0 0 1 -160 0z" fill="#ffb020"/><path d="M70 100 h140" stroke="#2a1606" stroke-width="4"/><circle cx="110" cy="92" r="10" fill="#7bb661"/><circle cx="140" cy="88" r="12" fill="#e2552e"/><circle cx="170" cy="92" r="9" fill="#f6e3b4"/><path d="M110 60 q -8 -14 0 -28 M140 56 q -8 -14 0 -28 M170 60 q -8 -14 0 -28" stroke="#c2410c" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M200 40 l40 90 M212 36 l38 92" stroke="#2a1606" stroke-width="4" stroke-linecap="round"/>',
+    auto: '<circle cx="140" cy="96" r="62" fill="none" stroke="#f5b301" stroke-width="14" stroke-dasharray="18 10"/><circle cx="140" cy="96" r="30" fill="#18202a" stroke="#f5b301" stroke-width="4"/><path d="M60 170 h160" stroke="#263241" stroke-width="3"/><text x="140" y="106" text-anchor="middle" font-size="28" font-weight="700" fill="#f5b301">ТО</text>',
+    clean: '<rect x="70" y="40" width="140" height="110" rx="10" fill="#fff" stroke="#1f8a70" stroke-width="3"/><path d="M140 40 v110 M70 95 h140" stroke="#1f8a70" stroke-width="3"/>' + [[96, 60, 12], [186, 120, 9], [230, 56, 14], [52, 140, 8]].map(([x, y, r]) => `<path d="M${x} ${y - r} L${x + r / 4} ${y - r / 4} L${x + r} ${y} L${x + r / 4} ${y + r / 4} L${x} ${y + r} L${x - r / 4} ${y + r / 4} L${x - r} ${y} L${x - r / 4} ${y - r / 4}Z" fill="#7fd1b9"/>`).join(""),
   };
-  let site = "nails", dev = "desk";
-  function render() {
+  const SITES = {
+    nails: { cls: "ms-nails", name: "Ноготок", kick: "Студия маникюра у метро", nav: ["Услуги", "Мастера", "Работы", "Контакты"], cta: "Записаться",
+      h: "Маникюр, который держится три недели", p: "Аппаратный маникюр, покрытие и дизайн. Стерильные инструменты из крафт-пакета, запись онлайн за минуту, напоминание в Telegram.",
+      rate: "4,9", rc: 214, facts: [["3 недели", "держится покрытие"], ["Крафт-пакет", "стерилизация при вас"], ["7 дней", "гарантия на скол"]],
+      cats: { "Маникюр": [["Маникюр без покрытия", "аппаратный, 45 минут", "1 100 ₽"], ["Маникюр с покрытием", "гель-лак, 1,5 часа", "1 900 ₽"], ["Дизайн", "за ноготь", "от 100 ₽"]], "Педикюр": [["Педикюр с покрытием", "аппаратный, 1,5 часа", "2 400 ₽"], ["SMART-педикюр", "без покрытия", "1 800 ₽"]], "Наращивание": [["Наращивание", "любая длина и форма", "от 3 200 ₽"], ["Коррекция", "до 4 недель", "2 500 ₽"]] },
+      team: [["Алина", "топ-мастер, 7 лет"], ["Вика", "мастер, дизайн"], ["Катя", "педикюр"]], teamT: "Мастера",
+      revs: [["Покрытие держится больше трёх недель, Вика — золото", "Анна"], ["Удобно, что напоминание приходит в Telegram", "Ольга"], ["Чисто, уютно, всегда вовремя", "Мария"]],
+      addr: "ул. Садовая, 12", hours: "ежедневно 9:00–21:00" },
+    barber: { cls: "ms-barber", name: "Бритва", kick: "Мужская парикмахерская", nav: ["Услуги", "Барберы", "Цены"], cta: "Записаться",
+      h: "Стрижка за час. Кофе за наш счёт", p: "Мужские стрижки, бритьё опасной бритвой и уход за бородой. Выберите барбера и время — запись подтвердим в Telegram.",
+      rate: "4,8", rc: 368, facts: [["60 минут", "на каждую стрижку"], ["Без очереди", "только по записи"], ["Кофе", "или чай пока ждёте"]],
+      cats: { "Стрижки": [["Мужская стрижка", "мытьё, укладка", "1 200 ₽"], ["Детская стрижка", "до 12 лет", "900 ₽"], ["Отец и сын", "две стрижки подряд", "2 000 ₽"]], "Борода": [["Моделирование бороды", "с горячим полотенцем", "800 ₽"], ["Королевское бритьё", "опасная бритва", "1 100 ₽"]], "Комплекс": [["Стрижка и борода", "90 минут", "1 800 ₽"]] },
+      team: [["Артур", "барбер, 6 лет"], ["Денис", "барбер, бороды"], ["Миша", "барбер"]], teamT: "Барберы",
+      revs: [["Хожу третий год, ни разу не ждал", "Сергей"], ["Записался в обед на вечер, всё чётко", "Артём"], ["Лучшая борода в моей жизни", "Игорь"]],
+      addr: "пр. Победы, 5", hours: "ежедневно 10:00–21:00" },
+    tattoo: { cls: "ms-tattoo", name: "ЧЕРНИЛА", kick: "Тату-студия", nav: ["Работы", "Мастера", "Уход", "Запись"], cta: "Эскиз",
+      h: "Татуировки, которые не стыдно показать через десять лет", p: "Графика, минимализм, реализм. Эскиз под вас, расчёт цены онлайн и бот, который подскажет, как ухаживать за тату.",
+      rate: "5,0", rc: 96, facts: [["Одноразовое", "всё, что касается кожи"], ["Эскиз", "переделаем, пока не понравится"], ["Коррекция", "бесплатно 2 месяца"]],
+      cats: { "Тату": [["Мини-тату", "до 5 см, ч/б", "от 3 500 ₽"], ["Графика", "сеанс до 4 часов", "от 8 000 ₽"], ["Реализм", "сеанс до 5 часов", "от 12 000 ₽"]], "Другое": [["Перекрытие старой тату", "консультация бесплатно", "от 10 000 ₽"], ["Коррекция", "в течение 2 месяцев", "0 ₽"]] },
+      team: [["Влад", "графика, дотворк"], ["Ника", "минимализм, леттеринг"]], teamT: "Мастера",
+      revs: [["Прислали памятку и напоминали, как ухаживать. Зажило идеально", "Ксения"], ["Эскиз переделали два раза бесплатно, пока я не влюбился", "Илья"], ["Стерильно и спокойно, совсем не страшно", "Даша"]],
+      addr: "ул. Лермонтова, 18", hours: "по записи 11:00–21:00" },
+    food: { cls: "ms-food", name: "Кафе «Угол»", kick: "Кафе и доставка", nav: ["Меню", "Заказать", "Банкеты"], cta: "Заказать",
+      h: "Обед без очереди: закажите заранее", p: "Боулы, супы, бургеры и завтраки весь день. Закажите с сайта — заберёте горячим к своему времени или получите за столом по QR-коду.",
+      rate: "4,7", rc: 523, facts: [["20 минут", "заказ навынос"], ["QR на столе", "без ожидания официанта"], ["Бизнес-ланч", "12:00–16:00"]],
+      cats: { "Горячее": [["Боул терияки", "рис, курица, овощи", "420 ₽"], ["Бургер классический", "говядина 150 г", "390 ₽"], ["Паста с лососем", "сливочный соус", "490 ₽"]], "Супы": [["Том ям", "с креветками", "450 ₽"], ["Борщ", "со сметаной", "290 ₽"]], "Завтраки": [["Сырники", "сметана и ягоды", "290 ₽"], ["Яйца бенедикт", "весь день", "380 ₽"]] },
+      team: [["Шеф Андрей", "кухня"], ["Лена", "управляющая"], ["Олег", "бариста"]], teamT: "Команда",
+      revs: [["Заказываю из офиса, забираю горячим", "Дмитрий"], ["Сканировал QR за столом — без ожидания", "Мария"], ["Том ям как в Таиланде", "Света"]],
+      addr: "ул. Победы, 3", hours: "ежедневно 9:00–23:00" },
+    auto: { cls: "ms-auto", name: "ГАРАЖ 31", kick: "Автосервис", nav: ["Услуги", "Цены", "Запись"], cta: "Записаться",
+      h: "ТО по регламенту с ценой до приезда", p: "Обслуживание, ходовая, диагностика и шиномонтаж. Рассчитайте ТО онлайн, выберите время, а статус ремонта пришлём в Telegram.",
+      rate: "4,8", rc: 287, facts: [["Фото", "каждой находки при диагностике"], ["Без сюрпризов", "доп. работы только с согласия"], ["Гарантия", "6 месяцев на работы"]],
+      cats: { "ТО": [["ТО по регламенту", "масло, фильтры, проверка 30 пунктов", "от 4 500 ₽"], ["Замена масла", "с фильтром, 30 минут", "от 1 200 ₽"]], "Ходовая": [["Диагностика ходовой", "на подъёмнике, с фото", "1 000 ₽"], ["Замена колодок", "ось, работа", "1 500 ₽"]], "Шины": [["Шиномонтаж", "R13–R18, 4 колеса", "от 1 600 ₽"], ["Хранение шин", "сезон", "2 000 ₽"]] },
+      team: [["Сергей", "мастер-приёмщик"], ["Алексей", "ходовая, ТО"], ["Руслан", "диагност"]], teamT: "Мастера",
+      revs: [["Прислали фото колодок и цену — согласовал из офиса за минуту", "Андрей"], ["Цена совпала с расчётом на сайте до рубля", "Павел"], ["Машину вернули чистой, приятно", "Оксана"]],
+      addr: "ул. Промышленная, 7", hours: "пн–сб 8:00–20:00" },
+    clean: { cls: "ms-clean", name: "Чистый дом", kick: "Клининговая компания", nav: ["Услуги", "Цены", "Отзывы", "Заявка"], cta: "Рассчитать",
+      h: "Уборка квартир по цене, известной заранее", p: "Цена считается на сайте по площади — без «посмотрим на месте». Свои клинеры, своя химия и фотоотчёт после уборки.",
+      rate: "4,9", rc: 175, facts: [["Фикс. цена", "считаем онлайн"], ["Фотоотчёт", "по каждой комнате"], ["Переделаем", "бесплатно за 24 часа"]],
+      cats: { "Квартира": [["Поддерживающая", "кухня, санузел, полы, пыль", "от 65 ₽/м²"], ["Генеральная", "плюс шкафы, двери, батареи", "от 130 ₽/м²"], ["После ремонта", "строительная пыль", "от 190 ₽/м²"]], "Дополнительно": [["Мойка окон", "за створку с двух сторон", "450 ₽"], ["Холодильник внутри", "с разморозкой", "700 ₽"]] },
+      team: [["Ольга", "старший клинер"], ["Марина", "клинер"], ["Ирина", "менеджер"]], teamT: "Команда",
+      revs: [["Цена на сайте и в чеке одинаковая — редкость", "Марина"], ["Прислали фото после уборки, я была на работе", "Ольга"], ["Окна как новые", "Наталья"]],
+      addr: "Белгород и пригород", hours: "ежедневно 8:00–21:00" },
+  };
+  const TIMES = ["10:00", "11:30", "13:00", "15:30", "17:00", "18:30"];
+  const DAYS = ["сегодня", "завтра", "пт", "сб", "вс"];
+  let site = "nails", dev = "desk", cat = null, bk = { svc: null, day: 1, time: null, done: false };
+  const hue = (i) => [12, 330, 280, 200, 40, 160][i % 6];
+  function render(keepScroll) {
     const s = SITES[site];
-    $("#st-url").textContent = s.url;
-    $("#st-view").innerHTML = `<div class="ms ${s.cls}"><div class="ms-nav"><b>${s.name}</b><span>${s.nav.map((n) => `<a>${n}</a>`).join("")}</span></div>
-      <div class="ms-hero"><h4>${s.h}</h4><p>${s.p}</p><a class="ms-btn">${s.btn}</a></div>
-      <div class="ms-grid">${s.cards.map(([t, d, p]) => `<div class="ms-card"><b>${t}</b><span>${d}</span><i>${p}</i></div>`).join("")}</div>
-      <div class="ms-rev">${s.rev.map((r) => `<q>${r}</q>`).join("")}</div>
-      <div class="ms-foot"><span>${s.foot[0]}</span><span>${s.foot[1]}</span></div></div>`;
-    $("#st-view").scrollTop = 0;
-    $("#st-stage").classList.toggle("phone", dev === "phone");
+    if (!cat || !s.cats[cat]) cat = Object.keys(s.cats)[0];
+    const all = Object.values(s.cats).flat();
+    if (!bk.svc || !all.some((x) => x[0] === bk.svc)) bk.svc = all[0][0];
+    const svc = all.find((x) => x[0] === bk.svc);
+    const v = $("#st-view"), top = v.scrollTop;
+    $("#st-url").textContent = "ваш-сайт.рф";
+    v.innerHTML = `<div class="ms ${s.cls}">
+      <header class="ms-nav"><b class="ms-logo">${s.name}</b><nav>${s.nav.map((n) => `<a>${n}</a>`).join("")}</nav><button type="button" class="ms-cta" data-go="ms-book">${s.cta}</button></header>
+      <section class="ms-hero"><div class="ms-hero-t"><span class="ms-kick">${s.kick}</span><h4>${s.h}</h4><p>${s.p}</p><div class="ms-row"><button type="button" class="ms-btn" data-go="ms-book">${s.cta === "Эскиз" ? "Рассчитать стоимость" : s.cta === "Заказать" ? "Заказать онлайн" : "Записаться онлайн"}</button><button type="button" class="ms-btn ghost" data-go="ms-price">Цены</button></div><span class="ms-rate">★ ${s.rate} · ${s.rc} отзывов на Яндекс Картах</span></div><svg class="ms-art" viewBox="0 0 280 190" aria-hidden="true">${ART[site]}</svg></section>
+      <div class="ms-facts">${s.facts.map(([a, b]) => `<div><b>${a}</b><span>${b}</span></div>`).join("")}</div>
+      <section class="ms-sec" id="ms-price"><h5>${site === "food" ? "Меню" : "Услуги и цены"}</h5><div class="ms-tabs">${Object.keys(s.cats).map((c) => `<button type="button" data-cat="${c}" aria-pressed="${c === cat}">${c}</button>`).join("")}</div>
+        <div class="ms-list">${s.cats[cat].map(([t, d, p]) => `<div class="ms-item"><div><b>${t}</b><span>${d}</span></div><i>${p}</i><button type="button" data-pick="${t}">${bk.svc === t ? "✓" : "Выбрать"}</button></div>`).join("")}</div></section>
+      <section class="ms-sec"><h5>${s.teamT}</h5><div class="ms-team">${s.team.map(([n, r], i) => `<div class="ms-person"><span class="ms-ava" style="--h:${hue(i + site.length)}">${n.replace("Шеф ", "")[0]}</span><b>${n}</b><span>${r}</span><small>★ ${(4.8 + (i % 2) / 10).toFixed(1).replace(".", ",")}</small></div>`).join("")}</div></section>
+      <section class="ms-sec"><h5>Работы</h5><div class="ms-gal">${Array.from({ length: 6 }, (_, i) => `<div style="--i:${i}"><svg viewBox="0 0 280 190" aria-hidden="true">${ART[site]}</svg></div>`).join("")}</div></section>
+      <section class="ms-sec"><h5>Отзывы</h5><div class="ms-revs">${s.revs.map(([t, a]) => `<figure><span class="ms-stars">★★★★★</span><blockquote>${t}</blockquote><figcaption>${a} · Яндекс Карты</figcaption></figure>`).join("")}</div></section>
+      <section class="ms-sec ms-book" id="ms-book"><h5>${site === "food" ? "Заказ навынос" : "Онлайн-запись"}</h5>${bk.done
+        ? `<div class="ms-ok"><b>Готово! ${site === "food" ? "Заказ принят" : "Вы записаны"}</b><span>${svc[0]} · ${DAYS[bk.day]}, ${bk.time} · ${svc[2]}</span><span>Подтверждение и напоминание придут в Telegram. Заявка уже у ${site === "food" ? "кухни" : "администратора"}.</span><button type="button" data-again>${site === "food" ? "Новый заказ" : "Записаться ещё"}</button></div>`
+        : `<div class="ms-bk"><label>Услуга<select id="ms-svc">${all.map(([t, , p]) => `<option ${t === bk.svc ? "selected" : ""}>${t}</option>`).join("")}</select></label><span class="ms-lbl">День</span><div class="ms-chips">${DAYS.map((d, i) => `<button type="button" data-day="${i}" aria-pressed="${i === bk.day}">${d}</button>`).join("")}</div><span class="ms-lbl">Время</span><div class="ms-chips">${TIMES.map((t, i) => `<button type="button" data-time="${t}" aria-pressed="${t === bk.time}" ${(i + bk.day) % 4 === 1 ? 'disabled title="занято"' : ""}>${t}</button>`).join("")}</div><div class="ms-total"><span>${svc[0]}</span><b>${svc[2]}</b></div><button type="button" class="ms-btn" data-send ${bk.time ? "" : "disabled"}>${bk.time ? `${site === "food" ? "Заказать" : "Записаться"} на ${bk.time}` : "Выберите время"}</button></div>`}</section>
+      <section class="ms-sec ms-map"><svg viewBox="0 0 300 150" aria-hidden="true"><rect width="300" height="150" class="m-bg"/><path d="M0 40 L300 70 M0 120 L300 95 M80 0 L110 150 M210 0 L190 150" class="m-road"/><path d="M0 40 L300 70" class="m-main"/><rect x="120" y="80" width="50" height="30" class="m-park"/><g transform="translate(160 62)"><path d="M0 0 c-12 -14 -14 -20 -14 -26 a14 14 0 0 1 28 0 c0 6 -2 12 -14 26z" class="m-pin"/><circle cx="0" cy="-26" r="5" fill="#fff"/></g></svg><div><b>${s.addr}</b><span>${s.hours}</span><span>+7 900 000-00-00</span><div class="ms-row"><button type="button" class="ms-btn ghost">Telegram</button><button type="button" class="ms-btn ghost">Маршрут</button></div></div></section>
+      <footer class="ms-foot"><span>© ${s.name}</span><span>Сайт сделан Никитой Давымокой</span></footer>
+      <button type="button" class="ms-sticky" data-go="ms-book">${s.cta === "Эскиз" ? "Рассчитать тату" : s.cta}</button>
+    </div>`;
+    v.scrollTop = keepScroll ? top : 0;
+    $("#st-stage").classList.toggle("phone", dev === "phone" || innerWidth < 640);
     $("#st-site").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.s === site));
     $("#st-dev").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.d === dev));
   }
-  $("#st-site").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { site = b.dataset.s; render(); } });
+  const go = (id) => { const v = $("#st-view"), t = v.querySelector("#" + id); if (t) v.scrollTo({ top: t.offsetTop - 10, behavior: "smooth" }); };
+  $("#st-site").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { site = b.dataset.s; cat = null; bk = { svc: null, day: 1, time: null, done: false }; render(); } });
   $("#st-dev").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { dev = b.dataset.d; render(); } });
+  $("#st-view").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.go) return go(b.dataset.go);
+    if (b.dataset.cat) { cat = b.dataset.cat; render(true); }
+    else if (b.dataset.pick) { bk.svc = b.dataset.pick; bk.done = false; render(true); go("ms-book"); }
+    else if (b.dataset.day) { bk.day = +b.dataset.day; bk.time = null; render(true); }
+    else if (b.dataset.time) { bk.time = b.dataset.time; render(true); }
+    else if ("send" in b.dataset) { bk.done = true; render(true); }
+    else if ("again" in b.dataset) { bk = { svc: bk.svc, day: 1, time: null, done: false }; render(true); }
+  });
+  $("#st-view").addEventListener("change", (e) => { if (e.target.id === "ms-svc") { bk.svc = e.target.value; render(true); } });
+  addEventListener("resize", () => $("#st-stage").classList.toggle("phone", dev === "phone" || innerWidth < 640));
   render();
 })();
-
-document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("afterbegin", LOCK));
 
 /* ============ Салон: зарплата мастеров ============ */
 (() => {
@@ -2779,11 +2953,11 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
       .map(({ m, i, c }) => `<tr><td><b>${m.n}</b> <small class="muted">${m.role}</small></td><td class="n">${rub(m.svc)}</td><td class="n">${m.visits}</td><td><select data-i="${i}" aria-label="Процент мастера ${m.n}">${opts(m.pct)}</select></td><td class="n">${rub(c.base)}</td><td class="n">${rub(c.sale)}</td><td class="n">${c.mat ? "−" + rub(c.mat) : "—"}</td><td class="n">${c.bonus ? "+" + rub(c.bonus) : "—"}</td><td class="n"><b>${rub(c.pay)}</b></td><td><button type="button" class="slip" data-i="${i}">Лист →</button></td></tr>`)
       .join("")}<tr class="total"><td>Итого</td><td class="n">${rub(tot.svc)}</td><td colspan="6"></td><td class="n">${rub(tot.pay)}</td><td></td></tr></tbody>`;
     const rev = tot.svc + tot.sales, share = (tot.pay / rev) * 100;
-    $("#pay-status").innerHTML =
-      `<div><span class="hint">Выручка студии</span><div class="v">${rub(rev)}</div></div>` +
-      `<div><span class="hint">Зарплаты мастеров</span><div class="v">${rub(tot.pay)}</div></div>` +
-      `<div class="${share > 45 ? "warn" : "ok"}"><span class="hint">Доля зарплат в выручке</span><div class="v">${fmt(share, 1)}%</div></div>` +
-      `<div><span class="hint">Остаётся студии до аренды и налогов</span><div class="v">${rub(rev - tot.pay)}</div></div>`;
+    const ring = (p) => { const r = 26, c = 2 * Math.PI * r, v = Math.min(1, p); return `<svg viewBox="0 0 64 64" class="pay-ring" aria-hidden="true"><circle cx="32" cy="32" r="${r}" class="bg"/><circle cx="32" cy="32" r="${r}" class="fg ${p >= 1 ? "done" : ""}" stroke-dasharray="${(c * v).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 32 32)"/><text x="32" y="36" text-anchor="middle">${Math.round(p * 100)}%</text></svg>`; };
+    $("#pay-status").innerHTML = rows.map(({ m }) => {
+      const left = PLAN - m.svc, avg = m.svc / m.visits, n = Math.ceil(left / avg);
+      return `<div class="pay-m">${ring(m.svc / PLAN)}<div><b>${m.n}</b><small>${rub(m.svc)} из ${rub(PLAN)}</small><small class="${left <= 0 ? "ok-t" : ""}">${left <= 0 ? `план выполнен, бонус +${rub(BONUS)}` : `до бонуса ${rub(left)} — это ${n} ${plural(n, "визит", "визита", "визитов")}`}</small></div></div>`;
+    }).join("") + `<div class="pay-share ${share > 45 ? "warn" : ""}"><span>Зарплаты — <b>${fmt(share, 1)}%</b> выручки</span><span>Студии остаётся <b>${rub(rev - tot.pay)}</b> до аренды и налогов</span></div>`;
   }
   function slip(i) {
     const m = M[i], c = calc(m);
@@ -2864,42 +3038,73 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
-/* ============ Салон: бот отзывов ============ */
+/* ============ Салон: бот отзывов и рейтинг за год ============
+   Модель: из 40 визитов в месяц 85% довольны, 15% нет. Без бота отзыв оставляют 4% довольных и 35% недовольных.
+   С ботом довольных зовут на Карты (30% доходят), недовольных перехватывают — публично пишут 8%. */
 (() => {
-  let stage = "ask", rating = 0, reason = "", count = 214, sum = 214 * 4.8, caught = 5, toMap = 26;
-  $("#rv-tg").insertAdjacentHTML("afterbegin", tgHead("Н", 340, "Студия «Ноготок»", "бот"));
-  const REASONS = ["Долго ждала", "Не понравилось качество", "Мастер был невнимателен", "Другое"];
-  function render() {
-    let h = `<span class="tg-date">Сегодня</span>` + tgMsg({ html: "Анна, спасибо, что были у нас сегодня! 💅\nКак вам маникюр у Вики? Оцените, пожалуйста, от 1 до 5.", time: tgTime(8), kb: stage === "ask" ? [1, 2, 3, 4, 5].map((n) => ({ t: "⭐ " + n, attrs: `data-r="${n}"` })) : [], cols: 5 });
-    if (rating) h += tgMsg({ html: "⭐".repeat(rating), out: true, time: tgTime(7) });
-    if (rating >= 4) h += tgMsg({ html: "Спасибо! Очень рады 🙏\nНам сильно помогает отзыв на Яндекс Картах — это минута.", time: tgTime(7), kb: ["Оставить отзыв на Картах"] });
-    if (rating && rating <= 3) {
-      h += tgMsg({ html: "Нам очень жаль 😔 Подскажите, что пошло не так?", time: tgTime(7), kb: stage === "why" ? REASONS.map((r, i) => ({ t: r, attrs: `data-why="${i}"` })) : [], cols: 2 });
-      if (reason) h += tgMsg({ html: reason, out: true, time: tgTime(6) }) + tgMsg({ html: "Спасибо, что сказали честно. Администратор свяжется с вами сегодня и всё исправит.", time: tgTime(6) });
-    }
-    $("#rv-chat").innerHTML = h;
-    $("#rv-chat").scrollTop = 1e6;
-    const own = $("#rv-owner");
-    own.innerHTML = rating && rating <= 3 && reason
-      ? tgMsg({ html: `⚠️ <b>Оценка ${rating} из 5</b>\nАнна · маникюр · мастер Вика\nПричина: ${reason.toLowerCase()}\n\nПозвоните до 19:00, пока клиентка не написала отзыв на Картах.`, time: tgTime(6), kb: ["Позвонить", "Решено"], cols: 2 })
-      : rating >= 4 ? tgMsg({ html: `⭐ Анна поставила ${rating}, отправлена на Яндекс Карты.`, time: tgTime(7) }) : `<div class="tg-sys">Сюда бот пишет только о недовольных клиентах</div>`;
-    const r = sum / count;
-    $("#rv-rate").textContent = fmt(r, 1);
-    $("#rv-count").textContent = `${count} ${plural(count, "отзыв", "отзыва", "отзывов")}`;
-    $("#rv-stats").innerHTML =
-      `<div class="ok"><span class="hint">На Карты за месяц</span><div class="v">${toMap}</div></div>` +
-      `<div class="warn"><span class="hint">Перехвачено недовольных</span><div class="v">${caught}</div></div>`;
+  const START = { n: 180, sum: 180 * 4.6 };
+  let A, B, hist, chat, step;
+  const rate = (r) => r.sum / r.n;
+  const stars = (v) => "★".repeat(Math.round(v)) + "☆".repeat(5 - Math.round(v));
+  function reset() {
+    A = { ...START }; B = { ...START }; hist = [[4.6, 4.6]];
+    step = "ask";
+    chat = [tgMsg({ html: "Анна, спасибо, что были у нас сегодня! 💅\nКак вам маникюр у мастера Вики? Оцените от 1 до 5 — это займёт секунду.", time: tgTime(2), kb: [1, 2, 3, 4, 5].map((n) => ({ t: "★".repeat(n), attrs: `data-star="${n}"` })), cols: 5 })];
   }
-  $("#rv-chat").addEventListener("click", (e) => {
+  function month() {
+    const visits = 40, happy = visits * 0.85, sad = visits * 0.15;
+    A.n += happy * 0.04 + sad * 0.35; A.sum += happy * 0.04 * 4.9 + sad * 0.35 * 1.8;
+    B.n += happy * 0.3 + sad * 0.08; B.sum += happy * 0.3 * 4.85 + sad * 0.08 * 2;
+    hist.push([rate(A), rate(B)]);
+  }
+  function chart() {
+    const W = 420, H = 190, L = 34, R = 10, T = 12, Bt = 26, lo = 4.2, hi = 5;
+    const x = (i) => L + (i / 12) * (W - L - R), y = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - Bt);
+    const line = (k) => hist.map((h, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(h[k]).toFixed(1)}`).join(" ");
+    const grid = [4.2, 4.4, 4.6, 4.8, 5].map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="rv-g"/><text x="${L - 6}" y="${y(v) + 3}" text-anchor="end" class="rv-t">${fmt(v, 1)}</text>`).join("");
+    const months = ["сейчас", "", "", "3 мес.", "", "", "6 мес.", "", "", "9 мес.", "", "", "год"].map((m, i) => (m ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" class="rv-t">${m}</text>` : "")).join("");
+    const last = hist.length - 1;
+    $("#rv-chart").innerHTML = grid + months + `<path d="${line(0)}" class="rv-la"/><path d="${line(1)}" class="rv-lb"/>` +
+      `<circle cx="${x(last)}" cy="${y(hist[last][0])}" r="4" class="rv-da"/><circle cx="${x(last)}" cy="${y(hist[last][1])}" r="4.5" class="rv-db"/>`;
+  }
+  function render() {
+    const a = rate(A), b = rate(B);
+    $("#rv-a").textContent = fmt(a, 2); $("#rv-b").textContent = fmt(b, 2);
+    $("#rv-as").textContent = stars(a); $("#rv-bs").textContent = stars(b);
+    $("#rv-ac").textContent = `${Math.round(A.n)} отзывов`; $("#rv-bc").textContent = `${Math.round(B.n)} отзывов`;
+    const m = hist.length - 1;
+    $("#rv-note").innerHTML = m ? `Прошло ${m} ${plural(m, "месяц", "месяца", "месяцев")}. С ботом на ${Math.round(B.n - A.n)} отзывов больше, рейтинг выше на <b>${fmt(b - a, 2)}</b>. За это время владелец узнал о ${Math.round(m * 40 * 0.15)} недовольных клиентах до того, как они написали публично.` : "Нажмите «Прожить месяц» — модель посчитает отзывы для двух студий: с ботом и без.";
+    $("#rv-month").disabled = $("#rv-year").disabled = m >= 12;
+    chart();
+    if (!$("#rv-tg .tg-head")) $("#rv-tg").insertAdjacentHTML("afterbegin", tgHead("Н", 340, "Студия «Ноготок»", "бот"));
+    $("#rv-chat").innerHTML = `<span class="tg-date">Сегодня</span>` + chat.join("");
+    $("#rv-chat").scrollTop = 1e6;
+  }
+  function star(n) {
+    if (step !== "ask") return;
+    chat[0] = chat[0].replace(/<div class="tg-kb"[\s\S]*<\/div><\/div>$/, "</div>");
+    chat.push(tgMsg({ html: "★".repeat(n), out: true, time: tgTime(1) }));
+    if (n >= 4) {
+      chat.push(tgMsg({ html: "Спасибо! Будем рады, если поделитесь впечатлением на Яндекс Картах — это очень помогает мастеру 🙏", time: tgTime(1), kb: ["Оставить отзыв на Картах"] }));
+      B.n += 1; B.sum += n;
+    } else {
+      chat.push(tgMsg({ html: "Очень жаль 😔 Что пошло не так? Владелец студии лично разберётся.", time: tgTime(1) }));
+      chat.push(`<div class="tg-sys">Владельцу ушло: «Анна поставила ${n}★ мастеру Вике. Позвоните ей сегодня»</div>`);
+    }
+    chat.push(`<div class="tg-sys"><button type="button" class="linky" data-again>Следующий клиент</button></div>`);
+    step = "done";
+    render();
+  }
+  $("#reviews").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.dataset.r) {
-      rating = +b.dataset.r;
-      if (rating >= 4) { stage = "done"; count++; sum += rating; toMap++; } else stage = "why";
-    } else if (b.dataset.why !== undefined) { reason = REASONS[+b.dataset.why]; stage = "done"; caught++; }
-    render();
+    if (b.dataset.star) star(+b.dataset.star);
+    else if ("again" in b.dataset) { const keep = hist; const [a, bb] = [A, B]; reset(); A = a; B = bb; hist = keep; render(); }
+    else if (b.id === "rv-month") { month(); render(); }
+    else if (b.id === "rv-year") { while (hist.length < 13) month(); render(); }
+    else if (b.id === "rv-reset") { reset(); render(); }
   });
-  $("#rv-reset").addEventListener("click", () => { stage = "ask"; rating = 0; reason = ""; render(); });
+  reset();
   render();
 })();
 
@@ -2979,12 +3184,12 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
-/* ============ Тату: бот ухода ============ */
+/* ============ Тату: бот ухода с симуляцией заживления ============ */
 (() => {
   const DAYS = [0, 1, 3, 7, 14, 30, 60];
   const T = {
     film: {
-      0: "Спасибо, что выбрали нас 🖤\nПамятка по уходу: заживляющую плёнку не снимайте 3–5 дней. Если под ней скопилось много жидкости — напишите сюда, подскажем.",
+      0: "Спасибо, что выбрали нас 🖤\nПамятка: заживляющую плёнку не снимайте 3–5 дней. Если под ней скопилось много жидкости — напишите сюда, подскажем.",
       1: "Как самочувствие? Немного жидкости под плёнкой в первые сутки — это нормально. Не мочите долго и не парьте.",
       3: "Сегодня-завтра можно аккуратно снять плёнку под тёплой водой и начать наносить тонкий слой крема 2 раза в день.",
     },
@@ -2998,25 +3203,49 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     30: ["Месяц — татуировка зажила 🎉 Коррекция в течение двух месяцев бесплатная.", ["Записаться на коррекцию"]],
     60: ["Если понравилось — оставьте отзыв на Картах, это очень помогает мастеру 🙏 А для вас скидка 10% на следующий сеанс.", ["Оставить отзыв", "Хочу ещё тату"]],
   };
-  let method = "film", cur = 0;
-  $("#ac-tg").insertAdjacentHTML("afterbegin", tgHead("Ч", 0, "Тату-студия «Чернила»", "бот"));
+  const STAGE = [[0, "Свежая татуировка", "краснота и отёк — это нормально"], [4, "Заживление", "начинается шелушение и зуд"], [8, "«Мутная» стадия", "рисунок кажется бледным — растёт новый слой кожи"], [15, "Почти зажила", "яркость возвращается"], [30, "Зажила", "можно в баню и на солнце с SPF 50"]];
+  const FAQ = [[0, "Под плёнкой жидкость. Это нормально?", "Да. В первые сутки выходит сукровица и излишки краски. Если жидкость протекает наружу или прошло больше суток — напишите мастеру."],
+    [4, "Чешется и шелушится, что делать?", "Ничего не сдирать и не чесать. Можно легко похлопать ладонью и нанести тонкий слой крема — зуд пройдёт за несколько дней."],
+    [8, "Татуировка помутнела, будто выцвела. Это брак?", "Нет, это молочная стадия: сверху новый слой кожи. Через 1–2 недели рисунок снова станет чётким."],
+    [15, "Когда можно в баню, бассейн и на море?", "После полного заживления, обычно через месяц. На солнце — только с кремом SPF 50, иначе краска выгорает."],
+    [30, "В линии есть пробел. Это нормально?", "Так бывает при заживлении. Для этого и есть бесплатная коррекция в первые два месяца — запишитесь кнопкой выше."]];
+  let method = "film";
+  const pick = (arr, d) => arr.filter((x) => x[0] <= d).pop();
+  /* Рисунок: луна и ветка; поверх — краснота, блеск плёнки, шелушение, помутнение */
+  const ART = '<circle cx="104" cy="88" r="36"/><path d="M66 150 C 96 118, 128 108, 160 70"/><path d="M98 124 q -20 -6 -24 -24 q 20 4 24 24z"/><path d="M120 106 q 2 -22 20 -30 q 0 22 -20 30z"/><path d="M140 90 q -18 -10 -18 -28 q 18 8 18 28z"/><path d="M86 70 a 26 26 0 0 0 30 42" stroke-dasharray="2 4"/>';
+  const FLAKES = Array.from({ length: 34 }, (_, i) => { const x = 52 + ((i * 37) % 120), y = 40 + ((i * 53) % 120), r = 2 + (i % 3); return `<path d="M${x} ${y} l${r} -${r / 2} l${r / 2} ${r} l-${r * 1.2} ${r / 3}z"/>`; }).join("");
   function render() {
-    $("#ac-line").innerHTML = DAYS.map((d) => `<button type="button" data-d="${d}" class="${d < cur ? "done" : ""}" aria-pressed="${d === cur}"><i>${d}</i>${d === 0 ? "сеанс" : d + " " + plural(d, "день", "дня", "дней")}</button>`).join("");
-    const shown = DAYS.filter((d) => d <= cur);
-    $("#ac-chat").innerHTML = shown.map((d) => {
-      const [text, kb] = d <= 3 ? [T[method][d], []] : T[d];
-      return `<span class="tg-date">${d === 0 ? "день сеанса" : "через " + d + " " + plural(d, "день", "дня", "дней")}</span>` + tgMsg({ html: text, time: d === 0 ? "19:40" : "11:00", kb, cols: kb.length > 1 ? 2 : 1 });
-    }).join("");
-    $("#ac-chat").scrollTop = 1e6;
+    const d = +$("#ac-day").value;
+    const red = d <= 3 ? 0.55 - d * 0.08 : d <= 7 ? 0.2 - (d - 4) * 0.04 : 0;
+    const shine = method === "film" && d <= 4 ? 0.55 : 0;
+    const peel = d >= 4 && d <= 13 ? Math.max(0, 1 - Math.abs(d - 8) / 6) : 0;
+    const milk = d >= 8 && d <= 20 ? Math.max(0, 0.45 - Math.abs(d - 12) * 0.05) : 0;
+    $("#ac-svg").innerHTML = `<defs><radialGradient id="ac-red"><stop offset="0" stop-color="#e0533d" stop-opacity="${red}"/><stop offset="1" stop-color="#e0533d" stop-opacity="0"/></radialGradient><linearGradient id="ac-sh" x1="0" x2="1" y1="0" y2="1"><stop offset="0.35" stop-color="#fff" stop-opacity="0"/><stop offset="0.5" stop-color="#fff" stop-opacity="${shine}"/><stop offset="0.65" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>` +
+      `<rect width="220" height="200" rx="18" fill="#e8c2a2"/><rect width="220" height="200" rx="18" fill="url(#ac-red)"/>` +
+      `<g fill="none" stroke="#1c1c1e" stroke-width="2.4" stroke-linecap="round" opacity="${1 - milk}">${ART}</g>` +
+      `<g fill="#f6e7da" opacity="${peel * 0.85}">${FLAKES}</g><rect x="0" y="0" width="220" height="200" rx="18" fill="#f3e3d6" opacity="${milk * 0.5}"/>` +
+      (shine ? `<rect x="36" y="22" width="148" height="156" rx="10" fill="url(#ac-sh)" stroke="#fff" stroke-opacity="0.6"/>` : "");
+    const st = pick(STAGE, d);
+    $("#ac-stage").innerHTML = `<b>${st[1]}</b> · ${st[2]}`;
+    $("#ac-day-v").textContent = d === 0 ? "день сеанса" : `${d} ${plural(d, "день", "дня", "дней")}`;
+    const last = DAYS.filter((x) => x <= d).pop(), next = DAYS.find((x) => x > d);
+    const [text, kb] = last <= 3 ? [T[method][last], []] : T[last];
+    if (!$("#ac-tg .tg-head")) $("#ac-tg").insertAdjacentHTML("afterbegin", tgHead("Ч", 0, "Тату-студия «Чернила»", "бот ухода"));
+    $("#ac-chat").innerHTML = `<span class="tg-date">${last === 0 ? "день сеанса" : "через " + last + " " + plural(last, "день", "дня", "дней")}</span>` + tgMsg({ html: text, time: last === 0 ? "19:40" : "11:00", kb, cols: kb.length > 1 ? 2 : 1 }) + (next ? `<div class="tg-sys">Следующее сообщение — через ${next - d} ${plural(next - d, "день", "дня", "дней")}</div>` : "");
+    const f = pick(FAQ, d);
+    $("#ac-faq").innerHTML = `<p class="label">Частый вопрос в эти дни</p><details open><summary>${f[1]}</summary><p>${f[2]}</p></details><p class="hint">Ответ уже есть в боте — клиент находит его сам, мастеру писать не нужно.</p>`;
+    document.querySelectorAll("#ac-ticks button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.d === last));
   }
+  $("#ac-ticks").innerHTML = DAYS.map((d) => `<button type="button" data-d="${d}" style="left:${(d / 60) * 100}%">${d === 0 ? "0" : d}</button>`).join("");
   $("#aftercare").addEventListener("click", (e) => {
     const b = e.target.closest("button");
     if (!b) return;
-    if (b.dataset.d !== undefined) cur = +b.dataset.d;
+    if (b.dataset.d !== undefined) $("#ac-day").value = b.dataset.d;
     else if (b.dataset.m) { method = b.dataset.m; $("#ac-method").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }
     else return;
     render();
   });
+  $("#ac-day").addEventListener("input", render);
   render();
 })();
 
@@ -3116,15 +3345,17 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     }).join("")}<tr class="total"><td colspan="3"><b>Себестоимость порции</b></td><td class="n"><b>${fmt(sum, 1)} ₽</b></td></tr></tbody>`;
     const fc = (sum / price) * 100, cls = fc > 35 ? "fc-bad" : fc > TARGET ? "fc-warn" : "fc-ok";
     const rec = Math.ceil(sum / (TARGET / 100) / 10) * 10;
-    $("#fc-kpi").innerHTML =
-      `<div class="kpi"><div class="v ${cls}">${fmt(fc, 1)}%</div><p>фудкост, цель ${TARGET}%</p></div>` +
-      `<div class="kpi"><div class="v">${rub(Math.round(price - sum))}</div><p>остаётся с порции</p></div>` +
-      `<div class="kpi"><div class="v">${rub(rec)}</div><p>цена для фудкоста ${TARGET}%</p></div>`;
+    const ang = (v) => Math.PI * (1 - Math.min(50, Math.max(0, v)) / 50), P = (v, r) => [100 + r * Math.cos(ang(v)), 100 - r * Math.sin(ang(v))];
+    const arc = (a, b, col) => { const [x1, y1] = P(a, 80), [x2, y2] = P(b, 80); return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A80 80 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" stroke="${col}" stroke-width="16" fill="none"/>`; };
+    const [nx, ny] = P(fc, 66);
+    $("#fc-kpi").innerHTML = `<svg viewBox="0 0 200 118" aria-hidden="true">${arc(0, 30, "var(--ok)")}${arc(30, 35, "var(--warn)")}${arc(35, 50, "var(--bad)")}<line x1="100" y1="100" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" class="fc-needle"/><circle cx="100" cy="100" r="6" class="fc-hub"/><text x="20" y="116" class="fc-ax">0%</text><text x="180" y="116" text-anchor="end" class="fc-ax">50%</text></svg>` +
+      `<div class="fc-gv"><b class="${cls}">${fmt(fc, 1)}%</b><span>фудкост классического, цель ${TARGET}%</span><span>С порции остаётся <b>${rub(Math.round(price - sum))}</b>. Для ${TARGET}% цена — <b>${rub(rec)}</b>.</span></div>`;
     const rows = MENU.map((m) => {
       const pr = m.price ?? price, c = m.own ? rest() + m.own : rest(m.extra) + (m.g * chick) / 1000, f = (c / pr) * 100;
       return { n: m.n, pr, c, f };
     });
-    $("#fc-menu").innerHTML = `<thead><tr><th>Бургер</th><th class="n">Себест.</th><th class="n">Цена</th><th class="n">Фудкост</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r.n}</td><td class="n">${fmt(r.c)} ₽</td><td class="n">${r.pr} ₽</td><td class="n ${r.f > 35 ? "fc-bad" : r.f > TARGET ? "fc-warn" : "fc-ok"}">${fmt(r.f, 1)}%</td></tr>`).join("")}</tbody>`;
+    const X = (v) => Math.min(100, (v / 50) * 100);
+    $("#fc-menu").innerHTML = rows.map((r) => `<div class="fc-row"><span>${r.n}<small>${fmt(r.c)} ₽ из ${r.pr} ₽</small></span><div class="fc-track"><i class="${r.f > 35 ? "bad" : r.f > TARGET ? "warn" : "ok"}" style="width:${X(r.f)}%"></i><em style="left:${X(30)}%"></em><em class="r" style="left:${X(35)}%"></em></div><b class="${r.f > 35 ? "fc-bad" : r.f > TARGET ? "fc-warn" : "fc-ok"}">${fmt(r.f, 1)}%</b></div>`).join("") + `<div class="fc-row fc-scale"><span></span><div class="fc-track0"><i style="left:${X(30)}%">30%</i><i style="left:${X(35)}%">35%</i></div><b></b></div>`;
     const bad = rows.filter((r) => r.f > 35);
     const limit = Math.floor(((price * 0.35 - rest()) / 150) * 1000 / 10) * 10;
     $("#fc-note").innerHTML = bad.length
@@ -3135,29 +3366,39 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
   render();
 })();
 
-/* ============ Еда: карта лояльности ============ */
+/* ============ Кафе: карта гостя и сегменты базы ============ */
 (() => {
-  let stamps = 3, log = [];
   const NEED = 6;
-  $("#ly-tg").insertAdjacentHTML("afterbegin", tgHead("З", 25, "Кофейня «Зерно»", "бот"));
-  function render(gift) {
-    $("#ly-cups").innerHTML = Array.from({ length: NEED }, (_, i) => `<span class="${i < stamps ? "on" : ""} ${i === NEED - 1 ? "gift" : ""}">${i < stamps ? "☕" : i === NEED - 1 ? "🎁" : ""}</span>`).join("");
-    $("#ly-left").textContent = stamps >= NEED - 1 ? "Следующий кофе — в подарок" : `До подарка ${NEED - 1 - stamps} ${plural(NEED - 1 - stamps, "кофе", "кофе", "кофе")}`;
-    $("#ly-chat").innerHTML = `<span class="tg-date">Сегодня</span>` + tgMsg({ html: "☕ <b>Ваша карта гостя</b>\nПокажите это сообщение бариста — он отметит покупку. Каждый шестой кофе в подарок.", time: tgTime(30), kb: ["Показать карту"] }) + log.join("");
-    $("#ly-chat").scrollTop = 1e6;
-    $("#ly-stats").innerHTML = `<div><span class="hint">Активных карт</span><div class="v">412</div></div><div class="ok"><span class="hint">Возвращаются</span><div class="v">38%</div></div>`;
+  let stamps = 3, sel = "lost", called = false;
+  const SEG = [
+    { k: "new", t: "Новые", n: 96, h: 210, d: "оформили карту в этом месяце", act: "Прислать приветствие: второй кофе со скидкой 20%", res: [31, 6], avg: 260 },
+    { k: "reg", t: "Постоянные", n: 158, h: 150, d: "приходят каждую неделю", act: "Поблагодарить: десерт в подарок к следующему кофе", res: [0, 0], avg: 260 },
+    { k: "rare", t: "Редкие", n: 102, h: 40, d: "раз в 2–3 недели", act: "Напомнить о себе: новинка сезона и двойной штамп до пятницы", res: [24, 7], avg: 260 },
+    { k: "lost", t: "Пропали", n: 56, h: 0, d: "не были больше 3 недель", act: "Позвать: «Мы соскучились — кофе за наш счёт до воскресенья»", res: [14, 7], avg: 260 },
+  ];
+  /* QR-код: узнаваемые угловые квадраты и детерминированный узор */
+  const qr = () => { let r = ""; const fin = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7" fill="#1c1c1e"/><rect x="${x + 1}" y="${y + 1}" width="5" height="5" fill="#fff"/><rect x="${x + 2}" y="${y + 2}" width="3" height="3" fill="#1c1c1e"/>`;
+    for (let y = 0; y < 25; y++) for (let x = 0; x < 25; x++) { const inF = (x < 8 && y < 8) || (x > 16 && y < 8) || (x < 8 && y > 16); if (!inF && (((Math.imul(x + 1, 73856093) ^ Math.imul(y + 1, 19349663)) >>> 0) % 7 < 3)) r += `<rect x="${x}" y="${y}" width="1" height="1" fill="#1c1c1e"/>`; }
+    return `<rect width="25" height="25" fill="#fff"/>${r}${fin(0, 0)}${fin(18, 0)}${fin(0, 18)}`; };
+  $("#ly-qr").innerHTML = qr();
+  function render(flash) {
+    $("#ly-cups").innerHTML = Array.from({ length: NEED }, (_, i) => `<span class="${i < stamps ? "on" : ""} ${i === NEED - 1 ? "gift" : ""} ${flash && i === stamps - 1 ? "stamp" : ""}">${i < stamps ? "☕" : i === NEED - 1 ? "🎁" : ""}</span>`).join("");
+    $("#ly-left").textContent = stamps >= NEED - 1 ? "Следующий кофе — в подарок" : `До подарка ${NEED - 1 - stamps}`;
+    const total = SEG.reduce((a, s) => a + s.n, 0);
+    $("#ly-seg").innerHTML = SEG.map((s) => `<button type="button" data-s="${s.k}" aria-pressed="${s.k === sel}" style="flex-grow:${s.n};--h:${s.h}"><b>${s.n}</b><span>${s.t}</span></button>`).join("");
+    const s = SEG.find((x) => x.k === sel);
+    const back = called && s.res[0] ? s.res[0] : 0;
+    $("#ly-detail").innerHTML = `<h3>${s.t}: ${s.n} ${plural(s.n, "гость", "гостя", "гостей")} · ${fmt((s.n / total) * 100)}%</h3><p class="hint">${s.d}</p>` +
+      (s.res[0] ? `<div class="ly-act"><span>${s.act}</span>${called ? `<p class="ly-res">За неделю вернулись <b>${back} из ${s.n}</b> → около <b>${rub(back * s.res[1] * s.avg / 2)}</b> выручки за месяц, если они снова будут ходить.</p>` : `<button type="button" class="btn primary" id="ly-call">Отправить ${s.n} ${plural(s.n, "сообщение", "сообщения", "сообщений")}</button>`}</div>` : `<div class="ly-act"><span>${s.act}</span><p class="hint">Им ничего напоминать не нужно — их достаточно благодарить.</p></div>`);
   }
   $("#ly-buy").addEventListener("click", () => {
-    if (stamps >= NEED - 1) {
-      log.push(tgMsg({ html: "🎁 <b>Этот кофе — в подарок!</b> Спасибо, что заходите. Карта начата заново.", time: tgTime(0) }));
-      stamps = 0;
-    } else {
-      stamps++;
-      log.push(tgMsg({ html: `Отмечено ☕ ${stamps} из ${NEED - 1}. ${stamps === NEED - 1 ? "Следующий кофе — в подарок!" : `До подарка ${NEED - 1 - stamps}.`}`, time: tgTime(0) }));
-    }
-    log = log.slice(-4);
-    render();
+    if (stamps >= NEED - 1) { stamps = 0; $("#ly-push").textContent = "🎁 Этот кофе — в подарок! Карта начата заново."; render(); return; }
+    stamps++;
+    $("#ly-push").textContent = `☕ Отмечено ${stamps} из ${NEED - 1}. ${stamps === NEED - 1 ? "Следующий кофе — в подарок!" : ""}`;
+    render(true);
   });
+  $("#ly-seg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { sel = b.dataset.s; called = false; render(); } });
+  $("#loyalty").addEventListener("click", (e) => { if (e.target.id === "ly-call") { called = true; render(); } });
   render();
 })();
 
@@ -3547,11 +3788,7 @@ document.querySelectorAll("[data-lock]").forEach((u) => u.insertAdjacentHTML("af
     const B = bal();
     $("#tu-table").innerHTML = `<thead><tr><th>Ученик</th><th>Урок</th><th>Оплачено</th><th>Проведено</th><th>Баланс</th><th>Следующий урок</th></tr></thead><tbody>${B.map((b) => `<tr><td>${b.n}</td><td class="n">${rub(b.price)}</td><td class="n">${b.paid}</td><td class="n">${b.used}</td><td class="n">${b.left < 0 ? `<span class="debt">долг ${rub(-b.left * b.price)}</span>` : b.left === 0 ? '<span class="zero">0, пора оплатить</span>' : `${b.left} ${plural(b.left, "урок", "урока", "уроков")}`}</td><td>${b.next ? `${DAYS[b.next[0]]} ${b.next[1]}` : "—"}</td></tr>`).join("")}</tbody>`;
     const debt = B.reduce((a, b) => a + Math.max(0, -b.left) * b.price, 0), due = B.filter((b) => b.left <= 0);
-    $("#tu-kpi").innerHTML =
-      `<div class="kpi"><div class="v">${rub(B.reduce((a, b) => a + b.earned, 0))}</div><p>заработано за неделю</p></div>` +
-      `<div class="kpi"><div class="v ${debt ? "fc-bad" : ""}">${rub(debt)}</div><p>долг за проведённые уроки</p></div>` +
-      `<div class="kpi"><div class="v">${due.length}</div><p>${plural(due.length, "семье", "семьям", "семьям")} пора оплатить</p></div>` +
-      `<div class="kpi"><div class="v">${L.filter((l) => l[3] === "late").length}</div><p>оплачиваемых отмен</p></div>`;
+    $("#tu-kpi").innerHTML = `За неделю заработано <b>${rub(B.reduce((a, b) => a + b.earned, 0))}</b>. ${debt ? `Долг за проведённые уроки — <b class="fc-bad">${rub(debt)}</b>. ` : ""}${due.length ? `Пора оплатить: <b>${due.length} ${plural(due.length, "семья", "семьи", "семей")}</b>.` : "Все оплаты на месте."}`;
     $("#tu-send").disabled = !due.length;
     return due;
   }
